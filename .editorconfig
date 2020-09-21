@@ -1,0 +1,252 @@
+root = true
+
+[*]
+charset = utf-8
+indent_style = tab
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.cs]
+#Formatting - new line options
+
+#place else statements on a new line
+csharp_new_line_before_else = true
+#require members of object intializers to be on separate lines
+csharp_new_line_before_members_in_object_initializers = true
+
+#Formatting - organize using options
+
+#do not place System.* using directives before other using directives
+dotnet_sort_system_directives_first = true
+
+csharp_using_directive_placement = inside_namespace:error
+
+#Formatting - spacing options
+
+#require a space before the colon for bases or interfaces in a type declaration
+csharp_space_after_colon_in_inheritance_clause = true
+#require a space after a keyword in a control flow statement such as a for loop
+csharp_space_after_keywords_in_control_flow_statements = true
+#require a space before the colon for bases or interfaces in a type declaration
+csharp_space_before_colon_in_inheritance_clause = true
+#remove space within empty argument list parentheses
+csharp_space_between_method_call_empty_parameter_list_parentheses = false
+#remove space between method call name and opening parenthesis
+csharp_space_between_method_call_name_and_opening_parenthesis = false
+#do not place space characters after the opening parenthesis and before the closing parenthesis of a method call
+csharp_space_between_method_call_parameter_list_parentheses = false
+#remove space within empty parameter list parentheses for a method declaration
+csharp_space_between_method_declaration_empty_parameter_list_parentheses = false
+#place a space character after the opening parenthesis and before the closing parenthesis of a method declaration parameter list.
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+
+#Formatting - wrapping options
+
+#leave code block on single line
+csharp_preserve_single_line_blocks = true
+
+#Style - Code block preferences
+
+#prefer no curly braces if allowed
+csharp_prefer_braces = false:warning
+
+#Style - expression bodied member options
+
+#prefer block bodies for constructors
+csharp_style_expression_bodied_constructors = false:warning
+#prefer block bodies for methods
+csharp_style_expression_bodied_methods = true:none
+
+#Style - expression level options
+
+#prefer out variables to be declared inline in the argument list of a method call when possible
+csharp_style_inlined_variable_declaration = true:warning
+#prefer the language keyword for member access expressions, instead of the type name, for types that have a keyword to represent them
+dotnet_style_predefined_type_for_member_access = true:error
+
+#Style - Expression-level  preferences
+
+#prefer objects to be initialized using object initializers when possible
+dotnet_style_object_initializer = true:warning
+
+#Style - implicit and explicit types
+
+#prefer var over explicit type in all cases, unless overridden by another code style rule
+csharp_style_var_elsewhere = true:suggestion
+#prefer var is used to declare variables with built-in system types such as int
+csharp_style_var_for_built_in_types = true:suggestion
+#prefer var when the type is already mentioned on the right-hand side of a declaration expression
+csharp_style_var_when_type_is_apparent = true:suggestion
+
+#Style - language keyword and framework type options
+
+#prefer the language keyword for local variables, method parameters, and class members, instead of the type name, for types that have a keyword to represent them
+dotnet_style_predefined_type_for_locals_parameters_members = true:error
+
+#Style - modifier options
+
+#prefer accessibility modifiers to be declared except for public interface members. This will currently not differ from always and will act as future proofing for if C# adds default interface methods.
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
+
+#Style - Modifier preferences
+
+#when this rule is set to a list of modifiers, prefer the specified ordering.
+csharp_preferred_modifier_order = public,private,internal,readonly,static,sealed,override:none
+
+#Style - Pattern matching
+
+#prefer pattern matching instead of is expression with type casts
+csharp_style_pattern_matching_over_as_with_null_check = true:warning
+
+#Style - qualification options
+
+#prefer fields not to be prefaced with this. or Me. in Visual Basic
+dotnet_style_qualification_for_field = true:warning
+#prefer methods not to be prefaced with this. or Me. in Visual Basic
+dotnet_style_qualification_for_method = false:warning
+#prefer properties not to be prefaced with this. or Me. in Visual Basic
+dotnet_style_qualification_for_property = false:warning
+
+# RCS1001: Add braces (when expression spans over multiple lines).
+dotnet_diagnostic.RCS1001.severity = warning
+
+# RCS1002: Remove braces.
+dotnet_diagnostic.RCS1002.severity = warning
+
+# RCS1004: Remove braces from if-else.
+dotnet_diagnostic.RCS1004.severity = warning
+
+# RCS1005: Simplify nested using statement.
+dotnet_diagnostic.RCS1005.severity = warning
+
+# RCS1006: Merge 'else' with nested 'if'.
+dotnet_diagnostic.RCS1006.severity = error
+
+# RCS1013: Use predefined type.
+dotnet_diagnostic.RCS1013.severity = error
+
+# RCS1015: Use nameof operator.
+dotnet_diagnostic.RCS1015.severity = warning
+
+# RCS1016: Use expression-bodied member.
+dotnet_diagnostic.RCS1016.severity = warning
+
+# RCS1017: Avoid multiline expression body.
+dotnet_diagnostic.RCS1017.severity = warning
+
+# RCS1018: Add accessibility modifiers.
+dotnet_diagnostic.RCS1018.severity = error
+
+# RCS1019: Order modifiers.
+dotnet_diagnostic.RCS1019.severity = error
+
+# RCS1020: Simplify Nullable<T> to T?.
+dotnet_diagnostic.RCS1020.severity = error
+
+# RCS1021: Simplify lambda expression.
+dotnet_diagnostic.RCS1021.severity = warning
+
+# RCS1031: Remove unnecessary braces.
+dotnet_diagnostic.RCS1031.severity = warning
+
+# RCS1034: Remove redundant 'sealed' modifier.
+dotnet_diagnostic.RCS1034.severity = warning
+
+# RCS1036: Remove redundant empty line.
+dotnet_diagnostic.RCS1036.severity = warning
+
+# RCS1036a: Remove empty line between closing brace and switch section.
+dotnet_diagnostic.RCS1036a.severity = warning
+
+# RCS1037: Remove trailing white-space.
+dotnet_diagnostic.RCS1037.severity = error
+
+# RCS1039: Remove argument list from attribute.
+dotnet_diagnostic.RCS1039.severity = error
+
+# RCS1040: Remove empty 'else' clause.
+dotnet_diagnostic.RCS1040.severity = warning
+
+# RCS1041: Remove empty initializer.
+dotnet_diagnostic.RCS1041.severity = error
+
+# RCS1042: Remove enum default underlying type.
+dotnet_diagnostic.RCS1042.severity = error
+
+# RCS1043: Remove 'partial' modifier from type with a single part.
+dotnet_diagnostic.RCS1043.severity = error
+
+# RCS1046: Asynchronous method name should end with 'Async'.
+dotnet_diagnostic.RCS1046.severity = error
+
+# RCS1047: Non-asynchronous method name should not end with 'Async'.
+dotnet_diagnostic.RCS1047.severity = error
+
+# RCS1048: Use lambda expression instead of anonymous method.
+dotnet_diagnostic.RCS1048.severity = warning
+
+# RCS1049: Simplify boolean comparison.
+dotnet_diagnostic.RCS1049.severity = suggestion
+
+# RCS1051: Parenthesize condition of conditional expression.
+dotnet_diagnostic.RCS1051.severity = warning
+
+# RCS1052: Declare each attribute separately.
+dotnet_diagnostic.RCS1052.severity = error
+
+# RCS1055: Avoid semicolon at the end of declaration.
+dotnet_diagnostic.RCS1055.severity = error
+
+# RCS1058: Use compound assignment.
+dotnet_diagnostic.RCS1058.severity = warning
+
+# RCS1059: Avoid locking on publicly accessible instance.
+dotnet_diagnostic.RCS1059.severity = error
+
+# RCS1060: Declare each type in separate file.
+dotnet_diagnostic.RCS1060.severity = error
+
+# RCS1061: Merge 'if' with nested 'if'.
+dotnet_diagnostic.RCS1061.severity = warning
+
+# RCS1064: Avoid usage of for statement to create an infinite loop.
+dotnet_diagnostic.RCS1064.severity = suggestion
+
+# RCS1066: Remove empty 'finally' clause.
+dotnet_diagnostic.RCS1066.severity = error
+
+# RCS1068: Simplify logical negation.
+dotnet_diagnostic.RCS1068.severity = warning
+
+# RCS1069: Remove unnecessary case label.
+dotnet_diagnostic.RCS1069.severity = warning
+
+# RCS1070: Remove redundant default switch section.
+dotnet_diagnostic.RCS1070.severity = warning
+
+# RCS1071: Remove redundant base constructor call.
+dotnet_diagnostic.RCS1071.severity = warning
+
+# RCS1072: Remove empty namespace declaration.
+dotnet_diagnostic.RCS1072.severity = error
+
+# RCS1073: Convert 'if' to 'return' statement.
+dotnet_diagnostic.RCS1073.severity = warning
+
+# RCS1085: Use auto-implemented property.
+dotnet_diagnostic.RCS1085.severity = warning
+
+# RCS1090: Call 'ConfigureAwait(false)'.
+dotnet_diagnostic.RCS1090.severity = error
+
+# RCS1077: Optimize LINQ method call.
+dotnet_diagnostic.RCS1077.severity = warning
+
+# RCS1195: Use ^ operator.
+dotnet_diagnostic.RCS1195.severity = warning
+
+# RCS1197: Optimize StringBuilder.Append/AppendLine call.
+dotnet_diagnostic.RCS1197.severity = warning
+
+# RCS1225: Make class sealed.
+dotnet_diagnostic.RCS1225.severity = error

@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "dotnet-reportgenerator-globaltool": {
+      "version": "4.6.7",
+      "commands": [
+        "reportgenerator"
+      ]
+    },
+    "cake.tool": {
+      "version": "0.38.5",
+      "commands": [
+        "dotnet-cake"
+      ]
+    },
+    "codecov.tool": {
+      "version": "1.12.3",
+      "commands": [
+        "codecov"
+      ]
+    }
+  }
+}
