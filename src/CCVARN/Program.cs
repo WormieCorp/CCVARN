@@ -23,7 +23,7 @@ namespace CCVARN
 			var console = container.Resolve<IConsoleWriter>();
 
 			const string text = "[lightyellow3 on black]\n" +
-				"	____ ______     ___    ____  _   _\n" +
+				"  ____ ______     ___    ____  _   _\n" +
 				" / ___/ ___\\ \\   / / \\  |  _ \\| \\ | |\n" +
 				"| |  | |    \\ \\ / / _ \\ | |_) |  \\| |\n" +
 				"| |__| |___  \\ V / ___ \\|  _ <| |\\  |\n" +
