@@ -9,6 +9,7 @@ var configuration = Argument("configuration", "Release");
 var artifactsDir = Argument<DirectoryPath>("artifacts", "./.artifacts");
 var solution = "./CCVARN.sln";
 var dotnetExec = Context.Tools.Resolve("dotnet") ?? Context.Tools.Resolve("dotnet.exe");
+var plainTextReleaseNotes = artifactsDir.CombineWithFilePath("release-notes.txt");
 
 public class BuildData
 {
@@ -37,7 +38,8 @@ Setup((context) =>
 	{
 		Arguments = new ProcessArgumentBuilder()
 			.Append("parse")
-			.AppendQuoted(outputPath.ToString()),
+			.AppendQuoted(outputPath.ToString())
+			.AppendSwitchQuoted("--output", " ", plainTextReleaseNotes.ToString()),
 	});
 
 	var buildData = DeserializeJsonFromFile<BuildData>(outputPath);
@@ -61,12 +63,14 @@ Task("Build")
 	.IsDependentOn("Clean")
 	.Does<BuildVersion>((version) =>
 {
+	var plainTextNotes = System.IO.File.ReadAllText(plainTextReleaseNotes.ToString(), System.Text.Encoding.UTF8);
 	DotNetCoreBuild(solution, new DotNetCoreBuildSettings
 	{
 		Configuration = configuration,
 		NoIncremental = HasArgument("no-incremental"),
 		MSBuildSettings = new DotNetCoreMSBuildSettings()
-			.SetVersionPrefix(version.MajorMinorPatch),
+			.SetVersionPrefix(version.MajorMinorPatch)
+			.WithProperty("PackageReleaseNotes", plainTextNotes),
 		VersionSuffix = version.PreReleaseTag + "+" + version.Metadata,
 	});
 });
@@ -94,13 +98,15 @@ Task("Pack")
 	.IsDependentOn("Test")
 	.Does<BuildVersion>((version) =>
 {
+	var plainTextNotes = System.IO.File.ReadAllText(plainTextReleaseNotes.ToString(), System.Text.Encoding.UTF8);
 	DotNetCorePack(solution, new DotNetCorePackSettings
 	{
 		Configuration = configuration,
 		NoBuild = true,
 		OutputDirectory = artifactsDir.Combine("packages"),
 		MSBuildSettings = new DotNetCoreMSBuildSettings()
-			.SetVersionPrefix(version.MajorMinorPatch),
+			.SetVersionPrefix(version.MajorMinorPatch)
+			.WithProperty("PackageReleaseNotes", plainTextNotes),
 		VersionSuffix = version.PreReleaseTag + "+" + version.Metadata,
 	});
 });
