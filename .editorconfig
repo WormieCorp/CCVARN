@@ -10,6 +10,10 @@ trim_trailing_whitespace = true
 indent_size = 2
 indent_style = space
 
+[LICENSE]
+indent_size = unset
+indent_style = unset
+
 [*.cs]
 #Formatting - new line options
 
