@@ -34,7 +34,7 @@ namespace CCVARN.Commands
 				return ValidationResult.Error($"The path '{repoRoot}' is not the root of a git repository");
 			}
 
-			Console!.WriteInfoLine("Using repository root: [grey]{0}[/]", repoRoot);
+			Console!.WriteInfoLine("Using repository root: [teal]{0}[/]", repoRoot);
 
 			settings.RepositoryRoot = repoRoot;
 

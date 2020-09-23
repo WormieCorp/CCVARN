@@ -127,7 +127,6 @@ namespace CCVARN.Core.Parser
 
 		private ConventionalCommitInfo UpdateCommitInfo(CommitInfo commit, Match match)
 		{
-			this._writer.WriteInfoLine(":check_mark_button: Found conventional commit...");
 			this._writer.RemoveIndent();
 			var type = match.Groups["type"].Value;
 			var scope = match.Groups["scope"].Value;

@@ -36,7 +36,7 @@ namespace CCVARN.Core.Parser
 			else
 			{
 				this.writer.AddIndent();
-				this.writer.WriteInfoLine("[grey]Not a commit to include in the changelog.[/]");
+				this.writer.WriteInfoLine("[dim]:white_exclamation_mark: Not a commit to include in the changelog.[/]");
 				this.writer.RemoveIndent();
 				return;
 			}
@@ -77,7 +77,7 @@ namespace CCVARN.Core.Parser
 
 			this.writer.AddIndent();
 
-			this.writer.WriteInfoLine("[grey]A new [fuchsia on black]{0}[/] was found. Adding to changelog![/]", title.Singular);
+			this.writer.WriteInfoLine(":check_mark_button: [teal]A new [fuchsia on black]{0}[/] was found. Adding to changelog![/]", title.Singular);
 
 			this.writer.RemoveIndent();
 		}

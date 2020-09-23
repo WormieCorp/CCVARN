@@ -45,7 +45,7 @@ namespace CCVARN.IO
 
 		public void WriteErrorLine(string format, params object[] parameters)
 		{
-			const string prefix = "[grey][[[red]ERR[/]]][/]";
+			const string prefix = "[teal][[[red]ERR[/]]][/]";
 			this.console.Write(this.currentIndent, Style.Plain);
 			this.console.Markup(prefix);
 			this.console.MarkupLine(format, parameters);

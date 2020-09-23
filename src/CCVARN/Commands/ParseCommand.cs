@@ -56,7 +56,7 @@ namespace CCVARN.Commands
 
 				if (!success)
 				{
-					Console.WriteErrorLine("Unable to find an exporter for file type '[grey]{0}[/]'! Exiting...",
+					Console.WriteErrorLine("Unable to find an exporter for file type '[teal]{0}[/]'! Exiting...",
 						Path.GetExtension(output));
 				}
 			}
