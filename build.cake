@@ -59,7 +59,10 @@ Task("Test")
 		ArgumentCustomization = (args) =>
 			args.AppendSwitchQuoted("--collect", ":", "XPlat Code Coverage")
 			.Append("--")
-			.AppendSwitchQuoted("DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format", "=", "opencover,cobertura"),
+			.AppendSwitchQuoted("DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format", "=", "opencover,cobertura")
+			.AppendSwitchQuoted("DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.SkipAutoProps","=", "true")
+			.AppendSwitchQuoted("DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.UseSourceLink","=", "true")
+			.AppendSwitchQuoted("DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Exclude","=", "[*]DryIoc.*,[*]FastExpressionCompiler.*,[*]ImTools.*"),
 		Configuration = configuration,
 		NoBuild = true,
 		ResultsDirectory = artifactsDir.Combine("coverage/tests"),
