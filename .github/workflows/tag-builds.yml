@@ -1,0 +1,25 @@
+name: Build project
+
+on:
+  push:
+    branches-ignore:
+      - "*"
+    tags:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NUGET_SOURCE: https://api.nuget.org/v3/index.json
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      GITHUB_TOKEN: ${{ secrets.DRAFT_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Restore .NET Core tools
+        run: dotnet tool restore
+      - name: Build
+        run: dotnet cake --bootstrap && dotnet cake --settings_skippackageversioncheck=true --target=Publish-Release

@@ -3,6 +3,7 @@
 #addin nuget:?package=Cake.Json&version=5.2.0
 #addin nuget:?package=Newtonsoft.Json&version=12.0.3
 #tool dotnet:https://f.feedz.io/wormiecorp/packages/nuget/index.json?package=dotnet-ccvarn&version=1.0.0-alpha*&prerelease
+#tool dotnet:?package=GitReleaseManager.Tool&version=0.11.0
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -154,6 +155,28 @@ Task("Push-NuGetPackages")
 	};
 
 	DotNetCoreNuGetPush(artifactsDir + "/packages/*.nupkg", settings);
+});
+
+Task("Publish-Release")
+	.WithCriteria(() => HasEnvironmentVariable("GITHUB_TOKEN"))
+	.Does<BuildVersion>((version) =>
+{
+	var token = EnvironmentVariable("GITHUB_TOKEN");
+	const string organization = "WormieCorp";
+	const string repository = "CCVARN";
+	GitReleaseManagerCreate(token, organization, repository, new GitReleaseManagerCreateSettings
+	{
+		Name = version.SemVer,
+		Milestone = version.MajorMinorPatch,
+		InputFilePath = markdownReleaseNotes,
+		TargetCommitish "master",
+		Prerelease = version.MajorMinorPatch != version.SemVer,
+	});
+
+	if (version.MajorMinorPatch == version.SemVer)
+		GitReleaseManagerClose(token, organization, repository, version.MajorMinorPatch);
+
+	GitReleaseManagerPublish(token, organization, repository, version.SemVer);
 });
 
 Task("Default")
