@@ -433,3 +433,5 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 .artifacts/
 version.json
+
+**/features/*.cs
