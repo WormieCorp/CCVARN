@@ -10,6 +10,7 @@ var artifactsDir = Argument<DirectoryPath>("artifacts", "./.artifacts");
 var solution = "./CCVARN.sln";
 var dotnetExec = Context.Tools.Resolve("dotnet") ?? Context.Tools.Resolve("dotnet.exe");
 var plainTextReleaseNotes = artifactsDir.CombineWithFilePath("release-notes.txt");
+var markdownReleaseNotes = artifactsDir.CombineWithFilePath("release-notes.md");
 
 public class BuildData
 {
@@ -39,7 +40,8 @@ Setup((context) =>
 		Arguments = new ProcessArgumentBuilder()
 			.Append("parse")
 			.AppendQuoted(outputPath.ToString())
-			.AppendSwitchQuoted("--output", " ", plainTextReleaseNotes.ToString()),
+			.AppendSwitchQuoted("--output", " ", plainTextReleaseNotes.ToString())
+			.AppendSwitchQuoted("--output", " ", markdownReleaseNotes.ToString()),
 	});
 
 	var buildData = DeserializeJsonFromFile<BuildData>(outputPath);

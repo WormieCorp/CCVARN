@@ -66,5 +66,26 @@ namespace CCVARN.Commands
 
 			return 0;
 		}
+
+		public override ValidationResult Validate(CommandContext context, ParseOption settings)
+		{
+			foreach (var output in settings.AdditionalOutputs)
+			{
+				var success = false;
+
+				foreach (var exporter in this.exporters)
+				{
+					success = exporter.CanExportToFile(output);
+
+					if (success)
+						break;
+				}
+
+				if (!success)
+					return ValidationResult.Error($"The path '{output}' do not use a file extension we can output to!");
+			}
+
+			return base.Validate(context, settings);
+		}
 	}
 }
