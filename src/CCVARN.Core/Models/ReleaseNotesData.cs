@@ -1,11 +1,12 @@
 namespace CCVARN.Core.Models
 {
 	using System.Collections.Generic;
-	using CCVARN.Core.Configuration;
+	using Newtonsoft.Json;
 
 	public sealed class ReleaseNotesData
 	{
 		public List<string> BreakingChanges { get; } = new List<string>();
-		public IDictionary<Description, List<NoteData>> ReleaseNotes { get; } = new Dictionary<Description, List<NoteData>>();
+
+		public IDictionary<string, List<NoteData>> Notes { get; } = new SortedDictionary<string, List<NoteData>>();
 	}
 }

@@ -43,6 +43,14 @@ namespace CCVARN.IO
 			this.currentIndent = this.currentIndent[..^indentLen];
 		}
 
+		public void WriteErrorLine(string format, params object[] parameters)
+		{
+			const string prefix = "[grey][[[red]ERR[/]]][/]";
+			this.console.Write(this.currentIndent, Style.Plain);
+			this.console.Markup(prefix);
+			this.console.MarkupLine(format, parameters);
+		}
+
 		public void WriteInfo(string format, params object[] parameters)
 		{
 			this.console.MarkupLine(CultureInfo.CurrentUICulture, format, parameters);

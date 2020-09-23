@@ -5,7 +5,8 @@ namespace CCVARN
 	using System.Threading.Tasks;
 	using CCVARN.Commands;
 	using CCVARN.Core.Configuration;
-	using CCVARN.Core.IO;
+    using CCVARN.Core.Exporters;
+    using CCVARN.Core.IO;
 	using CCVARN.Core.Parser;
 	using CCVARN.DependencyInject;
 	using CCVARN.IO;
@@ -67,11 +68,12 @@ namespace CCVARN
 
 		private static IContainer CreateContainer()
 		{
-			var container = new Container();
+			var container = new Container(rules => rules.WithTrackingDisposableTransients());
 			container.Register<IConsoleWriter, ConsoleWriter>(Reuse.Singleton);
 			container.RegisterDelegate(ResolveConfiguration, Reuse.Singleton);
 			container.RegisterDelegate(RegisterRepository, Reuse.ScopedOrSingleton);
 			container.Register<CommitParser>(Reuse.ScopedOrSingleton);
+			container.Register<IExporter, JSonExporter>();
 
 			return container;
 		}

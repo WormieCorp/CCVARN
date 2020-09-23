@@ -60,7 +60,7 @@ namespace CCVARN.Core.Tests.Steps
 			this.scenarioContext["EXPECTED_HASH"] = this.commits.FirstOrDefault()?.Sha;
 
 			var version = parser.ParseVersionFromCommits(this.commits.AsEnumerable());
-			this.scenarioContext["NEXT_VERSION"] = version;
+			this.scenarioContext["NEXT_VERSION"] = version.Version;
 		}
 	}
 }

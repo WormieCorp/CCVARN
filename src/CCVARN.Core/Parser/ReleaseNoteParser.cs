@@ -2,6 +2,7 @@ namespace CCVARN.Core.Parser
 {
 	using System.Collections.Generic;
 	using System.Linq;
+	using System.Net.WebSockets;
 	using CCVARN.Core.Configuration;
 	using CCVARN.Core.IO;
 	using CCVARN.Core.Models;
@@ -25,9 +26,13 @@ namespace CCVARN.Core.Parser
 			Description? title = null;
 
 			if (typeScopeConfig != null && (typeScopeConfig.IncludeInChangelog || commit.IsBreakingChange))
+			{
 				title = typeScopeConfig.Description;
+			}
 			else if (typeConfig != null && (typeConfig.IncludeInChangelog || commit.IsBreakingChange))
+			{
 				title = typeConfig.Description;
+			}
 			else
 			{
 				this.writer.AddIndent();
@@ -48,9 +53,27 @@ namespace CCVARN.Core.Parser
 				releaseNotes.BreakingChanges.Add(commit.BreakingChangeNote);
 			}
 
-			if (!releaseNotes.ReleaseNotes.ContainsKey(title))
-				releaseNotes.ReleaseNotes.Add(title, new List<NoteData>());
-			releaseNotes.ReleaseNotes[title].Add(note);
+			List<NoteData> currentNotes;
+			if (releaseNotes.Notes.ContainsKey(title.Singular))
+			{
+				currentNotes = releaseNotes.Notes[title.Singular];
+				if (title.Plural != null)
+				{
+					releaseNotes.Notes.Remove(title.Singular);
+					releaseNotes.Notes.Add(title.Plural, currentNotes);
+				}
+			}
+			else if(title.Plural != null && releaseNotes.Notes.ContainsKey(title.Plural))
+			{
+				currentNotes = releaseNotes.Notes[title.Plural];
+			}
+			else
+			{
+				currentNotes = new List<NoteData>();
+				releaseNotes.Notes.Add(title.Singular, currentNotes);
+			}
+
+			currentNotes.Add(note);
 
 			this.writer.AddIndent();
 

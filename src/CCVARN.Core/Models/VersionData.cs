@@ -10,12 +10,17 @@ namespace CCVARN.Core.Models
 		private static bool _allowMajorBump = true;
 		private bool _isEmpty = true;
 		private VersionBump _nextVersionBump;
+
 		public int Commits { get; set; }
+		public string FullSemVer => ToString();
 		public int Major { get; private set; }
+		public string MajorMinorPatch => $"{Major}.{Minor}.{Patch}";
 		public string? Metadata { get; set; }
 		public int Minor { get; private set; }
 		public int Patch { get; private set; }
-		public string Tag { get; set; } = string.Empty;
+		public string PreReleaseLabel { get; set; } = string.Empty;
+		public string PreReleaseTag => BuildPreReleaseTag();
+		public string SemVer => ToString(false);
 		public int? Weight { get; set; }
 
 		public static void DisableMajorBump()
@@ -52,21 +57,21 @@ namespace CCVARN.Core.Models
 				metaIndex = versionOrReference.Length;
 			if (preIndex > 0 && preIndex < metaIndex)
 			{
-				data.Tag = versionOrReference.Substring(preIndex + 1, metaIndex - preIndex - 1);
+				data.PreReleaseLabel = versionOrReference.Substring(preIndex + 1, metaIndex - preIndex - 1);
 				var weightNum = new StringBuilder();
-				for (var i = data.Tag.Length - 1; i >= 0; i--)
+				for (var i = data.PreReleaseLabel.Length - 1; i >= 0; i--)
 				{
-					if (!char.IsDigit(data.Tag[i]) && !" .".Any(c => data.Tag[i] == c))
+					if (!char.IsDigit(data.PreReleaseLabel[i]) && !" .".Any(c => data.PreReleaseLabel[i] == c))
 					{
 						break;
 					}
 
-					if (char.IsDigit(data.Tag[i]))
+					if (char.IsDigit(data.PreReleaseLabel[i]))
 					{
-						weightNum.Insert(0, data.Tag[i]);
+						weightNum.Insert(0, data.PreReleaseLabel[i]);
 					}
 
-					data.Tag = data.Tag[..^1];
+					data.PreReleaseLabel = data.PreReleaseLabel[..^1];
 				}
 
 				if (weightNum.Length > 0)
@@ -141,11 +146,11 @@ namespace CCVARN.Core.Models
 				Major == other.Major &&
 				Minor == other.Minor &&
 				Patch == other.Patch &&
-				Tag == other.Tag;
+				PreReleaseLabel == other.PreReleaseLabel;
 		}
 
 		public override int GetHashCode()
-			=> HashCode.Combine(Major, Minor, Patch, Tag);
+			=> HashCode.Combine(Major, Minor, Patch, PreReleaseLabel);
 
 		public bool IsEmpty()
 			=> this._isEmpty;
@@ -160,21 +165,35 @@ namespace CCVARN.Core.Models
 		}
 
 		public override string ToString()
+			=> ToString(true);
+
+		public string ToString(bool includeMetadata)
 		{
 			var sb = new StringBuilder();
-			sb.AppendFormat("{0}.{1}.{2}", Major, Minor, Patch);
+			sb.Append(MajorMinorPatch);
 
-			if (!string.IsNullOrEmpty(Tag))
+			if (!string.IsNullOrEmpty(PreReleaseLabel))
 			{
-				sb.AppendFormat("-{0}", Tag);
+				sb.AppendFormat("-{0}", PreReleaseTag);
+			}
+
+			if (includeMetadata && !string.IsNullOrWhiteSpace(Metadata))
+				sb.AppendFormat("+{0}", Metadata.Trim());
+
+			return sb.ToString();
+		}
+
+		private string BuildPreReleaseTag()
+		{
+			var sb = new StringBuilder();
+			if (!string.IsNullOrEmpty(PreReleaseLabel))
+			{
+				sb.AppendFormat("{0}", PreReleaseLabel);
 				if (Weight > 0 && Commits > 0)
 					sb.AppendFormat(".{0}.{1}", Weight, Commits);
 				else if (Weight > 0)
 					sb.AppendFormat(".{0}", Weight);
 			}
-
-			if (!string.IsNullOrWhiteSpace(Metadata))
-				sb.AppendFormat("+{0}", Metadata.Trim());
 
 			return sb.ToString();
 		}

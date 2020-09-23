@@ -258,3 +258,6 @@ dotnet_diagnostic.RCS1197.severity = warning
 
 # RCS1225: Make class sealed.
 dotnet_diagnostic.RCS1225.severity = error
+
+# RCS1080: Use 'Count/Length' property instead of 'Any' method.
+dotnet_diagnostic.RCS1080.severity = none

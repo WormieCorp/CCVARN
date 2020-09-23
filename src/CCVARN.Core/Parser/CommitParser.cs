@@ -44,7 +44,7 @@ namespace CCVARN.Core.Parser
 			}
 		}
 
-		public VersionData ParseVersionFromCommits(IEnumerable<CommitInfo> commits)
+		public ParsedData ParseVersionFromCommits(IEnumerable<CommitInfo> commits)
 		{
 			VersionData? version = null;
 			var releaseNotes = new ReleaseNotesData();
@@ -90,14 +90,14 @@ namespace CCVARN.Core.Parser
 			version.Commits = commitCount;
 			if (!firstCommitIsTag &&
 				!string.IsNullOrEmpty(this.config.Tag) &&
-				!string.Equals(this.config.Tag, version.Tag) &&
-				string.Compare(this.config.Tag, version.Tag) > 0)
+				!string.Equals(this.config.Tag, version.PreReleaseLabel) &&
+				string.Compare(this.config.Tag, version.PreReleaseLabel) > 0)
 			{
-				version.Tag = this.config.Tag;
+				version.PreReleaseLabel = this.config.Tag;
 				version.Weight = Math.Max(version.Weight ?? 1, 1);
 			}
 
-			return version;
+			return new ParsedData(version, releaseNotes);
 		}
 
 		private ConventionalCommitInfo? ParseConventionalCommit(CommitInfo commit)

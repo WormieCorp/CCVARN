@@ -5,11 +5,11 @@ namespace CCVARN.Options
 	using Spectre.Cli;
 
 	[Description("Parses the current repository from the current HEAD to the first found tag commit.")]
-	public sealed class ParseOption : BaseSettings
+	public class ParseOption : BaseSettings
 	{
-		[CommandOption("-o|--output <ADDITIONAL_OUTPUTS>")]
+		[CommandOption("--output <OUTPUT_PATH>")]
 		[Description("Additional outputs for outputting changelogs. Output type is based on the file extension (Markdown and plain text currently supported).")]
-		public IEnumerable<string>? AdditionalOutputs { get; set; }
+		public string[] AdditionalOutputs { get; set; } = new string[0];
 
 		[CommandArgument(0, "[JSON_OUTPUT]")]
 		[DefaultValue("CCVARN.json")]
