@@ -6,6 +6,8 @@
 		<LangVersion>8.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>dotnet-ccvarn</ToolCommandName>
+		<PackageId>dotnet-ccvarn</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>
