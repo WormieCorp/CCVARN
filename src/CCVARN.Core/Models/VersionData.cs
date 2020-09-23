@@ -108,8 +108,10 @@ namespace CCVARN.Core.Models
 
 		public void CommitNextBump()
 		{
-			if (this._isEmpty)
+			if (_allowMajorBump && this._isEmpty)
 				this._nextVersionBump = VersionBump.Major;
+			else if (!_allowMajorBump && this._nextVersionBump == VersionBump.Major)
+				this._nextVersionBump = VersionBump.Minor;
 
 			switch (this._nextVersionBump)
 			{
@@ -157,9 +159,6 @@ namespace CCVARN.Core.Models
 
 		public void SetNextBump(VersionBump versionBump)
 		{
-			if (!_allowMajorBump && versionBump == VersionBump.Major)
-				versionBump = VersionBump.Minor;
-
 			if (versionBump > this._nextVersionBump)
 				this._nextVersionBump = versionBump;
 		}

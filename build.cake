@@ -166,11 +166,11 @@ Task("Publish-Release")
 	const string repository = "CCVARN";
 	GitReleaseManagerCreate(token, organization, repository, new GitReleaseManagerCreateSettings
 	{
-		Name = version.SemVer,
-		Milestone = version.MajorMinorPatch,
-		InputFilePath = markdownReleaseNotes,
-		TargetCommitish "master",
-		Prerelease = version.MajorMinorPatch != version.SemVer,
+		Name            = version.SemVer,
+		Milestone       = version.MajorMinorPatch,
+		InputFilePath   = markdownReleaseNotes,
+		TargetCommitish = "master",
+		Prerelease      = version.MajorMinorPatch != version.SemVer,
 	});
 
 	if (version.MajorMinorPatch == version.SemVer)

@@ -25,6 +25,9 @@ namespace CCVARN.Core.Parser
 			this._writer = writer;
 			this._versionParser = new VersionParser(this.config.TypeScopes);
 			this._releaseNoteParser = new ReleaseNoteParser(this.config.TypeScopes, writer);
+
+			if (System.Version.Parse(config.NextVersion) < System.Version.Parse("1.0.0"))
+				VersionData.DisableMajorBump();
 		}
 
 		public IEnumerable<CommitInfo> GetAllCommits()
