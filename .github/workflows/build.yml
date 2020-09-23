@@ -14,6 +14,9 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
+    env:
+      NUGET_SOURCE: https://f.feedz.io/wormiecorp/packages/nuget/index.json
+      NUGET_API_KEY: ${{ secrets.FEEDZ_API_KEY }}
 
     steps:
       - uses: actions/checkout@v2
