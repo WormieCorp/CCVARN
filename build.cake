@@ -29,6 +29,10 @@ Setup((context) =>
 	var exec = context.Tools.Resolve("CCVARN") ?? context.Tools.Resolve("CCVARN.exe");
 	var outputPath = artifactsDir.CombineWithFilePath("data.json");
 
+	// Temporary fix
+	if (!DirectoryExists(artifactsDir))
+		CreateDirectory(artifactsDir);
+
 	var exitCode = StartProcess(exec, new ProcessSettings
 	{
 		Arguments = new ProcessArgumentBuilder()
