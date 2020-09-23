@@ -43,6 +43,12 @@ namespace CCVARN.Commands
 				{
 					if (exporter.CanExportToFile(output))
 					{
+						var directory = Path.GetDirectoryName(output);
+						if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+						{
+							Directory.CreateDirectory(directory);
+						}
+
 						exporter.ExportParsedData(result, output);
 						success = true;
 					}

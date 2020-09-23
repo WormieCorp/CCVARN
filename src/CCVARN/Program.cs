@@ -74,6 +74,7 @@ namespace CCVARN
 			container.RegisterDelegate(RegisterRepository, Reuse.ScopedOrSingleton);
 			container.Register<CommitParser>(Reuse.ScopedOrSingleton);
 			container.Register<IExporter, JSonExporter>();
+			container.Register<IExporter, PlainTextExporter>();
 
 			return container;
 		}

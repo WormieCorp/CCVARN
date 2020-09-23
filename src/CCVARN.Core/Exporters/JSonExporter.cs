@@ -3,7 +3,6 @@ namespace CCVARN.Core.Exporters
 	using System;
 	using System.IO;
 	using System.Text;
-	using CCVARN.Core.Configuration;
 	using CCVARN.Core.IO;
 	using CCVARN.Core.Models;
 	using Newtonsoft.Json;
@@ -35,12 +34,6 @@ namespace CCVARN.Core.Exporters
 					NamingStrategy = new CamelCaseNamingStrategy(),
 				},
 			};
-
-			var directory = Path.GetDirectoryName(outputPath);
-			if (!Directory.Exists(directory))
-			{
-				Directory.CreateDirectory(directory);
-			}
 
 			using var sw = new StreamWriter(outputPath, false, new UTF8Encoding(false));
 			using var writer = new JsonTextWriter(sw);
