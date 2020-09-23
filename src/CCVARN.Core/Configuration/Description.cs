@@ -23,8 +23,8 @@ namespace CCVARN.Core.Configuration
 		public override bool Equals(object? obj)
 		{
 			return obj is Description description &&
-				   Plural == description.Plural &&
-				   Singular == description.Singular;
+				Plural == description.Plural &&
+				Singular == description.Singular;
 		}
 
 		public override int GetHashCode()

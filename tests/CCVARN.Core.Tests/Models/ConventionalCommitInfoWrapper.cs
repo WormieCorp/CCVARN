@@ -8,10 +8,10 @@ namespace CCVARN.Core.Tests.Models
 	{
 		public ConventionalCommitInfoWrapper(string type, string scope, string message)
 			: this(
-				  type,
-				  scope,
-				  message,
-				  type + (string.IsNullOrEmpty(scope) ? ": " : $"({scope}): ") + message)
+				type,
+				scope,
+				message,
+				type + (string.IsNullOrEmpty(scope) ? ": " : $"({scope}): ") + message)
 		{
 		}
 

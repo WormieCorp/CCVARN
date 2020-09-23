@@ -17,8 +17,9 @@ namespace CCVARN.Core.Tests.Models
 		}
 
 		public CommitInfoWrapper(bool isTag, string @ref, string rawText)
-			: base(CreateSha(string.IsNullOrEmpty(rawText) ? @ref : rawText),
-				  rawText ?? string.Empty)
+			: base(
+				CreateSha(string.IsNullOrEmpty(rawText) ? @ref : rawText),
+				rawText ?? string.Empty)
 		{
 			IsTag = isTag;
 			Ref = @ref;
