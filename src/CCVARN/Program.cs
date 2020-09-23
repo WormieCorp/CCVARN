@@ -5,8 +5,8 @@ namespace CCVARN
 	using System.Threading.Tasks;
 	using CCVARN.Commands;
 	using CCVARN.Core.Configuration;
-    using CCVARN.Core.Exporters;
-    using CCVARN.Core.IO;
+	using CCVARN.Core.Exporters;
+	using CCVARN.Core.IO;
 	using CCVARN.Core.Parser;
 	using CCVARN.DependencyInject;
 	using CCVARN.IO;
@@ -22,14 +22,14 @@ namespace CCVARN
 			var container = CreateContainer();
 			var console = container.Resolve<IConsoleWriter>();
 
-			const string text = @"[lightyellow3 on black]
-  ____ ______     ___    ____  _   _
- / ___/ ___\ \   / / \  |  _ \| \ | |
-| |  | |    \ \ / / _ \ | |_) |  \| |
-| |__| |___  \ V / ___ \|  _ <| |\  |
- \____\____|  \_/_/   \_|_| \_|_| \_|
-[/][aqua on black]{0,37}[/]
-";
+			const string text = "[lightyellow3 on black]\n" +
+				"	____ ______     ___    ____  _   _\n" +
+				" / ___/ ___\\ \\   / / \\  |  _ \\| \\ | |\n" +
+				"| |  | |    \\ \\ / / _ \\ | |_) |  \\| |\n" +
+				"| |__| |___  \\ V / ___ \\|  _ <| |\\  |\n" +
+				" \\____\\____|  \\_/_/   \\_|_| \\_|_| \\_|\n" +
+				"[/][aqua on black]{0,37}[/]\n" +
+				"\n";
 
 			var version = Assembly
 				.GetExecutingAssembly()

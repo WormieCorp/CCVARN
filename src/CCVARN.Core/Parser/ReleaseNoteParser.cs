@@ -63,7 +63,7 @@ namespace CCVARN.Core.Parser
 					releaseNotes.Notes.Add(title.Plural, currentNotes);
 				}
 			}
-			else if(title.Plural != null && releaseNotes.Notes.ContainsKey(title.Plural))
+			else if (title.Plural != null && releaseNotes.Notes.ContainsKey(title.Plural))
 			{
 				currentNotes = releaseNotes.Notes[title.Plural];
 			}

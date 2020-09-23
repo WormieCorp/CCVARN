@@ -19,10 +19,10 @@ namespace CCVARN.Core.Models
 		public override bool Equals(object? obj)
 		{
 			return obj is NoteData data &&
-				   Type == data.Type &&
-				   Scope == data.Scope &&
-				   Summary == data.Summary &&
-				   EqualityComparer<List<int>>.Default.Equals(Issues, data.Issues);
+				Type == data.Type &&
+				Scope == data.Scope &&
+				Summary == data.Summary &&
+				EqualityComparer<List<int>>.Default.Equals(Issues, data.Issues);
 		}
 
 		public override int GetHashCode()

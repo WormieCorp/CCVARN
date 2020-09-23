@@ -1,16 +1,16 @@
 namespace CCVARN.Core.Exporters
 {
-	using System.Text;
-	using System.IO;
 	using System;
-    using CCVARN.Core.Models;
-	using Newtonsoft.Json;
-    using Newtonsoft.Json.Serialization;
-	using CCVARN.Core.IO;
+	using System.IO;
+	using System.Text;
 	using CCVARN.Core.Configuration;
+	using CCVARN.Core.IO;
+	using CCVARN.Core.Models;
+	using Newtonsoft.Json;
+	using Newtonsoft.Json.Serialization;
 
 	public class JSonExporter : IExporter
-    {
+	{
 		private readonly IConsoleWriter console;
 
 		public JSonExporter(IConsoleWriter console)
@@ -18,15 +18,15 @@ namespace CCVARN.Core.Exporters
 			this.console = console;
 		}
 
-        public bool CanExportToFile(string filePath)
-        {
-            var extension = Path.GetExtension(filePath);
+		public bool CanExportToFile(string filePath)
+		{
+			var extension = Path.GetExtension(filePath);
 
 			return string.Equals(extension, ".json", StringComparison.OrdinalIgnoreCase);
-        }
+		}
 
-        public void ExportParsedData(ParsedData data, string outputPath)
-        {
+		public void ExportParsedData(ParsedData data, string outputPath)
+		{
 			var serializer = new JsonSerializer
 			{
 				Formatting = Formatting.Indented,
@@ -42,6 +42,6 @@ namespace CCVARN.Core.Exporters
 			serializer.Serialize(writer, data);
 
 			this.console.WriteInfoLine(":check_mark: Exported [grey]JSON Data[/] to '[grey]{0}[/]'", outputPath);
-        }
-    }
+		}
+	}
 }
