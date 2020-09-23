@@ -29,7 +29,12 @@ namespace CCVARN.Core.Parser
 			else if (typeConfig != null && (typeConfig.IncludeInChangelog || commit.IsBreakingChange))
 				title = typeConfig.Description;
 			else
+			{
+				this.writer.AddIndent();
+				this.writer.WriteInfoLine("[grey]Not a commit to include in the changelog.[/]");
+				this.writer.RemoveIndent();
 				return;
+			}
 
 			var note = new NoteData(commit.CommitType, commit.Message)
 			{
