@@ -2,7 +2,7 @@
 #addin nuget:?package=Cake.Codecov&version=0.9.1
 #addin nuget:?package=Cake.Json&version=5.2.0
 #addin nuget:?package=Newtonsoft.Json&version=12.0.3
-#tool dotnet:https://f.feedz.io/wormiecorp/packages/nuget/index.json?package=CCVARN&version=1.0.0-alpha*&prerelease
+#tool dotnet:https://f.feedz.io/wormiecorp/packages/nuget/index.json?package=dotnet-ccvarn&version=1.0.0-alpha*&prerelease
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -27,7 +27,7 @@ public class BuildVersion
 
 Setup((context) =>
 {
-	var exec = context.Tools.Resolve("CCVARN") ?? context.Tools.Resolve("CCVARN.exe");
+	var exec = context.Tools.Resolve("dotnet-ccvarn") ?? context.Tools.Resolve("dotnet-ccvarn.exe");
 	var outputPath = artifactsDir.CombineWithFilePath("data.json");
 
 	// Temporary fix
