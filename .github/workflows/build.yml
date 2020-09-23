@@ -20,6 +20,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Restore .NET Core tools
         run: dotnet tool restore
       - name: Build
