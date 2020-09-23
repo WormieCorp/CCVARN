@@ -4,10 +4,18 @@ namespace CCVARN.Core.Exporters
 	using System.IO;
 	using System.Linq;
 	using System.Text;
+	using CCVARN.Core.IO;
 	using CCVARN.Core.Models;
 
 	public sealed class PlainTextExporter : IExporter
 	{
+		private readonly IConsoleWriter console;
+
+		public PlainTextExporter(IConsoleWriter console)
+		{
+			this.console = console;
+		}
+
 		public bool CanExportToFile(string filePath)
 		{
 			var extension = Path.GetExtension(filePath);
@@ -57,6 +65,8 @@ namespace CCVARN.Core.Exporters
 			}
 
 			writer.Flush();
+
+			this.console.WriteInfoLine(":check_mark: Exported [teal]Plain Text Data[/] to '[teal]{0}[/]'", outputPath);
 		}
 
 		private static void WriteUnderline(StreamWriter writer, int len, char ch = '-')
