@@ -129,6 +129,6 @@ Task("Push-NuGetPackages")
 Task("Default")
 	.IsDependentOn("Pack")
 	.IsDependentOn("Generate-LocalReport")
-	.IsDependentOn("Upload-CoverageToCodecov");
+	/*.IsDependentOn("Upload-CoverageToCodecov")*/;
 
 RunTarget(target);
