@@ -66,7 +66,7 @@ namespace CCVARN.Core.Exporters
 
 			writer.Flush();
 
-			this.console.WriteInfoLine(":check_mark: Exported [teal]Plain Text Data[/] to '[teal]{0}[/]'", outputPath);
+			this.console.WriteInfoLine(":check_mark: Exported [teal]Plain Text Release Notes[/] to '[teal]{0}[/]'", outputPath);
 		}
 
 		private static void WriteUnderline(StreamWriter writer, int len, char ch = '-')

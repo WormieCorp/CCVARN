@@ -51,6 +51,7 @@ namespace CCVARN.Commands
 
 						exporter.ExportParsedData(result, output);
 						success = true;
+						break;
 					}
 				}
 
@@ -58,6 +59,8 @@ namespace CCVARN.Commands
 				{
 					Console.WriteErrorLine("Unable to find an exporter for file type '[teal]{0}[/]'! Exiting...",
 						Path.GetExtension(output));
+
+					return 1;
 				}
 			}
 
