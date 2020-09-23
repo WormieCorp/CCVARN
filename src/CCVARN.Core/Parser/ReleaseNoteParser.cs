@@ -50,7 +50,8 @@ namespace CCVARN.Core.Parser
 			this.writer.AddIndent();
 
 			this.writer.WriteInfoLine("[grey]A new [fuchsia on black]{0}[/] was found. Adding to changelog![/]", title.Singular);
-			this.writer.WriteInfoLine("A new [fuchsia on black]{0}[/] was found. Adding to changelog!", title);
+
+			this.writer.RemoveIndent();
 		}
 	}
 }
