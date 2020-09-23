@@ -49,6 +49,11 @@ namespace CCVARN
 					config.AddCommand<InitCommand>("init")
 						.WithExample(new[] { "init" })
 						.WithExample(new[] { "init", "--root", Environment.CurrentDirectory });
+
+					config.AddCommand<ParseCommand>("parse")
+						.WithExample(new[] { "parse", "ccvarn.json" })
+						.WithExample(new[] { "parse", "ccvarn.json", "--output", "ReleaseNotes.md", "--output", "ReleaseNotes.txt" })
+						.WithExample(new[] { "parse", "--output", "ReleaseNotes.md", "--output", "ReleaseNotes.txt" });
 				});
 				//app.SetDefaultCommand<ParseCommand>();
 
