@@ -435,3 +435,6 @@ $RECYCLE.BIN/
 version.json
 
 **/features/*.cs
+
+# Project debug settings
+launchSettings.json

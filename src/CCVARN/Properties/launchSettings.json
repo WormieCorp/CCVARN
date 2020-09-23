@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "CCVARN": {
-      "commandName": "Project",
-      "commandLineArgs": "parse test.json --output notes.txt"
-    }
-  }
-}
