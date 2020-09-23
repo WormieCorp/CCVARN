@@ -1,40 +1,56 @@
+#module nuget:?package=Cake.DotNetTool.Module&version=0.4.0
 #addin nuget:?package=Cake.Codecov&version=0.9.1
+#addin nuget:?package=Cake.Json&version=5.2.0
+#addin nuget:?package=Newtonsoft.Json&version=12.0.3
+#tool dotnet:https://f.feedz.io/wormiecorp/packages/nuget/index.json?package=CCVARN&version=1.0.0-alpha*&prerelease
 
-using System;
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var artifactsDir = Argument<DirectoryPath>("artifacts", "./.artifacts");
 var solution = "./CCVARN.sln";
 var dotnetExec = Context.Tools.Resolve("dotnet") ?? Context.Tools.Resolve("dotnet.exe");
 
+public class BuildData
+{
+	public BuildVersion Version { get; set; }
+}
+
 public class BuildVersion
 {
 	public string MajorMinorPatch { get; set; }
 	public string SemVer { get; set; }
-	public string SemVerFull { get; set; }
-	public string Tag { get; set; }
-	public string BuildMetadata { get; set; }
+	public string FullSemVer { get; set; }
+	public string PreReleaseTag { get; set; }
+	public string Metadata { get; set; }
 }
 
 Setup((context) =>
 {
-	var majorMinorPatch = "1.0.0";
-	var tag = "alpha.1.20";
-	var buildMeta = tag;
-	return new BuildVersion
+	var exec = context.Tools.Resolve("CCVARN") ?? context.Tools.Resolve("CCVARN.exe");
+	var outputPath = artifactsDir.CombineWithFilePath("data.json");
+
+	var exitCode = StartProcess(exec, new ProcessSettings
 	{
-		MajorMinorPatch = majorMinorPatch,
-		SemVer = $"{majorMinorPatch}-{tag}",
-		SemVerFull = $"{majorMinorPatch}-{buildMeta}",
-		Tag = tag,
-		BuildMetadata = buildMeta,
-	};
+		Arguments = new ProcessArgumentBuilder()
+			.Append("parse")
+			.AppendQuoted(outputPath.ToString()),
+	});
+
+	var buildData = DeserializeJsonFromFile<BuildData>(outputPath);
+
+	context.Information("Building CCVARN v{0}", buildData.Version.FullSemVer);
+
+	return buildData.Version;
 });
 
 Task("Clean")
 	.Does(() =>
 {
-	CleanDirectory(artifactsDir);
+	var dirs = new[] {
+		artifactsDir.Combine("packages"),
+		artifactsDir.Combine("coverage"),
+	};
+	CleanDirectories(dirs);
 });
 
 Task("Build")
@@ -47,7 +63,7 @@ Task("Build")
 		NoIncremental = HasArgument("no-incremental"),
 		MSBuildSettings = new DotNetCoreMSBuildSettings()
 			.SetVersionPrefix(version.MajorMinorPatch),
-		VersionSuffix = version.BuildMetadata,
+		VersionSuffix = version.PreReleaseTag + "+" + version.Metadata,
 	});
 });
 
@@ -81,7 +97,7 @@ Task("Pack")
 		OutputDirectory = artifactsDir.Combine("packages"),
 		MSBuildSettings = new DotNetCoreMSBuildSettings()
 			.SetVersionPrefix(version.MajorMinorPatch),
-		VersionSuffix = version.BuildMetadata,
+		VersionSuffix = version.PreReleaseTag + "+" + version.Metadata,
 	});
 });
 

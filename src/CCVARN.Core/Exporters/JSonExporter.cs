@@ -41,7 +41,7 @@ namespace CCVARN.Core.Exporters
 
 			serializer.Serialize(writer, data);
 
-			this.console.WriteInfoLine(":cross_mark: Exported [grey]JSON Data[/] to '[grey]{0}[/]'", outputPath);
+			this.console.WriteInfoLine(":check_mark: Exported [grey]JSON Data[/] to '[grey]{0}[/]'", outputPath);
         }
     }
 }

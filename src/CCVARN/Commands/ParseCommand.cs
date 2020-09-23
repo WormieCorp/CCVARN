@@ -28,7 +28,7 @@ namespace CCVARN.Commands
 			var result = commitParser.ParseVersionFromCommits(commits);
 
 			Console!.WriteInfoLine("");
-			Console.WriteInfoLine("New version is [aqua on black]{0}[/]", result);
+			Console.WriteInfoLine("New version is [aqua on black]{0}[/]", result.Version);
 
 			var outputs = new List<string>();
 			if (!string.IsNullOrEmpty(settings.Output))
