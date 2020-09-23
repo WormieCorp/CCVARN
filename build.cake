@@ -1,5 +1,6 @@
 #addin nuget:?package=Cake.Codecov&version=0.9.1
 
+using System;
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var artifactsDir = Argument<DirectoryPath>("artifacts", "./.artifacts");
@@ -111,6 +112,7 @@ Task("Upload-CoverageToCodecov")
 });
 
 Task("Push-NuGetPackages")
+	.WithCriteria((context) => context.Environment.Platform.Family == PlatformFamily.Linux)
 	.WithCriteria(() => HasEnvironmentVariable("NUGET_SOURCE"))
 	.WithCriteria(() => HasEnvironmentVariable("NUGET_API_KEY"))
 	.IsDependentOn("Pack")
@@ -129,6 +131,7 @@ Task("Push-NuGetPackages")
 Task("Default")
 	.IsDependentOn("Pack")
 	.IsDependentOn("Generate-LocalReport")
-	/*.IsDependentOn("Upload-CoverageToCodecov")*/;
+	/*.IsDependentOn("Upload-CoverageToCodecov")*/
+	.IsDependentOn("Push-NuGetPackages");
 
 RunTarget(target);
