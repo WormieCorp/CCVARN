@@ -18,7 +18,7 @@ public class BuildVersion
 Setup((context) =>
 {
 	var majorMinorPatch = "1.0.0";
-	var tag = "alpha.1.19";
+	var tag = "alpha.1.20";
 	var buildMeta = tag;
 	return new BuildVersion
 	{
