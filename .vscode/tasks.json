@@ -1,0 +1,60 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "restore",
+			"command": "dotnet",
+			"type": "shell",
+			"args": [
+				"tool",
+				"restore"
+			],
+			"presentation": {
+				"reveal": "silent"
+			}
+		},
+		{
+			"label": "bootstrap",
+			"command": "dotnet",
+			"type": "shell",
+			"args": [
+				"cake",
+				"--bootstrap"
+			],
+			"presentation": {
+				"reveal": "silent",
+			},
+			"dependsOn": ["restore"]
+		},
+		{
+			"label": "build",
+			"command": "dotnet",
+			"type": "shell",
+			"args": [
+				"cake",
+				"--target=Build"
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "silent"
+			},
+			"problemMatcher": "$msCompile",
+			"dependsOn":["bootstrap"]
+		},
+		{
+			"label": "Test",
+			"command": "dotnet",
+			"type": "shell",
+			"args": [
+				"cake",
+				"--target=Test"
+			],
+			"group": "test",
+			"presentation": {
+				"reveal": "silent"
+			},
+			"problemMatcher": "$msCompile",
+			"dependsOn":["bootstrap"]
+		}
+	]
+}
