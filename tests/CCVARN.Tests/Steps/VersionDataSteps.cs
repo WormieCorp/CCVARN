@@ -1,4 +1,4 @@
-namespace CCVARN.Core.Tests.Steps
+namespace CCVARN.Tests.Steps
 {
 	using CCVARN.Core.Models;
 	using Shouldly;

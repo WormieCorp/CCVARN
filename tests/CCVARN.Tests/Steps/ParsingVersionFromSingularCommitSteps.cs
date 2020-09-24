@@ -1,8 +1,8 @@
-namespace CCVARN.Core.Tests.Steps
+namespace CCVARN.Tests.Steps
 {
 	using CCVARN.Core.Models;
 	using CCVARN.Core.Parser;
-	using CCVARN.Core.Tests.Models;
+	using CCVARN.Tests.Models;
 	using TechTalk.SpecFlow;
 	using TechTalk.SpecFlow.Assist;
 

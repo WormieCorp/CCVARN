@@ -21,14 +21,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\CCVARN.Core\CCVARN.Core.csproj" />
 		<ProjectReference Include="..\..\src\CCVARN\CCVARN.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Drivers\" />
-		<Folder Include="Features\" />
 		<Folder Include="Hooks\" />
-		<Folder Include="Steps\" />
 	</ItemGroup>
 
 </Project>

@@ -116,3 +116,11 @@ Feature: Parsing version from multiple commits
 		And with the previous tag 1.2.0 with message docs: update changelog
 		When the user parses the commits
 		Then the version output should be 2.0.0-alpha.1.3
+
+	Scenario: Commit with pre-release tag
+		Given the current tag is 1.3.4-beta with message docs: update changelog
+		And the following commits
+		| rawText            |
+		| fix: important fix |
+		When the user parses the commits
+		Then the version output should be 1.3.4-beta

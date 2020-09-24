@@ -1,4 +1,4 @@
-namespace CCVARN.Core.Tests.Steps
+namespace CCVARN.Tests.Steps
 {
 	using System.Collections.Generic;
 	using System.Linq;
@@ -6,7 +6,7 @@ namespace CCVARN.Core.Tests.Steps
 	using CCVARN.Core.IO;
 	using CCVARN.Core.Models;
 	using CCVARN.Core.Parser;
-	using CCVARN.Core.Tests.Models;
+	using CCVARN.Tests.Models;
 	using LibGit2Sharp;
 	using Moq;
 	using TechTalk.SpecFlow;

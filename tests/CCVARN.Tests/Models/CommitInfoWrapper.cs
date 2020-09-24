@@ -1,4 +1,4 @@
-namespace CCVARN.Core.Tests.Models
+namespace CCVARN.Tests.Models
 {
 	using System.Security.Cryptography;
 	using System.Text;
