@@ -12,20 +12,28 @@
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
-		"terminal.integrated.shell.linux": "/bin/zsh"
+		"csharp.semanticHighlighting.enabled": true,
+		"dotnet-test-explorer.autoExpandTree": true,
+		"dotnet-test-explorer.autoWatch": true,
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+		"terminal.integrated.shell.linux": "/bin/zsh",
+		"workbench.iconTheme": "vscode-icons"
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"ms-dotnettools.csharp",
-		"fudge.auto-using",
 		"alexkrechik.cucumberautocomplete",
-		"editorconfig.editorconfig",
-		"hashhar.gitattributes",
+		"cake-build.cake-vscode",
 		"codezombiech.gitignore",
 		"davidanson.vscode-markdownlint",
+		"editorconfig.editorconfig",
+		"formulahendry.dotnet-test-explorer",
+		"fudge.auto-using",
+		"hashhar.gitattributes",
+		"ms-dotnettools.csharp",
 		"visualstudioexptteam.vscodeintellicode",
-		"cake-build.cake-vscode"
+		"kreativ-software.csharpextensions"
 	],
 
 	"postCreateCommand": "dotnet tool restore && dotnet restore",

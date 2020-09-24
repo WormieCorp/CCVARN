@@ -32,7 +32,8 @@
 			"type": "shell",
 			"args": [
 				"cake",
-				"--target=Build"
+				"--target=Build",
+				"--configuration=Release"
 			],
 			"group": "build",
 			"presentation": {
@@ -47,7 +48,8 @@
 			"type": "shell",
 			"args": [
 				"cake",
-				"--target=Test"
+				"--target=Generate-LocalReport",
+				"--configuration=Release"
 			],
 			"group": "test",
 			"presentation": {

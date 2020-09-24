@@ -1,0 +1,23 @@
+{
+	"editor.wordWrapColumn": 120,
+	"omnisharp.enableEditorConfigSupport": true,
+	"omnisharp.enableImportCompletion": true,
+	"omnisharp.enableRoslynAnalyzers": true,
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#38b8a6",
+		"activityBar.activeBorder": "#b03cc3",
+		"activityBar.background": "#38b8a6",
+		"activityBar.foreground": "#15202b",
+		"activityBar.inactiveForeground": "#15202b99",
+		"activityBarBadge.background": "#b03cc3",
+		"activityBarBadge.foreground": "#e7e7e7",
+		"statusBar.background": "#2c9183",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#38b8a6",
+		"titleBar.activeBackground": "#2c9183",
+		"titleBar.activeForeground": "#e7e7e7",
+		"titleBar.inactiveBackground": "#2c918399",
+		"titleBar.inactiveForeground": "#e7e7e799"
+	},
+	"peacock.remoteColor": "#2c9183"
+}
