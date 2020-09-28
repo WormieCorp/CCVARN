@@ -1,5 +1,6 @@
 namespace CCVARN.Core.Parser
 {
+	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Net.WebSockets;
@@ -7,7 +8,7 @@ namespace CCVARN.Core.Parser
 	using CCVARN.Core.IO;
 	using CCVARN.Core.Models;
 
-	public sealed class ReleaseNoteParser
+	internal sealed class ReleaseNoteParser
 	{
 		private readonly HashSet<TypeScope> types;
 		private readonly IConsoleWriter writer;
@@ -20,18 +21,12 @@ namespace CCVARN.Core.Parser
 
 		public void ParseReleaseNotes(ReleaseNotesData releaseNotes, ConventionalCommitInfo commit)
 		{
-			var typeConfig = this.types.FirstOrDefault(t => string.Equals(t.Type, commit.CommitType));
-			var typeScopeConfig = this.types.FirstOrDefault(t => string.Equals(t.Type, commit.CommitType) &&
-				string.Equals(t.Scope, commit.CommitScope));
-			Description? title = null;
+			var typeScope = GetMatchingTypeScop(commit, this.types);
 
-			if (typeScopeConfig != null && (typeScopeConfig.IncludeInChangelog || commit.IsBreakingChange))
+			Description? title;
+			if (typeScope != null && (typeScope.IncludeInChangelog || commit.IsBreakingChange))
 			{
-				title = typeScopeConfig.Description;
-			}
-			else if (typeConfig != null && (typeConfig.IncludeInChangelog || commit.IsBreakingChange))
-			{
-				title = typeConfig.Description;
+				title = typeScope.Description;
 			}
 			else
 			{
@@ -53,6 +48,19 @@ namespace CCVARN.Core.Parser
 				releaseNotes.BreakingChanges.Add(commit.BreakingChangeNote);
 			}
 
+			var currentNotes = UpdateOrAddNote(releaseNotes, title);
+
+			currentNotes.Add(note);
+
+			this.writer.AddIndent();
+
+			this.writer.WriteInfoLine(":check_mark_button: [teal]A new [fuchsia on black]{0}[/] was found. Adding to changelog![/]", title.Singular);
+
+			this.writer.RemoveIndent();
+		}
+
+		private static List<NoteData> UpdateOrAddNote(ReleaseNotesData releaseNotes, Description title)
+		{
 			List<NoteData> currentNotes;
 			if (releaseNotes.Notes.ContainsKey(title.Singular))
 			{
@@ -73,13 +81,16 @@ namespace CCVARN.Core.Parser
 				releaseNotes.Notes.Add(title.Singular, currentNotes);
 			}
 
-			currentNotes.Add(note);
+			return currentNotes;
+		}
 
-			this.writer.AddIndent();
+		private static TypeScope? GetMatchingTypeScop(ConventionalCommitInfo commit, HashSet<TypeScope> types)
+		{
+			var typeConfig = types.FirstOrDefault(t => string.Equals(t.Type, commit.CommitType, StringComparison.OrdinalIgnoreCase));
+			var typeScopeConfig = types.FirstOrDefault(t => string.Equals(t.Type, commit.CommitType, StringComparison.OrdinalIgnoreCase) &&
+				string.Equals(t.Scope, commit.CommitScope, StringComparison.OrdinalIgnoreCase));
 
-			this.writer.WriteInfoLine(":check_mark_button: [teal]A new [fuchsia on black]{0}[/] was found. Adding to changelog![/]", title.Singular);
-
-			this.writer.RemoveIndent();
+			return typeScopeConfig ?? typeConfig;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 namespace CCVARN.Core.Parser
 {
+	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using CCVARN.Core.Configuration;
@@ -21,6 +22,9 @@ namespace CCVARN.Core.Parser
 
 		public VersionData ParseVersion(VersionData? version, CommitInfo commit)
 		{
+			if (commit is null)
+				throw new ArgumentNullException(nameof(commit));
+
 			VersionData newVersion;
 			if (version is null || (commit.IsTag && version.IsEmpty()))
 				newVersion = ParseVersionFromTag(commit, version) ?? version ?? new VersionData();
@@ -39,9 +43,9 @@ namespace CCVARN.Core.Parser
 			}
 			else
 			{
-				var typeConfig = this.types.FirstOrDefault(t => string.Equals(t.Type, conventionalCommit.CommitType));
-				var typeScopeConfig = this.types.FirstOrDefault(t => string.Equals(t.Type, conventionalCommit.CommitType) &&
-					string.Equals(t.Scope, conventionalCommit.CommitScope));
+				var typeConfig = this.types.FirstOrDefault(t => string.Equals(t.Type, conventionalCommit.CommitType, StringComparison.OrdinalIgnoreCase));
+				var typeScopeConfig = this.types.FirstOrDefault(t => string.Equals(t.Type, conventionalCommit.CommitType, StringComparison.OrdinalIgnoreCase) &&
+					string.Equals(t.Scope, conventionalCommit.CommitScope, StringComparison.OrdinalIgnoreCase));
 
 				if (typeScopeConfig != null)
 					newVersion.SetNextBump(typeScopeConfig.VersionBump);
@@ -52,7 +56,7 @@ namespace CCVARN.Core.Parser
 			return newVersion;
 		}
 
-		public VersionData? ParseVersionFromTag(CommitInfo commit, VersionData? oldVersion)
+		private static VersionData? ParseVersionFromTag(CommitInfo commit, VersionData? oldVersion)
 		{
 			if (!commit.IsTag || commit.Ref is null)
 				return null;

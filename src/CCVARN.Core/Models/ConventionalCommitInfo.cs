@@ -1,11 +1,17 @@
 namespace CCVARN.Core.Models
 {
+	using System;
 	using System.Collections.Generic;
 
 	public class ConventionalCommitInfo : CommitInfo
 	{
 		public ConventionalCommitInfo(CommitInfo commitInfo, string type, string? scope, string message)
-			: this(commitInfo.Sha, commitInfo.RawText, type, scope, message)
+			: this(
+				commitInfo?.Sha ?? throw new ArgumentNullException(nameof(commitInfo)),
+				commitInfo.RawText,
+				type,
+				scope,
+				message)
 		{
 			IsTag = commitInfo.IsTag;
 			Ref = commitInfo.Ref;

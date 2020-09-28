@@ -11,7 +11,7 @@ namespace CCVARN.Options
 	{
 		[CommandOption("--output <OUTPUT_PATH>")]
 		[Description("Additional outputs for outputting changelogs. Output type is based on the file extension (Markdown and plain text currently supported).")]
-		public string[] AdditionalOutputs { get; set; } = new string[0];
+		public string[] AdditionalOutputs { get; set; } = Array.Empty<string>();
 
 		[CommandArgument(0, "[JSON_OUTPUT]")]
 		[DefaultValue("CCVARN.json")]

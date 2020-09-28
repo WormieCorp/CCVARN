@@ -11,7 +11,7 @@ namespace CCVARN.Tests.Models
 				type,
 				scope,
 				message,
-				type + (string.IsNullOrEmpty(scope) ? ": " : $"({scope}): ") + message)
+				type + ((string.IsNullOrEmpty(scope)) ? ": " : $"({scope}): ") + message)
 		{
 		}
 

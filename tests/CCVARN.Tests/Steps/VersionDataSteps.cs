@@ -21,13 +21,13 @@ namespace CCVARN.Tests.Steps
 			this.versionOrReference = "refs/tags/" + reference;
 		}
 
-		[Given(@"a version of (.*)")]
+		[Given("a version of (.*)")]
 		public void GivenAVersionOf(string version)
 		{
 			this.versionOrReference = version;
 		}
 
-		[Then(@"the version output should be (.*)")]
+		[Then("the version output should be (.*)")]
 		public void ThenTheVersionOutputShouldBe(string expected)
 		{
 			this.scenarioContext["NEXT_VERSION"].ShouldNotBeNull();
@@ -38,7 +38,7 @@ namespace CCVARN.Tests.Steps
 				vd.ToString().ShouldBe(expected);
 		}
 
-		[When(@"the user (?:tries to )?bumps? the (major|minor|patch|weight) part")]
+		[When("the user (?:tries to )?bumps? the (major|minor|patch|weight) part")]
 		public void WhenBumpsTheTypePart(VersionBump versionBump)
 		{
 			var version = this.scenarioContext["NEXT_VERSION"] as VersionData;
@@ -46,15 +46,15 @@ namespace CCVARN.Tests.Steps
 			version.CommitNextBump();
 		}
 
-		[When(@"the user parses? the version")]
-		[When(@"the user parses? the reference")]
+		[When("the user parses? the version")]
+		[When("the user parses? the reference")]
 		public void WhenTheUserParsesTheReference()
 		{
 			var version = VersionData.Parse(this.versionOrReference);
 			this.scenarioContext["NEXT_VERSION"] = version;
 		}
 
-		[When(@"the user tries to bump the version when none is used")]
+		[When("the user tries to bump the version when none is used")]
 		public void WhenTheUserTriesToBumpTheVersionWhenNoneIsUsed()
 		{
 			var version = this.scenarioContext["NEXT_VERSION"] as VersionData;

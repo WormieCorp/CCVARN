@@ -18,38 +18,38 @@ namespace CCVARN.Tests.Steps
 			this.scenarioContext = scenarioContext;
 		}
 
-		[Given(@"a(?: tag)? commit with the data")]
+		[Given("a(?: tag)? commit with the data")]
 		public void GivenATagCommitWithTheData(Table table)
 		{
 			this.commit = table.CreateInstance<CommitInfoWrapper>();
 		}
 
-		[Given(@"current version is (.*)")]
+		[Given("current version is (.*)")]
 		public void GivenCurrentVersionIs(string version)
 		{
-			this.previousVersion = version is null ? null : VersionData.Parse(version);
+			this.previousVersion = (version is null) ? null : VersionData.Parse(version);
 		}
 
-		[Given(@"current version set to (major|minor|patch|none|weight) bump")]
+		[Given("current version set to (major|minor|patch|none|weight) bump")]
 		public void GivenCurrentVersionSetToBump(VersionBump bump)
 		{
 			this.previousVersion.SetNextBump(bump);
 		}
 
-		[Given(@"no current version")]
+		[Given("no current version")]
 		public void GivenNoCurrentVersion()
 		{
 			this.previousVersion = null;
 		}
 
-		[When(@"commits the returned version")]
+		[When("commits the returned version")]
 		public void WhenCommitsTheReturnedVersion()
 		{
 			var nextVersion = this.scenarioContext["NEXT_VERSION"] as VersionData;
 			nextVersion.CommitNextBump();
 		}
 
-		[When(@"the user is parsing the next commit")]
+		[When("the user is parsing the next commit")]
 		public void WhenTheUserIsParsingTheNextCommit()
 		{
 			var parser = new VersionParser();

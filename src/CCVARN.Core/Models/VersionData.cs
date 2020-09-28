@@ -1,6 +1,7 @@
 namespace CCVARN.Core.Models
 {
 	using System;
+	using System.Globalization;
 	using System.Linq;
 	using System.Text;
 
@@ -28,6 +29,15 @@ namespace CCVARN.Core.Models
 
 		public static VersionData Parse(string versionOrReference, VersionData? oldVersion = null)
 		{
+			if (versionOrReference is null)
+			{
+				return new VersionData()
+				{
+					_isEmpty = true,
+					_nextVersionBump = oldVersion?._nextVersionBump ?? VersionBump.None,
+				};
+			}
+
 			var newVersionSb = new StringBuilder(versionOrReference);
 			if (versionOrReference.StartsWith(TAG_REFERENCE_PREFIX, StringComparison.OrdinalIgnoreCase))
 			{
@@ -51,8 +61,8 @@ namespace CCVARN.Core.Models
 				_nextVersionBump = oldVersion?._nextVersionBump ?? VersionBump.None,
 			};
 
-			var preIndex = versionOrReference.IndexOf('-');
-			var metaIndex = versionOrReference.IndexOf('+');
+			var preIndex = versionOrReference.IndexOf('-', StringComparison.Ordinal);
+			var metaIndex = versionOrReference.IndexOf('+', StringComparison.Ordinal);
 			if (metaIndex == -1)
 				metaIndex = versionOrReference.Length;
 			if (preIndex > 0 && preIndex < metaIndex)
@@ -76,7 +86,7 @@ namespace CCVARN.Core.Models
 
 				if (weightNum.Length > 0)
 				{
-					data.Weight = int.Parse(weightNum.ToString());
+					data.Weight = int.Parse(weightNum.ToString(), CultureInfo.InvariantCulture);
 				}
 				else
 				{
@@ -144,6 +154,9 @@ namespace CCVARN.Core.Models
 
 		public bool Equals(VersionData other)
 		{
+			if (other is null)
+				return false;
+
 			return
 				Major == other.Major &&
 				Minor == other.Minor &&
@@ -173,11 +186,11 @@ namespace CCVARN.Core.Models
 
 			if (!string.IsNullOrEmpty(PreReleaseLabel))
 			{
-				sb.AppendFormat("-{0}", PreReleaseTag);
+				sb.AppendFormat(CultureInfo.InvariantCulture, "-{0}", PreReleaseTag);
 			}
 
 			if (includeMetadata && !string.IsNullOrWhiteSpace(Metadata))
-				sb.AppendFormat("+{0}", Metadata.Trim());
+				sb.AppendFormat(CultureInfo.InvariantCulture, "+{0}", Metadata.Trim());
 
 			return sb.ToString();
 		}
@@ -187,11 +200,11 @@ namespace CCVARN.Core.Models
 			var sb = new StringBuilder();
 			if (!string.IsNullOrEmpty(PreReleaseLabel))
 			{
-				sb.AppendFormat("{0}", PreReleaseLabel);
+				sb.AppendFormat(CultureInfo.InvariantCulture, "{0}", PreReleaseLabel);
 				if (Weight > 0 && Commits > 0)
-					sb.AppendFormat(".{0}.{1}", Weight, Commits);
+					sb.AppendFormat(CultureInfo.InvariantCulture, ".{0}.{1}", Weight, Commits);
 				else if (Weight > 0)
-					sb.AppendFormat(".{0}", Weight);
+					sb.AppendFormat(CultureInfo.InvariantCulture, ".{0}", Weight);
 			}
 
 			return sb.ToString();

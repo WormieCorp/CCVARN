@@ -23,6 +23,9 @@ namespace CCVARN.Commands
 
 		public override ValidationResult Validate(CommandContext context, TSettings settings)
 		{
+			if (settings is null)
+				throw new ArgumentNullException(nameof(settings));
+
 			var repoRoot = GetRootPath(settings);
 
 			if (repoRoot is null)
@@ -45,6 +48,9 @@ namespace CCVARN.Commands
 
 		protected string? GetRootPath(TSettings settings)
 		{
+			if (settings is null)
+				throw new ArgumentNullException(nameof(settings));
+
 			if (!string.IsNullOrEmpty(settings.RepositoryRoot))
 			{
 				if (Path.IsPathFullyQualified(settings.RepositoryRoot))

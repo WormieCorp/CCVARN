@@ -35,6 +35,9 @@ namespace CCVARN
 				.GetExecutingAssembly()
 				.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
 
+			if (version.IndexOf('+', StringComparison.Ordinal) > 0)
+				version = version.Substring(0, version.IndexOf('+', StringComparison.Ordinal));
+
 			console.WriteInfoLine(text, version);
 
 			var registrar = new TypeRegistrar(container);

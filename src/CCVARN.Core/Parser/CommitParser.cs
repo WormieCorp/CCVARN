@@ -20,7 +20,7 @@ namespace CCVARN.Core.Parser
 
 		public CommitParser(Config config, IRepository repository, IConsoleWriter writer)
 		{
-			this.config = config;
+			this.config = config ?? throw new ArgumentNullException(nameof(config));
 			this._repository = repository;
 			this._writer = writer;
 			this._versionParser = new VersionParser(this.config.TypeScopes);
@@ -49,6 +49,9 @@ namespace CCVARN.Core.Parser
 
 		public ParsedData ParseVersionFromCommits(IEnumerable<CommitInfo> commits)
 		{
+			if (commits is null)
+				throw new ArgumentNullException(nameof(commits));
+
 			VersionData? version = null;
 			var releaseNotes = new ReleaseNotesData();
 			var firstCommit = true;
@@ -93,8 +96,8 @@ namespace CCVARN.Core.Parser
 			version.Commits = commitCount;
 			if (!firstCommitIsTag &&
 				!string.IsNullOrEmpty(this.config.Tag) &&
-				!string.Equals(this.config.Tag, version.PreReleaseLabel) &&
-				string.Compare(this.config.Tag, version.PreReleaseLabel) > 0)
+				!string.Equals(this.config.Tag, version.PreReleaseLabel, StringComparison.OrdinalIgnoreCase) &&
+				string.Compare(this.config.Tag, version.PreReleaseLabel, StringComparison.OrdinalIgnoreCase) > 0)
 			{
 				version.PreReleaseLabel = this.config.Tag;
 				version.Weight = Math.Max(version.Weight ?? 1, 1);
@@ -118,7 +121,7 @@ namespace CCVARN.Core.Parser
 			var m = regex.Match(commit.RawText);
 			if (m.Success)
 				return UpdateCommitInfo(commit, m);
-			else if (commit.RawText.TrimStart().StartsWith("Merge"))
+			else if (commit.RawText.TrimStart().StartsWith("Merge", StringComparison.OrdinalIgnoreCase))
 				this._writer.WriteInfoLine("[yellow]:double_exlamation_mark:[/] Found merge commit...");
 			else
 				this._writer.WriteInfoLine(":cross_mark: Not a conventional commit...");
@@ -152,7 +155,7 @@ namespace CCVARN.Core.Parser
 				{
 					breakingNote.AppendLine(line);
 				}
-				else if (line.StartsWith("BREAKING CHANGE:") || line.StartsWith("BREAKING-CHANGE:"))
+				else if (line.StartsWith("BREAKING CHANGE:", StringComparison.Ordinal) || line.StartsWith("BREAKING-CHANGE:", StringComparison.Ordinal))
 				{
 					breakingNote.AppendLine(line[16..]);
 					isBreaking = true;

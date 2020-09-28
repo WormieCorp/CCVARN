@@ -53,13 +53,13 @@ namespace CCVARN.IO
 
 		public void WriteInfo(string format, params object[] parameters)
 		{
-			this.console.MarkupLine(CultureInfo.CurrentUICulture, format, parameters);
+			this.console.MarkupLine(CultureInfo.CurrentCulture, format, parameters);
 		}
 
 		public void WriteInfoLine(string format, params object[] parameters)
 		{
 			this.console.Write(this.currentIndent, Style.Plain);
-			this.console.MarkupLine(CultureInfo.CurrentUICulture, format, parameters);
+			this.console.MarkupLine(CultureInfo.CurrentCulture, format, parameters);
 		}
 	}
 }

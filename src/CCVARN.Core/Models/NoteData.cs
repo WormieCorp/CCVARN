@@ -11,7 +11,7 @@ namespace CCVARN.Core.Models
 			Summary = summary;
 		}
 
-		public List<int> Issues { get; set; } = new List<int>();
+		public List<int> Issues { get; } = new List<int>();
 		public string? Scope { get; set; }
 		public string Summary { get; set; }
 		public string Type { get; set; }

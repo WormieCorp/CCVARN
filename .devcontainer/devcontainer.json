@@ -33,8 +33,9 @@
 		"hashhar.gitattributes",
 		"ms-dotnettools.csharp",
 		"visualstudioexptteam.vscodeintellicode",
-		"kreativ-software.csharpextensions"
+		"kreativ-software.csharpextensions",
+		"knisterpeter.vscode-commitizen"
 	],
 
-	"postCreateCommand": "dotnet tool restore && dotnet restore",
+	"postCreateCommand": "dotnet tool restore && dotnet restore"
 }

@@ -2,6 +2,7 @@ namespace CCVARN.Core.Exporters
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Globalization;
 	using System.IO;
 	using System.Linq;
 	using System.Text;
@@ -26,9 +27,12 @@ namespace CCVARN.Core.Exporters
 
 		public void ExportParsedData(ParsedData data, string outputPath)
 		{
+			if (data is null)
+				throw new ArgumentNullException(nameof(data));
+
 			using var writer = new StreamWriter(outputPath, false, new UTF8Encoding(false));
 
-			writer.WriteLine("# {0} (**{1}**) #", data.Version.SemVer, DateTime.Now.ToString("yyyy-MM-dd"));
+			writer.WriteLine("# {0} (**{1}**) #", data.Version.SemVer, DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
 			writer.WriteLine();
 
 			if (data.ReleaseNotes.BreakingChanges.Any())

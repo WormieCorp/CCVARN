@@ -24,13 +24,13 @@ namespace CCVARN.Tests.Steps
 			this.scenarioContext = scenarioContext;
 		}
 
-		[Given(@"the configuration tag (?:suffix )(.*)")]
+		[Given("the configuration tag (?:suffix )(.*)")]
 		public void GivenTheConfigurationTag(string tag)
 		{
 			this.configuration.Tag = tag;
 		}
 
-		[Given(@"the following commits")]
+		[Given("the following commits")]
 		public void GivenTheFollowingCommits(Table table)
 		{
 			this.commits.AddRange(table.CreateSet<CommitInfoWrapper>());
@@ -48,7 +48,7 @@ namespace CCVARN.Tests.Steps
 			this.commits.Add(newCommit);
 		}
 
-		[When(@"the user parses the commits")]
+		[When("the user parses the commits")]
 		public void WhenTheUserParsesTheCommits()
 		{
 			var parser = new CommitParser(

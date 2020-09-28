@@ -1,10 +1,12 @@
 namespace CCVARN.Commands
 {
+	using System;
 	using System.Collections.Generic;
 	using System.ComponentModel;
 	using System.IO;
 	using System.Linq;
 	using CCVARN.Core.Configuration;
+	using CCVARN.Core.Exporters;
 	using CCVARN.Core.Parser;
 	using CCVARN.Options;
 	using DryIoc;
@@ -69,6 +71,9 @@ namespace CCVARN.Commands
 
 		public override ValidationResult Validate(CommandContext context, ParseOption settings)
 		{
+			if (settings is null)
+				throw new ArgumentNullException(nameof(settings));
+
 			foreach (var output in settings.AdditionalOutputs)
 			{
 				var success = false;
