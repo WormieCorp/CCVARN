@@ -46,6 +46,22 @@
 			"dependsOn": [
 				"build"
 			]
+		},
+		{
+			"label": "Watch Test",
+			"command": "dotnet",
+			"type": "shell",
+			"args": [
+				"watch",
+				"--project",
+				"CCVARN.sln",
+				"test"
+			],
+			"group": "test",
+			"presentation": {
+				"reveal": "silent"
+			},
+			"problemMatcher": "$msCompile"
 		}
 	]
 }
