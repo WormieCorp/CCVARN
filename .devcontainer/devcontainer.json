@@ -31,7 +31,8 @@
 		"ms-dotnettools.csharp",
 		"visualstudioexptteam.vscodeintellicode",
 		"kreativ-software.csharpextensions",
-		"knisterpeter.vscode-commitizen"
+		"knisterpeter.vscode-commitizen",
+		"leo-labs.dotnet"
 	],
 
 	"postCreateCommand": "dotnet build",
