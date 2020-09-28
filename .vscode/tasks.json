@@ -6,57 +6,46 @@
 			"command": "dotnet",
 			"type": "shell",
 			"args": [
-				"tool",
 				"restore"
 			],
 			"presentation": {
 				"reveal": "silent"
-			}
-		},
-		{
-			"label": "bootstrap",
-			"command": "dotnet",
-			"type": "shell",
-			"args": [
-				"cake",
-				"--bootstrap"
-			],
-			"presentation": {
-				"reveal": "silent",
 			},
-			"dependsOn": ["restore"]
+			"problemMatcher": "$msCompile"
 		},
 		{
 			"label": "build",
 			"command": "dotnet",
 			"type": "shell",
 			"args": [
-				"cake",
-				"--target=Build",
-				"--configuration=Debug"
+				"build",
+				"--no-restore"
 			],
-			"group": "build",
 			"presentation": {
 				"reveal": "silent"
 			},
+			"group": "build",
 			"problemMatcher": "$msCompile",
-			"dependsOn":["bootstrap"]
+			"dependsOn": [
+				"restore"
+			]
 		},
 		{
 			"label": "Test",
 			"command": "dotnet",
 			"type": "shell",
 			"args": [
-				"cake",
-				"--target=Generate-LocalReport",
-				"--configuration=Debug"
+				"test",
+				"--no-build"
 			],
 			"group": "test",
 			"presentation": {
 				"reveal": "silent"
 			},
 			"problemMatcher": "$msCompile",
-			"dependsOn":["bootstrap"]
+			"dependsOn": [
+				"build"
+			]
 		}
 	]
 }
