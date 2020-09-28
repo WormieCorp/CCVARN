@@ -122,7 +122,7 @@ namespace CCVARN.Core.Parser
 			if (m.Success)
 				return UpdateCommitInfo(commit, m);
 			else if (commit.RawText.TrimStart().StartsWith("Merge", StringComparison.OrdinalIgnoreCase))
-				this._writer.WriteInfoLine("[yellow]:double_exlamation_mark:[/] Found merge commit...");
+				this._writer.WriteInfoLine("[yellow]:double_exclamation_mark:[/] Found merge commit...");
 			else
 				this._writer.WriteInfoLine(":cross_mark: Not a conventional commit...");
 
