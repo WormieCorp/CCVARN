@@ -8,5 +8,3 @@ RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "source /usr/local/shar
 RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g eclint" 2>&1; fi
 
 USER vscode
-
-RUN dotnet tool restore
