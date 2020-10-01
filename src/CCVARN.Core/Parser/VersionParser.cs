@@ -6,7 +6,7 @@ namespace CCVARN.Core.Parser
 	using CCVARN.Core.Configuration;
 	using CCVARN.Core.Models;
 
-	public sealed class VersionParser
+	internal sealed class VersionParser
 	{
 		private readonly HashSet<TypeScope> types;
 

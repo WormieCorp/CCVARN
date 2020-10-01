@@ -76,10 +76,10 @@ namespace CCVARN.Core.Models
 						break;
 					}
 
-					if (char.IsDigit(data.PreReleaseLabel[i]))
-					{
+					if (i > 0 && data.PreReleaseLabel[i] == '.' && char.IsDigit(data.PreReleaseLabel[i - 1]))
+						weightNum.Clear();
+					else if (char.IsDigit(data.PreReleaseLabel[i]))
 						weightNum.Insert(0, data.PreReleaseLabel[i]);
-					}
 
 					data.PreReleaseLabel = data.PreReleaseLabel[..^1];
 				}
@@ -116,28 +116,33 @@ namespace CCVARN.Core.Models
 			return data;
 		}
 
-		public void CommitNextBump()
+		public bool CommitNextBump()
 		{
 			if (_allowMajorBump && this._isEmpty)
 				this._nextVersionBump = VersionBump.Major;
 			else if (!_allowMajorBump && this._nextVersionBump == VersionBump.Major)
 				this._nextVersionBump = VersionBump.Minor;
 
+			var isBumped = false;
+
 			switch (this._nextVersionBump)
 			{
 				case VersionBump.Patch:
 					Patch++;
+					isBumped = true;
 					break;
 
 				case VersionBump.Minor:
 					Patch = 0;
 					Minor++;
+					isBumped = true;
 					break;
 
 				case VersionBump.Major:
 					Patch = 0;
 					Minor = 0;
 					Major++;
+					isBumped = true;
 					break;
 
 				case VersionBump.Weight:
@@ -147,6 +152,8 @@ namespace CCVARN.Core.Models
 
 			this._isEmpty = false;
 			this._nextVersionBump = VersionBump.None;
+
+			return isBumped;
 		}
 
 		public override bool Equals(object? obj)

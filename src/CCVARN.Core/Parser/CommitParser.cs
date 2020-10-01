@@ -2,6 +2,7 @@ namespace CCVARN.Core.Parser
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Globalization;
 	using System.Linq;
 	using System.Text;
 	using System.Text.RegularExpressions;
@@ -73,6 +74,8 @@ namespace CCVARN.Core.Parser
 
 				if (firstCommit)
 				{
+					if (commit.RawText.StartsWith("Merge ", StringComparison.OrdinalIgnoreCase))
+						continue;
 					firstCommitIsTag = commit.IsTag;
 					metadata = commit.Sha;
 				}
@@ -86,15 +89,28 @@ namespace CCVARN.Core.Parser
 				firstCommit = false;
 			}
 
-			if (version is null)
-				version = VersionData.Parse(string.Empty);
+			if (version?.IsEmpty() != false)
+			{
+				if (!string.IsNullOrEmpty(this.config.Tag))
+				{
+					version = VersionData.Parse(this.config.NextVersion + "-" + this.config.Tag);
+					if (firstCommitIsTag)
+						version.Weight = 1;
+				}
+				else
+				{
+					version = VersionData.Parse(this.config.NextVersion);
+				}
+			}
+
+			var versionBumped = false;
 
 			if (!firstCommitIsTag)
-				version.CommitNextBump();
+				versionBumped = version.CommitNextBump();
 
 			version.Metadata = metadata;
 			version.Commits = commitCount;
-			if (!firstCommitIsTag &&
+			if (!firstCommitIsTag && versionBumped &&
 				!string.IsNullOrEmpty(this.config.Tag) &&
 				!string.Equals(this.config.Tag, version.PreReleaseLabel, StringComparison.OrdinalIgnoreCase) &&
 				string.Compare(this.config.Tag, version.PreReleaseLabel, StringComparison.OrdinalIgnoreCase) > 0)
@@ -104,6 +120,39 @@ namespace CCVARN.Core.Parser
 			}
 
 			return new ParsedData(version, releaseNotes);
+		}
+
+		private static string AddResolvedIssues(ConventionalCommitInfo newCommit, string line)
+		{
+			var closeKeywords = new[]
+							{
+					"close #",
+					"closes #",
+					"closed #",
+					"fix #",
+					"fixes #",
+					"fixed #",
+					"resolve #",
+					"resolves #",
+					"resolved #"
+				};
+
+			var subs = line;
+			string found;
+			while ((found = Array.Find(closeKeywords, c => subs.StartsWith(c, StringComparison.OrdinalIgnoreCase))) != null)
+			{
+				var tempSub = subs[found.Length..];
+				var numS = string.Empty;
+				for (var i = 0; i < tempSub.Length && char.IsDigit(tempSub[i]); i++)
+					numS += tempSub[i];
+
+				if (!string.IsNullOrEmpty(numS))
+					newCommit.IssueRefs.Add(int.Parse(numS, CultureInfo.InvariantCulture));
+
+				subs = tempSub[numS.Length..].Trim(new[] { ' ', '.', ',' });
+			}
+
+			return subs;
 		}
 
 		private ConventionalCommitInfo? ParseConventionalCommit(CommitInfo commit)
@@ -151,6 +200,13 @@ namespace CCVARN.Core.Parser
 
 			foreach (var line in commit.RawText.Split('\n').Skip(1).Select(r => r.Trim()))
 			{
+				var result = AddResolvedIssues(newCommit, line);
+				if (line != result)
+				{
+					isBreaking = false;
+					continue;
+				}
+
 				if (isBreaking)
 				{
 					breakingNote.AppendLine(line);
@@ -164,8 +220,6 @@ namespace CCVARN.Core.Parser
 				{
 					body.AppendLine(line);
 				}
-
-				// TODO: add issue references
 			}
 
 			if (breakingNote.Length > 0)
