@@ -36,16 +36,16 @@ namespace CCVARN.Core.Parser
 				return;
 			}
 
-			var note = new NoteData(commit.CommitType, commit.Message)
-			{
-				Scope = commit.CommitScope,
-			};
+			var note = new NoteData(commit.CommitType, commit.Message, commit.CommitScope ?? string.Empty);
 
 			note.Issues.AddRange(commit.IssueRefs);
 
-			if (commit.IsBreakingChange && !string.IsNullOrEmpty(commit.BreakingChangeNote))
+			if (commit.IsBreakingChange)
 			{
-				releaseNotes.BreakingChanges.Add(commit.BreakingChangeNote);
+				if (!string.IsNullOrEmpty(commit.BreakingChangeNote))
+					releaseNotes.BreakingChanges.Add(commit.BreakingChangeNote);
+				else
+					title = new Description("BREAKING CHANGE", "BREAKING CHANGES");
 			}
 
 			var currentNotes = UpdateOrAddNote(releaseNotes, title);
