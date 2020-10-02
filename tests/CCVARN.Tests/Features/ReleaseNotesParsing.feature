@@ -99,7 +99,7 @@ Feature: Release Notes parsing
 			| feat: some feature        |
 			| (build) not considered    |
 		When the user parses the commits
-		Then the result should have 1 note
+		Then the results should have 1 note
 			| type | summary      |
 			| feat | some feature |
 		And contain note with the name Feature

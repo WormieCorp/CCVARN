@@ -1,6 +1,7 @@
 namespace CCVARN.Core.Exporters
 {
 	using System;
+	using System.Collections.Generic;
 	using System.Globalization;
 	using System.IO;
 	using System.Linq;
@@ -35,10 +36,11 @@ namespace CCVARN.Core.Exporters
 			writer.WriteLine(text);
 			WriteUnderline(writer, text.Length, '=');
 
-			writer.WriteLine();
+			var breakingNotes = data.ReleaseNotes.Notes.Where(n => n.Key == "BREAKING CHANGE" || n.Key == "BREAKING CHANGES");
 
-			if (data.ReleaseNotes.BreakingChanges.Any())
+			if (data.ReleaseNotes.BreakingChanges.Count > 0)
 			{
+				writer.WriteLine();
 				const string header = "BREAKING CHANGES";
 				writer.WriteLine(header);
 				WriteUnderline(writer, header.Length);
@@ -48,29 +50,41 @@ namespace CCVARN.Core.Exporters
 					writer.WriteLine(breakingChange);
 				}
 
-				writer.WriteLine();
+				if (breakingNotes.Any())
+					writer.WriteLine();
 			}
 
-			foreach (var notePair in data.ReleaseNotes.Notes)
+			foreach (var notePain in breakingNotes)
 			{
-				writer.WriteLine(notePair.Key);
-				WriteUnderline(writer, notePair.Key.Length);
-				writer.WriteLine();
+				AddNoteLines(writer, notePain, data.ReleaseNotes.BreakingChanges.Count == 0);
+			}
 
-				foreach (var note in notePair.Value)
-				{
-					writer.Write("- ");
-					if (!string.IsNullOrEmpty(note.Scope))
-						writer.Write("({0}): ", note.Scope);
-					writer.WriteLine(note.Summary); // TODO: Include the sha for the commit as well
-				}
-
-				writer.WriteLine();
+			foreach (var notePair in data.ReleaseNotes.Notes.Except(breakingNotes))
+			{
+				AddNoteLines(writer, notePair, true);
 			}
 
 			writer.Flush();
 
 			this.console.WriteInfoLine(":check_mark: Exported [teal]Plain Text Release Notes[/] to '[teal]{0}[/]'", outputPath);
+		}
+
+		private static void AddNoteLines(StreamWriter writer, KeyValuePair<string, List<NoteData>> notePair, bool includeHeader)
+		{
+			if (includeHeader)
+			{
+				writer.WriteLine();
+				writer.WriteLine(notePair.Key);
+				WriteUnderline(writer, notePair.Key.Length);
+			}
+
+			foreach (var note in notePair.Value)
+			{
+				writer.Write("- ");
+				if (!string.IsNullOrEmpty(note.Scope))
+					writer.Write("({0}): ", note.Scope);
+				writer.WriteLine(note.Summary);
+			}
 		}
 
 		private static void WriteUnderline(StreamWriter writer, int len, char ch = '-')
