@@ -4,6 +4,7 @@
 #addin nuget:?package=Newtonsoft.Json&version=12.0.3
 #tool dotnet:https://f.feedz.io/wormiecorp/packages/nuget/index.json?package=dotnet-ccvarn&version=1.0.0-alpha*&prerelease
 #tool dotnet:?package=GitReleaseManager.Tool&version=0.11.0
+using System;
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -159,6 +160,7 @@ Task("Push-NuGetPackages")
 
 Task("Publish-Release")
 	.WithCriteria(() => HasEnvironmentVariable("GITHUB_TOKEN"))
+	.WithCriteria(() => !String.IsNullOrEmpty(EnvironmentVariable("GITHUB_TOKEN")))
 	.Does<BuildVersion>((version) =>
 {
 	var token = EnvironmentVariable("GITHUB_TOKEN");
