@@ -1,9 +1,10 @@
 name: Build project
 
 on:
-  push:
-    branches-ignore:
+  create:
+    tags:
       - "*"
+  push:
     tags:
       - "*"
 
