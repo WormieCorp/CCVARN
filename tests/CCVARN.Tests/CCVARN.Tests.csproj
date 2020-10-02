@@ -12,7 +12,7 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-		<PackageReference Include="Moq" Version="4.14.5" />
+		<PackageReference Include="Moq" Version="4.14.6" />
 		<PackageReference Include="Shouldly" Version="3.0.2" />
 		<PackageReference Include="SpecFlow" Version="3.4.8" />
 		<PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.4.8" />
