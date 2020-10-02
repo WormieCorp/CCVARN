@@ -22,7 +22,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Spectre.Cli" Version="0.44.0" />
-		<PackageReference Include="spectre.console" Version="0.22.0" />
+		<PackageReference Include="spectre.console" Version="0.23.0" />
 	</ItemGroup>
 
 	<ItemGroup>
