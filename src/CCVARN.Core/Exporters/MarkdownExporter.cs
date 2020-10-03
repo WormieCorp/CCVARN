@@ -33,10 +33,12 @@ namespace CCVARN.Core.Exporters
 			using var writer = new StreamWriter(outputPath, false, new UTF8Encoding(false));
 
 			writer.WriteLine("# {0} (**{1}**) #", data.Version.SemVer, DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
-			writer.WriteLine();
+
+			var breakingNotes = data.ReleaseNotes.Notes.Where(n => n.Key == "BREAKING CHANGE" || n.Key == "BREAKING CHANGES");
 
 			if (data.ReleaseNotes.BreakingChanges.Any())
 			{
+				writer.WriteLine();
 				writer.WriteLine("## BREAKING CHANGES ##");
 				writer.WriteLine();
 
@@ -45,36 +47,52 @@ namespace CCVARN.Core.Exporters
 					writer.WriteLine(line);
 				}
 
-				writer.WriteLine();
+				if (breakingNotes.Any())
+					writer.WriteLine();
 			}
 
-			foreach (var notePair in data.ReleaseNotes.Notes)
+			foreach (var notePair in breakingNotes)
 			{
-				writer.WriteLine("### {0} ###", notePair.Key);
-				writer.WriteLine();
+				AddNoteLines(writer, notePair, data.ReleaseNotes.BreakingChanges.Count == 0, 2);
+			}
 
-				foreach (var note in notePair.Value)
-				{
-					writer.Write("- ");
-					if (!string.IsNullOrEmpty(note.Scope))
-						writer.Write("**{0}**: ", note.Scope);
-
-					writer.Write(note.Summary);
-
-					foreach (var issue in note.Issues)
-					{
-						writer.Write(", closes #{0}", issue);
-					}
-
-					writer.WriteLine();
-				}
-
-				writer.WriteLine();
+			foreach (var notePair in data.ReleaseNotes.Notes.Except(breakingNotes))
+			{
+				AddNoteLines(writer, notePair, true);
 			}
 
 			writer.Flush();
 
 			this.console.WriteInfoLine(":check_mark: Exported [teal]Markdown Release Notes[/] to '[teal]{0}[/]'", outputPath);
+		}
+
+		private static void AddNoteLines(StreamWriter writer, KeyValuePair<string, List<NoteData>> notePair, bool includeHeader, int headerIndent = 3)
+		{
+			if (includeHeader)
+			{
+				writer.WriteLine();
+				for (var i = 0; i < headerIndent; i++)
+					writer.Write('#');
+				writer.Write(" {0} ", notePair.Key);
+				for (var i = 0; i < headerIndent; i++)
+					writer.Write('#');
+				writer.WriteLine();
+				writer.WriteLine();
+			}
+
+			foreach (var note in notePair.Value)
+			{
+				writer.Write("- ");
+				if (!string.IsNullOrEmpty(note.Scope))
+					writer.Write("**{0}**: ", note.Scope);
+
+				writer.Write(note.Summary);
+
+				foreach (var issue in note.Issues)
+					writer.Write(", closes #{0}", issue);
+
+				writer.WriteLine();
+			}
 		}
 	}
 }

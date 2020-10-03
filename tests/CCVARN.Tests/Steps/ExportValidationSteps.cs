@@ -17,7 +17,7 @@ namespace CCVARN.Tests.Steps
 			this.context = context;
 		}
 
-		[Then("the exported plain release notes should be")]
+		[Then("the exported (?:plain )?release notes should be")]
 		public void ThenTheExportedPlainReleaseNotesShouldBe(Table table)
 		{
 			var expected = new StringBuilder();
