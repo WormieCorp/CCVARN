@@ -15,7 +15,6 @@ CCVARN helps developers using [conventional-commits][] to have version and relea
 - [Background](#background)
 - [Install](#install)
 - [Usage](#usage)
-- [API](#api)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
   - [Contributors](#contributors)

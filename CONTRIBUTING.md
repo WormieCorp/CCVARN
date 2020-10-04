@@ -2,19 +2,29 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
 - [Prerequisites](#prerequisites)
 - [Definition of trivial contributions](#definition-of-trivial-contributions)
 - [Code](#code)
-  - [Code style](#code-style)
+  - [Code Style](#code-style)
   - [Dependencies](#dependencies)
   - [Unit tests](#unit-tests)
 - [Contributing process](#contributing-process)
   - [Get buyoff or find open community issues or features](#get-buyoff-or-find-open-community-issues-or-features)
   - [Set up your environment](#set-up-your-environment)
   - [Prepare commits](#prepare-commits)
+    - [Commit Message Guidelines](#commit-message-guidelines)
+      - [Revert](#revert)
+      - [Type](#type)
+      - [Scope](#scope)
+      - [Subject](#subject)
+      - [Body](#body)
+      - [Footer](#footer)
+      - [Breaking Changes](#breaking-changes)
   - [Submit pull request](#submit-pull-request)
   - [Respond to feedback on pull request](#respond-to-feedback-on-pull-request)
-- [Other general information](#other-general-information)
+  - [Other general information](#other-general-information)
 - [Acknowledgement](#acknowledgement)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
