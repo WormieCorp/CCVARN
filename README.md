@@ -17,9 +17,8 @@ CCVARN helps developers using [conventional-commits][] to have version and relea
 - [Usage](#usage)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
-  - [Contributors](#contributors)
+  - [Contributors ✨](#contributors-)
 - [License](#license)
-- [Contributors ✨](#contributors-)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
