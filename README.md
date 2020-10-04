@@ -17,7 +17,7 @@ CCVARN helps developers using [conventional-commits][] to have version and relea
 - [Usage](#usage)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
-  - [Contributors](#contributors)
+  - [Contributors ✨](#contributors-)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -68,13 +68,24 @@ Small note: If editing the README, please conform to the [standard-readme][] spe
 
 This project follows the [all-contributors][] specification. Contributions of any kind is welcome!
 
-### Contributors
+### Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key][]):
-
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/AdmiringWorm"><img src="https://avatars3.githubusercontent.com/u/1474648?v=4" width="100px;" alt=""/><br /><sub><b>Kim J. Nordmo</b></sub></a><br /><a href="#maintenance-AdmiringWorm" title="Maintenance">🚧</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors][] specification.
+Contributions of any kind welcome!
 
 ## License
 
