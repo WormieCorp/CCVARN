@@ -2,6 +2,7 @@ name: Build project
 
 on:
   create:
+    branches-ignore: ["*"]
     tags:
       - "*"
   push:
