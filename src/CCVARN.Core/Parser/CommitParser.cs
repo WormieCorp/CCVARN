@@ -161,7 +161,7 @@ namespace CCVARN.Core.Parser
 				this._writer.WriteInfoLine("Parsing tag '[invert]{0}[/]'", commit.Ref);
 			else
 				this._writer.WriteInfoLine("Parsing commit '[invert]{0}[/]'", commit.Sha);
-			var text = commit.RawText.Split('\n').First(text => !string.IsNullOrEmpty(text)).Trim();
+			var text = commit.RawText.Split('\n').First(text => !string.IsNullOrEmpty(text)).Trim().Replace("[", "[[", StringComparison.Ordinal).Replace("]", "]]", StringComparison.Ordinal);
 			text = Regex.Replace(text, @"(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_]*)?", "[link]$0[/]", RegexOptions.Compiled);
 			this._writer.AddIndent();
 			this._writer.WriteInfoLine(text);
