@@ -25,16 +25,19 @@ namespace CCVARN.Core.Exporters
 			return string.Equals(extension, ".txt", StringComparison.OrdinalIgnoreCase);
 		}
 
-		public void ExportParsedData(ParsedData data, string outputPath)
+		public void ExportParsedData(ParsedData data, string outputPath, bool excludeHeader)
 		{
 			if (data is null)
 				throw new ArgumentNullException(nameof(data));
 
 			using var writer = new StreamWriter(outputPath, false, new UTF8Encoding(false));
 
-			var text = string.Format(CultureInfo.InvariantCulture, "{0} ({1})", data.Version.SemVer, DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
-			writer.WriteLine(text);
-			WriteUnderline(writer, text.Length, '=');
+			if (!excludeHeader)
+			{
+				var text = string.Format(CultureInfo.InvariantCulture, "{0} ({1})", data.Version.SemVer, DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+				writer.WriteLine(text);
+				WriteUnderline(writer, text.Length, '=');
+			}
 
 			var breakingNotes = data.ReleaseNotes.Notes.Where(n => n.Key == "BREAKING CHANGE" || n.Key == "BREAKING CHANGES");
 

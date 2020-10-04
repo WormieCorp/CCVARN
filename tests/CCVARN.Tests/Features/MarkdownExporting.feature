@@ -116,6 +116,18 @@ Feature: Exporting markdown release notes
 			|                                    |
 			| - some feature                     |
 
+	Scenario: Exporting release notes without a header
+		Given the parsed version 1.0.0
+		And the release notes
+			| displayName | type | summary      |
+			| Feature     | feat | some feature |
+		When the user is exporting markdown text without a header
+		Then the exported release notes should be
+			|                 |
+			| ### Feature ### |
+			|                 |
+			| - some feature  |
+
 	Scenario: Exporting markdown text based on extension
 		Given the path test.<ext>
 		When the user checks if path can be parsed

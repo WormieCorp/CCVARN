@@ -1,7 +1,6 @@
 namespace CCVARN.Options
 {
 	using System;
-	using System.Collections.Generic;
 	using System.ComponentModel;
 	using System.IO;
 	using Spectre.Cli;
@@ -17,6 +16,10 @@ namespace CCVARN.Options
 		[DefaultValue("CCVARN.json")]
 		[Description("The main output file to store the asserted information (defaults to CCVARN.json)")]
 		public string? Output { get; set; }
+
+		[CommandOption("--exclude-headers")]
+		[Description("This allows disabling the output of the version header when generating release notes")]
+		public bool ExcludeHeaders { get; set; }
 
 		public override ValidationResult Validate()
 		{

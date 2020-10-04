@@ -28,7 +28,19 @@ namespace CCVARN.Tests.Steps
 
 			var exporter = new PlainTextExporter(new Mock<IConsoleWriter>().Object);
 
-			exporter.ExportParsedData(this.data, destination);
+			exporter.ExportParsedData(this.data, destination, false);
+
+			this.context["EXPORTED_FILE"] = destination;
+		}
+
+		[When("the user is exporting plain text without header")]
+		public void WhenTheUserIsExportingPlainTextWithoutHeader()
+		{
+			var destination = Path.Combine(Environment.CurrentDirectory, Guid.NewGuid() + ".txt");
+
+			var exporter = new PlainTextExporter(new Mock<IConsoleWriter>().Object);
+
+			exporter.ExportParsedData(this.data, destination, true);
 
 			this.context["EXPORTED_FILE"] = destination;
 		}
@@ -40,7 +52,19 @@ namespace CCVARN.Tests.Steps
 
 			var exporter = new MarkdownExporter(new Mock<IConsoleWriter>().Object);
 
-			exporter.ExportParsedData(this.data, destination);
+			exporter.ExportParsedData(this.data, destination, false);
+
+			this.context["EXPORTED_FILE"] = destination;
+		}
+
+		[When("the user is exporting markdown text without a header")]
+		public void WhenTheUserIsExportingMarkdownTextWithoutHeader()
+		{
+			var destination = Path.Combine(Environment.CurrentDirectory, Guid.NewGuid() + ".txt");
+
+			var exporter = new MarkdownExporter(new Mock<IConsoleWriter>().Object);
+
+			exporter.ExportParsedData(this.data, destination, true);
 
 			this.context["EXPORTED_FILE"] = destination;
 		}

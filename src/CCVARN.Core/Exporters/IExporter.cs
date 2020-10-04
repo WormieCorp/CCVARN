@@ -5,6 +5,6 @@ namespace CCVARN.Core.Exporters
 	public interface IExporter
 	{
 		bool CanExportToFile(string filePath);
-		void ExportParsedData(ParsedData data, string outputPath);
+		void ExportParsedData(ParsedData data, string outputPath, bool excludeHeader);
 	}
 }

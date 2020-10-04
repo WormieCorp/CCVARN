@@ -6,6 +6,7 @@ namespace CCVARN.Core.Exporters
 	using System.IO;
 	using System.Linq;
 	using System.Text;
+	using CCVARN.Core.Configuration;
 	using CCVARN.Core.IO;
 	using CCVARN.Core.Models;
 
@@ -25,14 +26,17 @@ namespace CCVARN.Core.Exporters
 			return string.Equals(extension, ".md", StringComparison.OrdinalIgnoreCase);
 		}
 
-		public void ExportParsedData(ParsedData data, string outputPath)
+		public void ExportParsedData(ParsedData data, string outputPath, bool excludeHeader)
 		{
 			if (data is null)
 				throw new ArgumentNullException(nameof(data));
 
 			using var writer = new StreamWriter(outputPath, false, new UTF8Encoding(false));
 
-			writer.WriteLine("# {0} (**{1}**) #", data.Version.SemVer, DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+			if (!excludeHeader)
+			{
+				writer.WriteLine("# {0} (**{1}**) #", data.Version.SemVer, DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+			}
 
 			var breakingNotes = data.ReleaseNotes.Notes.Where(n => n.Key == "BREAKING CHANGE" || n.Key == "BREAKING CHANGES");
 

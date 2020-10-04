@@ -24,7 +24,7 @@ namespace CCVARN.Core.Exporters
 			return string.Equals(extension, ".json", StringComparison.OrdinalIgnoreCase);
 		}
 
-		public void ExportParsedData(ParsedData data, string outputPath)
+		public void ExportParsedData(ParsedData data, string outputPath, bool excludeHeader)
 		{
 			var serializer = new JsonSerializer
 			{

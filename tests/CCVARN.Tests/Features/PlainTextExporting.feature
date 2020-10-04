@@ -123,6 +123,18 @@ Feature: Exporting plain text release notes
 			| -------                            |
 			| - some feature                     |
 
+	Scenario: Exporting plain text release notes without version header
+		Given the parsed version 1.0.0
+		And the release notes
+			| displayName | type | summary      |
+			| Feature     | feat | some feature |
+		When the user is exporting plain text without header
+		Then the exported plain release notes should be
+			|                |
+			| Feature        |
+			| -------        |
+			| - some feature |
+
 	Scenario: Exporting plain text based on extension
 		Given the path test.<ext>
 		When the user checks if path can be parsed

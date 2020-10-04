@@ -51,7 +51,7 @@ namespace CCVARN.Commands
 							Directory.CreateDirectory(directory);
 						}
 
-						exporter.ExportParsedData(result, output);
+						exporter.ExportParsedData(result, output, settings.ExcludeHeaders);
 						success = true;
 						break;
 					}
