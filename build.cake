@@ -73,9 +73,8 @@ Task("Build")
 		Configuration = configuration,
 		NoIncremental = HasArgument("no-incremental"),
 		MSBuildSettings = new DotNetCoreMSBuildSettings()
-			.SetVersionPrefix(version.MajorMinorPatch)
+			.SetVersion(version.FullSemVer)
 			.WithProperty("PackageReleaseNotes", plainTextNotes),
-		VersionSuffix = version.PreReleaseTag + "+" + version.Metadata,
 	});
 });
 
@@ -109,9 +108,8 @@ Task("Pack")
 		NoBuild = true,
 		OutputDirectory = artifactsDir.Combine("packages"),
 		MSBuildSettings = new DotNetCoreMSBuildSettings()
-			.SetVersionPrefix(version.MajorMinorPatch)
+			.SetVersion(version.FullSemVer)
 			.WithProperty("PackageReleaseNotes", plainTextNotes),
-		VersionSuffix = version.PreReleaseTag + "+" + version.Metadata,
 	});
 });
 
