@@ -8,13 +8,23 @@
 		<PackAsTool>true</PackAsTool>
 		<ToolCommandName>dotnet-ccvarn</ToolCommandName>
 		<PackageId>dotnet-ccvarn</PackageId>
+		<Description>Helper utility for asserting version and generating release notes based on conventional commits</Description>
+		<Authors>Kim J. Nordmo;WormieCorp</Authors>
+		<PackageTags>versioning;conventional-commits;release-notes;Git;SemVer</PackageTags>
+		<Title>CCVARN</Title>
+		<Copyright>Copyright © 2020 Kim J. Nordmo</Copyright>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<IncludeSymbols>true</IncludeSymbols>
+		<ProjectUrl>https://github.com/WormieCorp/CCVARN</ProjectUrl>
+		<RepositoryUrl>$(ProjectUrl).git</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="DryIoc" Version="4.4.1" />
 		<PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		  <PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 		<PackageReference Include="Roslynator.Analyzers" Version="3.0.0">
