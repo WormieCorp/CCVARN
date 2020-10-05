@@ -1,11 +1,8 @@
-name: Build project
+name: Build Release project
 
 on:
   create:
     branches-ignore: ["*"]
-    tags:
-      - "*"
-  push:
     tags:
       - "*"
 
