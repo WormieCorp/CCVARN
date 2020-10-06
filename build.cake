@@ -2,7 +2,7 @@
 #addin nuget:?package=Cake.Codecov&version=0.9.1
 #addin nuget:?package=Cake.Json&version=5.2.0
 #addin nuget:?package=Newtonsoft.Json&version=12.0.3
-#tool dotnet:?package=dotnet-ccvarn&version=1.0.0
+#tool dotnet:?package=dotnet-ccvarn&version=1.0.1
 #tool dotnet:?package=GitReleaseManager.Tool&version=0.11.0
 using System;
 
