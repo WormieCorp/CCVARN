@@ -21,4 +21,4 @@ jobs:
       - name: Restore .NET Core tools
         run: dotnet tool restore
       - name: Build
-        run: dotnet cake --bootstrap && dotnet cake --settings_skippackageversioncheck=true --target=Publish-Release
+        run: dotnet cake --bootstrap && dotnet cake --settings_skippackageversioncheck=true --target=Publish-Release --verbosity=Diagnostic
