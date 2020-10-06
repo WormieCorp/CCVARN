@@ -2,6 +2,7 @@ namespace CCVARN.IO
 {
 	using System;
 	using System.Globalization;
+	using System.Linq;
 	using System.Text;
 	using CCVARN.Core.IO;
 	using Spectre.Console;
@@ -56,10 +57,24 @@ namespace CCVARN.IO
 			this.console.MarkupLine(CultureInfo.CurrentCulture, format, parameters);
 		}
 
+		public void WriteInfoSafe(string format, params string[] parameters)
+		{
+			var safeParameters = parameters.Select(p => p.SafeMarkup()).ToArray();
+
+			WriteInfo(format, safeParameters);
+		}
+
 		public void WriteInfoLine(string format, params object[] parameters)
 		{
 			this.console.Write(this.currentIndent, Style.Plain);
 			this.console.MarkupLine(CultureInfo.CurrentCulture, format, parameters);
+		}
+
+		public void WriteInfoLineSafe(string format, params string[] parameters)
+		{
+			var safeParameters = parameters.Select(p => p.SafeMarkup()).ToArray();
+
+			WriteInfoLine(format, safeParameters);
 		}
 	}
 }

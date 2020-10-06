@@ -10,6 +10,10 @@ namespace CCVARN.Core.IO
 
 		void WriteInfo(string format, params object[] parameters);
 
+		void WriteInfoSafe(string format, params string[] parameters);
+
 		void WriteInfoLine(string format, params object[] parameters);
+
+		void WriteInfoLineSafe(string format, params string[] parameters);
 	}
 }
