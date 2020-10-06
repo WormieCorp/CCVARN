@@ -63,11 +63,11 @@ namespace CCVARN.Core.Parser
 			foreach (var commit in commits)
 			{
 				this._writer.AddIndent();
-				var parsedCommit = ParseConventionalCommit(commit);
+				var parsedCommit = ParseConventionalCommit(commit, firstCommit || !commit.IsTag);
 				if (parsedCommit != null || commit.IsTag)
 					version = this._versionParser.ParseVersion(version, parsedCommit ?? commit);
 
-				if (parsedCommit != null)
+				if (parsedCommit != null && (firstCommit || !commit.IsTag))
 					this._releaseNoteParser.ParseReleaseNotes(releaseNotes, parsedCommit);
 
 				this._writer.RemoveIndent();
@@ -155,24 +155,31 @@ namespace CCVARN.Core.Parser
 			return subs;
 		}
 
-		private ConventionalCommitInfo? ParseConventionalCommit(CommitInfo commit)
+		private ConventionalCommitInfo? ParseConventionalCommit(CommitInfo commit, bool reportCommit)
 		{
-			if (commit.IsTag && commit.Ref != null)
-				this._writer.WriteInfoLine("Parsing tag '[invert]{0}[/]'", commit.Ref);
+			if (reportCommit)
+			{
+				if (commit.IsTag && commit.Ref != null)
+					this._writer.WriteInfoLine("Parsing tag '[invert]{0}[/]'", commit.Ref);
+				else
+					this._writer.WriteInfoLine("Parsing commit '[invert]{0}[/]'", commit.Sha);
+				var text = commit.RawText.Split('\n').First(text => !string.IsNullOrEmpty(text)).Trim();
+				text = Regex.Replace(text, @"(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_]*)?", "[link]$0[/]", RegexOptions.Compiled);
+				this._writer.AddIndent();
+				this._writer.WriteInfoLineSafe("{0}", text);
+			}
 			else
-				this._writer.WriteInfoLine("Parsing commit '[invert]{0}[/]'", commit.Sha);
-			var text = commit.RawText.Split('\n').First(text => !string.IsNullOrEmpty(text)).Trim();
-			text = Regex.Replace(text, @"(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_]*)?", "[link]$0[/]", RegexOptions.Compiled);
-			this._writer.AddIndent();
-			this._writer.WriteInfoLineSafe("{0}", text);
+			{
+				this._writer.AddIndent();
+			}
 
 			var regex = new Regex(@"^(?<type>[a-z]+)(?:\((?<scope>[^\)]+)\))?(?<breaking>!)?\:\s*(?<message>[^\r\n]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
 			var m = regex.Match(commit.RawText);
 			if (m.Success)
 				return UpdateCommitInfo(commit, m);
-			else if (commit.RawText.TrimStart().StartsWith("Merge", StringComparison.OrdinalIgnoreCase))
+			else if (reportCommit && commit.RawText.TrimStart().StartsWith("Merge", StringComparison.OrdinalIgnoreCase))
 				this._writer.WriteInfoLine("[yellow]:double_exclamation_mark:[/] Found merge commit...");
-			else
+			else if (reportCommit)
 				this._writer.WriteInfoLine(":cross_mark: Not a conventional commit...");
 
 			this._writer.RemoveIndent();
