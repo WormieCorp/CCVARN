@@ -169,7 +169,7 @@ Task("Publish-Release")
 	{
 		Name            = version.SemVer,
 		InputFilePath   = markdownReleaseNotes,
-		TargetCommitish = version.SemVer,
+		TargetCommitish = "master",
 		Prerelease      = version.MajorMinorPatch != version.SemVer,
 	});
 
