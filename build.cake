@@ -157,6 +157,7 @@ Task("Push-NuGetPackages")
 });
 
 Task("Publish-Release")
+	.IsDependentOn("Default")
 	.WithCriteria(() => HasEnvironmentVariable("GITHUB_TOKEN"))
 	.WithCriteria(() => !String.IsNullOrEmpty(EnvironmentVariable("GITHUB_TOKEN")))
 	.Does<BuildVersion>((version) =>
