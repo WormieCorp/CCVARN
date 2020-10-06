@@ -168,9 +168,8 @@ Task("Publish-Release")
 	GitReleaseManagerCreate(token, organization, repository, new GitReleaseManagerCreateSettings
 	{
 		Name            = version.SemVer,
-		Milestone       = version.MajorMinorPatch,
 		InputFilePath   = markdownReleaseNotes,
-		TargetCommitish = "master",
+		TargetCommitish = version.SemVer,
 		Prerelease      = version.MajorMinorPatch != version.SemVer,
 	});
 
