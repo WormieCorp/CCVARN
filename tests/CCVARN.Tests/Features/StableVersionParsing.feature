@@ -74,3 +74,14 @@ uses a specific tag as its version.
 		Then the resulting version should be 1.3.5
 		And sha is set to tag commit
 		And with the commit count 1
+
+	Scenario: Parsing a tagged merge commit
+		Given the tag with version 0.3.0 with the message Merge branch 'release/0.3.0' into master
+		And the following commits
+			| rawText                                                                         |
+			| feat: include embedded pdb files to fully enable deterministic builds for addin |
+		And the previous tag 0.2.0 with the message Merge branch 'release/0.2.0' into master
+		When the user parses the commits
+		Then the resulting version should be 0.3.0
+		And sha is set to tag commit
+		And with the commit count 2

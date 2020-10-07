@@ -78,7 +78,7 @@ namespace CCVARN.Core.Parser
 
 				if (firstCommit)
 				{
-					if (commit.RawText.StartsWith("Merge ", StringComparison.OrdinalIgnoreCase))
+					if (!commit.IsTag && commit.RawText.StartsWith("Merge ", StringComparison.OrdinalIgnoreCase))
 						continue;
 					firstCommitIsTag = commit.IsTag;
 					metadata = commit.Sha;
@@ -109,7 +109,9 @@ namespace CCVARN.Core.Parser
 
 			var versionBumped = false;
 			if (!firstCommitIsTag)
+			{
 				versionBumped = ForceNextVersion(version);
+			}
 			else if (version.MajorMinorPatch == "0.0.0")
 			{
 				version.SetNextBump(VersionBump.None, true);
