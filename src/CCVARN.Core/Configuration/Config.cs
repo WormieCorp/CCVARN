@@ -9,7 +9,7 @@ namespace CCVARN.Core.Configuration
 		[Description("The major-minor-patch version that should be used when parsing the commits.\n" +
 			"This option will only be taken into account when the current HEAD is not a tagged\n" +
 			"build, and the value is higher than the last tagged release.")]
-		public string NextVersion { get; set; } = "1.0.0";
+		public string NextVersion { get; set; } = "0.0.0";
 
 		[Description("The pre-release tag to use as a default for non-tagged releases (tagged releases will override this option).")]
 		public string Tag { get; set; } = "alpha";

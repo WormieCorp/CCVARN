@@ -11,7 +11,7 @@ namespace CCVARN.Commands
 		protected override int ExecuteCore(CommandContext context, InitOptions settings)
 		{
 			Console!.WriteInfoLine("Exporting standard configuration file");
-			ConfigSerializer.SaveConfiguration(settings.RepositoryRoot!, new Config());
+			ConfigSerializer.SaveConfiguration(settings.RepositoryRoot!, new Config() { NextVersion = "1.0.0" });
 			Console.WriteInfo(":check_mark: Configuration file successfully exported!");
 
 			return 0;

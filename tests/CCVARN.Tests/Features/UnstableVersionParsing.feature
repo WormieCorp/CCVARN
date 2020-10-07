@@ -117,6 +117,14 @@ expecting some unstable release.
 		Then the resulting version should be 0.3.0-alpha.1.1
 		And with the commit count 1
 
+	Scenario: Parsing feature commit configured with stable next version and previous non-stable
+		Given the following commit feat: some kind of new feature
+		And the previous tag 0.2.0 with the message docs: update changelog
+		And the next version is set to 1.0.0
+		When the user parses the commits
+		Then the resulting version should be 1.0.0-alpha.1.1
+		And with the commit count 1
+
 	Scenario: Parsing commit with breaking change in body
 		Given the following commit feat: some new feature\n\nSome body\n\nBREAKING CHANGE: Important breaking change
 		And the previous tag 1.0.0 with the message docs: update changelog

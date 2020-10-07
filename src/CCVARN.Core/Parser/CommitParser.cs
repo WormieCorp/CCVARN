@@ -18,6 +18,8 @@ namespace CCVARN.Core.Parser
 		private readonly IRepository _repository;
 		private readonly VersionParser _versionParser;
 		private readonly IConsoleWriter _writer;
+		private readonly System.Version _nextVersion;
+		private readonly bool _allowMajorBump = true;
 
 		public CommitParser(Config config, IRepository repository, IConsoleWriter writer)
 		{
@@ -27,8 +29,10 @@ namespace CCVARN.Core.Parser
 			this._versionParser = new VersionParser(this.config.TypeScopes);
 			this._releaseNoteParser = new ReleaseNoteParser(this.config.TypeScopes, writer);
 
-			if (System.Version.Parse(config.NextVersion) < System.Version.Parse("1.0.0"))
-				VersionData.DisableMajorBump();
+			this._nextVersion = System.Version.Parse(config.NextVersion);
+
+			if (this._nextVersion < System.Version.Parse("1.0.0") && this._nextVersion > System.Version.Parse("0.0.0"))
+				this._allowMajorBump = false;
 		}
 
 		public IEnumerable<CommitInfo> GetAllCommits()
@@ -104,9 +108,13 @@ namespace CCVARN.Core.Parser
 			}
 
 			var versionBumped = false;
-
 			if (!firstCommitIsTag)
-				versionBumped = version.CommitNextBump();
+				versionBumped = ForceNextVersion(version);
+			else if (version.MajorMinorPatch == "0.0.0")
+			{
+				version.SetNextBump(VersionBump.None, true);
+				versionBumped = ForceNextVersion(version);
+			}
 
 			version.Metadata = metadata;
 			version.Commits = commitCount;
@@ -120,6 +128,38 @@ namespace CCVARN.Core.Parser
 			}
 
 			return new ParsedData(version, releaseNotes);
+		}
+
+		private bool ForceNextVersion(VersionData version)
+		{
+			bool versionIsBumped;
+			if (version.Major < this._nextVersion.Major)
+			{
+				version.SetNextBump(VersionBump.Major);
+				versionIsBumped = version.CommitNextBump(this._allowMajorBump);
+			}
+			else if (version.Minor < this._nextVersion.Minor)
+			{
+				version.SetNextBump(VersionBump.Minor);
+				versionIsBumped = version.CommitNextBump(this._allowMajorBump);
+			}
+			else if (version.Patch < this._nextVersion.Build)
+			{
+				version.SetNextBump(VersionBump.Patch);
+				versionIsBumped = version.CommitNextBump(this._allowMajorBump);
+			}
+			else
+			{
+				versionIsBumped = version.CommitNextBump(this._allowMajorBump);
+
+				if (version.MajorMinorPatch == "0.0.0" && this._nextVersion.ToString(3) == "0.0.0")
+				{
+					version.SetNextBump(VersionBump.Major);
+					versionIsBumped = version.CommitNextBump(this._allowMajorBump);
+				}
+			}
+
+			return versionIsBumped;
 		}
 
 		private static string AddResolvedIssues(ConventionalCommitInfo newCommit, string line)

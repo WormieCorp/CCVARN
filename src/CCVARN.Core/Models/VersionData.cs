@@ -8,7 +8,6 @@ namespace CCVARN.Core.Models
 	public class VersionData : IEquatable<VersionData>
 	{
 		private const string TAG_REFERENCE_PREFIX = "refs/tags/";
-		private static bool _allowMajorBump = true;
 		private bool _isEmpty = true;
 		private VersionBump _nextVersionBump;
 
@@ -23,9 +22,6 @@ namespace CCVARN.Core.Models
 		public string PreReleaseTag => BuildPreReleaseTag();
 		public string SemVer => ToString(false);
 		public int? Weight { get; set; }
-
-		public static void DisableMajorBump()
-			=> _allowMajorBump = false;
 
 		public static VersionData Parse(string versionOrReference, VersionData? oldVersion = null)
 		{
@@ -116,11 +112,14 @@ namespace CCVARN.Core.Models
 			return data;
 		}
 
-		public bool CommitNextBump()
+		public bool CommitNextBump(bool allowMajorBump = true)
 		{
-			if (_allowMajorBump && this._isEmpty)
+			if (this._nextVersionBump == VersionBump.None)
+				return false;
+
+			if (allowMajorBump && this._isEmpty)
 				this._nextVersionBump = VersionBump.Major;
-			else if (!_allowMajorBump && this._nextVersionBump == VersionBump.Major)
+			else if (!allowMajorBump && this._nextVersionBump == VersionBump.Major)
 				this._nextVersionBump = VersionBump.Minor;
 
 			var isBumped = false;
@@ -177,9 +176,9 @@ namespace CCVARN.Core.Models
 		public bool IsEmpty()
 			=> this._isEmpty;
 
-		public void SetNextBump(VersionBump versionBump)
+		public void SetNextBump(VersionBump versionBump, bool forceBump = false)
 		{
-			if (versionBump > this._nextVersionBump)
+			if (versionBump > this._nextVersionBump || forceBump)
 				this._nextVersionBump = versionBump;
 		}
 
