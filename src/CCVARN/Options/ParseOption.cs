@@ -21,6 +21,10 @@ namespace CCVARN.Options
 		[Description("This allows disabling the output of the version header when generating release notes")]
 		public bool ExcludeHeaders { get; set; }
 
+		[CommandOption("--tag [TAG_NAME]")]
+		[Description("This allows overriding the tage name specified in the configuration file when calling the tool.")]
+		public FlagValue<string> TagName { get; set; } = new FlagValue<string>();
+
 		public override ValidationResult Validate()
 		{
 			var extension = Path.GetExtension(Output);

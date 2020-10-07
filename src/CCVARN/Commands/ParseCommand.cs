@@ -24,6 +24,13 @@ namespace CCVARN.Commands
 
 		protected override int ExecuteCore(CommandContext context, ParseOption settings)
 		{
+			var config = Container.Resolve<Config>();
+
+			if (settings.TagName.IsSet)
+			{
+				config.Tag = settings.TagName.Value;
+			}
+
 			var commitParser = Container.Resolve<CommitParser>();
 
 			var commits = commitParser.GetAllCommits();
