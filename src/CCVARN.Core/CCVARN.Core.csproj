@@ -5,6 +5,7 @@
 		<LangVersion>8.0</LangVersion>
 		<nullable>enable</nullable>
 		<IsPackable>false</IsPackable>
+		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>

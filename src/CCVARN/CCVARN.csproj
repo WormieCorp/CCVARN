@@ -16,6 +16,7 @@
 		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
 		<ProjectUrl>https://github.com/WormieCorp/CCVARN</ProjectUrl>
 		<RepositoryUrl>$(ProjectUrl).git</RepositoryUrl>
+		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
