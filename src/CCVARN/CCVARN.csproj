@@ -14,8 +14,6 @@
 		<Title>CCVARN</Title>
 		<Copyright>Copyright © 2020 Kim J. Nordmo</Copyright>
 		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<IncludeSymbols>true</IncludeSymbols>
 		<ProjectUrl>https://github.com/WormieCorp/CCVARN</ProjectUrl>
 		<RepositoryUrl>$(ProjectUrl).git</RepositoryUrl>
 	</PropertyGroup>
