@@ -52,10 +52,7 @@ jobs:
       # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
       # If this step fails, then you should remove it and run the build manually (see below)
       - name: Build Project
-        run: |
-          dotnet tool restore
-          dotnet cake --bootstrap
-          dotnet cake --target=Build
+        run: ./build.sh --target=Build
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1

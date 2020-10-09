@@ -22,7 +22,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Restore .NET Core tools
-        run: dotnet tool restore
       - name: Build
-        run: dotnet cake --bootstrap && dotnet cake --settings_skippackageversioncheck=true
+        run: ./build.ps1
+        shell: pwsh

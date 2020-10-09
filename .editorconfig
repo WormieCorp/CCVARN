@@ -10,6 +10,13 @@ trim_trailing_whitespace = true
 indent_size = 2
 indent_style = space
 
+[*.ps1]
+charset = utf-8-bom
+end_of_line = crlf
+
+[*.sh]
+end_of_line = lf
+
 [dotnet-tools.json]
 indent_size = unset
 indent_style = unset
