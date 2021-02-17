@@ -1,0 +1,23 @@
+titleAndCommits: true
+
+scopes:
+  - scope: deps
+  - scope: gha
+  - scope: export
+  - scope: version
+  - scope: release-note
+
+types:
+  - feat
+  - improvement
+  - fix
+  - perf
+  - docs
+  - build
+  - ci
+  - refactor
+  - revert
+  - test
+  - chore
+
+allowMergeCommits: false
