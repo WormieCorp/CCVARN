@@ -33,7 +33,7 @@ jobs:
           # a pull request then we can checkout the head.
           fetch-depth: 0
       - name: Cache Tools
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.4
         with:
           path: tools
           key: ${{ runner.os }}-tools-${{ hashFiles('build.cake') }}
