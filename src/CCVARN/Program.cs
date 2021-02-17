@@ -13,7 +13,7 @@ namespace CCVARN
 	using CCVARN.Options;
 	using DryIoc;
 	using LibGit2Sharp;
-	using Spectre.Cli;
+	using Spectre.Console.Cli;
 
 	internal static class Program
 	{

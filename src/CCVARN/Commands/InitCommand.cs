@@ -3,7 +3,7 @@ namespace CCVARN.Commands
 	using System.ComponentModel;
 	using CCVARN.Core.Configuration;
 	using CCVARN.Options;
-	using Spectre.Cli;
+	using Spectre.Console.Cli;
 
 	[Description("Initializes the current repository with a new default configuration file\n([yellow]WARNING: This will overwrite any existing configuration file[/])")]
 	public sealed class InitCommand : BaseCommand<InitOptions>

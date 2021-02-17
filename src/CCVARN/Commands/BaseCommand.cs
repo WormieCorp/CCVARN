@@ -1,11 +1,13 @@
 namespace CCVARN.Commands
 {
 	using System;
+	using System.Diagnostics.CodeAnalysis;
 	using System.IO;
 	using CCVARN.Core.IO;
 	using CCVARN.Options;
 	using DryIoc;
-	using Spectre.Cli;
+	using Spectre.Console;
+	using Spectre.Console.Cli;
 
 	public abstract class BaseCommand<TSettings> : Command<TSettings>
 		where TSettings : BaseSettings
@@ -14,18 +16,15 @@ namespace CCVARN.Commands
 
 		public IContainer? Container { get; set; }
 
-		public sealed override int Execute(CommandContext context, TSettings settings)
+		public sealed override int Execute([NotNull] CommandContext context, [NotNull] TSettings settings)
 		{
 			Container.RegisterMapping<BaseSettings, TSettings>();
 
 			return ExecuteCore(context, settings);
 		}
 
-		public override ValidationResult Validate(CommandContext context, TSettings settings)
+		public override ValidationResult Validate([NotNull] CommandContext context, [NotNull] TSettings settings)
 		{
-			if (settings is null)
-				throw new ArgumentNullException(nameof(settings));
-
 			var repoRoot = GetRootPath(settings);
 
 			if (repoRoot is null)

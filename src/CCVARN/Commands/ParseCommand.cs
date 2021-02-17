@@ -3,6 +3,7 @@ namespace CCVARN.Commands
 	using System;
 	using System.Collections.Generic;
 	using System.ComponentModel;
+	using System.Diagnostics.CodeAnalysis;
 	using System.IO;
 	using System.Linq;
 	using CCVARN.Core.Configuration;
@@ -10,7 +11,8 @@ namespace CCVARN.Commands
 	using CCVARN.Core.Parser;
 	using CCVARN.Options;
 	using DryIoc;
-	using Spectre.Cli;
+	using Spectre.Console;
+	using Spectre.Console.Cli;
 
 	[Description("Parses the current repository from the current HEAD to the first found tag commit.")]
 	public sealed class ParseCommand : BaseCommand<ParseOption>
@@ -76,7 +78,7 @@ namespace CCVARN.Commands
 			return 0;
 		}
 
-		public override ValidationResult Validate(CommandContext context, ParseOption settings)
+		public override ValidationResult Validate([NotNull] CommandContext context, [NotNull] ParseOption settings)
 		{
 			if (settings is null)
 				throw new ArgumentNullException(nameof(settings));

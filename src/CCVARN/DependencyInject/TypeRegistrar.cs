@@ -5,7 +5,7 @@ namespace CCVARN.DependencyInject
 	using System.Text;
 	using CCVARN.Options;
 	using DryIoc;
-	using Spectre.Cli;
+	using Spectre.Console.Cli;
 
 	public sealed class TypeRegistrar : ITypeRegistrar
 	{

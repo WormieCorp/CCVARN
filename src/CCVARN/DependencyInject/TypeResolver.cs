@@ -5,7 +5,7 @@ namespace CCVARN.DependencyInject
 	using CCVARN.Commands;
 	using CCVARN.Options;
 	using DryIoc;
-	using Spectre.Cli;
+	using Spectre.Console.Cli;
 
 	public sealed class TypeResolver : ITypeResolver
 	{
