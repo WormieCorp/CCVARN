@@ -3,7 +3,8 @@ namespace CCVARN.Options
 	using System;
 	using System.ComponentModel;
 	using System.IO;
-	using Spectre.Cli;
+	using Spectre.Console;
+	using Spectre.Console.Cli;
 
 	[Description("Parses the current repository from the current HEAD to the first found tag commit.")]
 	public class ParseOption : BaseSettings

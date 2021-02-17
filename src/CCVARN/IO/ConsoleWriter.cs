@@ -59,7 +59,7 @@ namespace CCVARN.IO
 
 		public void WriteInfoSafe(string format, params string[] parameters)
 		{
-			var safeParameters = parameters.Select(p => p.SafeMarkup()).ToArray();
+			var safeParameters = parameters.Select(p => p.EscapeMarkup()).ToArray();
 
 			WriteInfo(format, safeParameters);
 		}
@@ -72,7 +72,7 @@ namespace CCVARN.IO
 
 		public void WriteInfoLineSafe(string format, params string[] parameters)
 		{
-			var safeParameters = parameters.Select(p => p.SafeMarkup()).ToArray();
+			var safeParameters = parameters.Select(p => p.EscapeMarkup()).ToArray();
 
 			WriteInfoLine(format, safeParameters);
 		}
