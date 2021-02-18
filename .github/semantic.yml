@@ -1,11 +1,11 @@
 titleAndCommits: true
 
 scopes:
-  - scope: deps
-  - scope: gha
-  - scope: export
-  - scope: version
-  - scope: release-note
+  - deps
+  - gha
+  - export
+  - version
+  - release-note
 
 types:
   - feat
