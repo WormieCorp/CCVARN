@@ -10,37 +10,41 @@ namespace CCVARN.Core.Exporters
 
 	public class JSonExporter : IExporter
 	{
-		private readonly IConsoleWriter console;
+		protected IConsoleWriter Console { get; }
 
 		public JSonExporter(IConsoleWriter console)
 		{
-			this.console = console;
+			Console = console;
 		}
 
-		public bool CanExportToFile(string filePath)
+		public virtual bool CanExportToFile(string filePath)
 		{
 			var extension = Path.GetExtension(filePath);
 
 			return string.Equals(extension, ".json", StringComparison.OrdinalIgnoreCase);
 		}
 
-		public void ExportParsedData(ParsedData data, string outputPath, bool excludeHeader)
+		public virtual void ExportParsedData(ParsedData data, string outputPath, bool excludeHeader)
 		{
+			using var sw = new StreamWriter(outputPath, false, new UTF8Encoding(false));
+			ExportJsonInformation(sw, data);
+
+			Console.WriteInfoLine(":check_mark: Exported [teal]JSON Data[/] to '[teal]{0}[/]'", outputPath);
+		}
+
+		protected static void ExportJsonInformation(TextWriter stream, ParsedData data)
+		{
+			using var writer = new JsonTextWriter(stream);
 			var serializer = new JsonSerializer
 			{
 				Formatting = Formatting.Indented,
 				ContractResolver = new DefaultContractResolver
 				{
-					NamingStrategy = new CamelCaseNamingStrategy(),
+					NamingStrategy = new CamelCaseNamingStrategy()
 				},
 			};
 
-			using var sw = new StreamWriter(outputPath, false, new UTF8Encoding(false));
-			using var writer = new JsonTextWriter(sw);
-
 			serializer.Serialize(writer, data);
-
-			this.console.WriteInfoLine(":check_mark: Exported [teal]JSON Data[/] to '[teal]{0}[/]'", outputPath);
 		}
 	}
 }
