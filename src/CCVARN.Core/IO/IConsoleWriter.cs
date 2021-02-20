@@ -2,6 +2,9 @@ namespace CCVARN.Core.IO
 {
 	public interface IConsoleWriter
 	{
+		void DisableNormalOutput();
+		void DisableErrorOutput();
+
 		void AddIndent();
 
 		void RemoveIndent();

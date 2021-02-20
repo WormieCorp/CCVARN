@@ -1,7 +1,6 @@
 #addin nuget:?package=Cake.Codecov&version=1.0.0
 #addin nuget:?package=Cake.Json&version=5.2.0
 #addin nuget:?package=Newtonsoft.Json&version=12.0.3
-using System;
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");

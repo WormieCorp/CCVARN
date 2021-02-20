@@ -1,6 +1,7 @@
 namespace CCVARN
 {
 	using System;
+	using System.Linq;
 	using System.Reflection;
 	using System.Threading.Tasks;
 	using CCVARN.Commands;
@@ -21,6 +22,15 @@ namespace CCVARN
 		{
 			var container = CreateContainer();
 			var console = container.Resolve<IConsoleWriter>();
+
+			if (args.Any(a => string.Equals(a, "parse", StringComparison.OrdinalIgnoreCase)))
+			{
+				if (args.Any(a => string.Equals(a, "stdout", StringComparison.OrdinalIgnoreCase)))
+					console.DisableNormalOutput();
+
+				if (args.Any(a => string.Equals(a, "stderr", StringComparison.OrdinalIgnoreCase)))
+					console.DisableErrorOutput();
+			}
 
 			const string text = "[lightyellow3 on black]\n" +
 				"  ____ ______     ___    ____  _   _\n" +
@@ -56,6 +66,8 @@ namespace CCVARN
 
 					config.AddCommand<ParseCommand>("parse")
 						.WithExample(new[] { "parse", "ccvarn.json" })
+						.WithExample(new[] { "parse", "stdout" })
+						.WithExample(new[] { "parse", "stderr" })
 						.WithExample(new[] { "parse", "ccvarn.json", "--output", "ReleaseNotes.md", "--output", "ReleaseNotes.txt" })
 						.WithExample(new[] { "parse", "--output", "ReleaseNotes.md", "--output", "ReleaseNotes.txt" });
 				});
