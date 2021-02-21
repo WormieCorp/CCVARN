@@ -2,6 +2,7 @@ namespace CCVARN.IO
 {
 	using System;
 	using System.Globalization;
+	using System.IO;
 	using System.Linq;
 	using System.Text;
 	using CCVARN.Core.IO;
@@ -15,6 +16,10 @@ namespace CCVARN.IO
 		private bool standardOutputDisabled;
 		private bool errorOutputDisabled;
 
+		public TextWriter StandardOut { get; }
+
+		public TextWriter StandardError { get; }
+
 		public ConsoleWriter()
 		{
 			Console.OutputEncoding = Encoding.UTF8;
@@ -22,13 +27,13 @@ namespace CCVARN.IO
 			{
 				Ansi = AnsiSupport.Detect,
 				ColorSystem = ColorSystemSupport.Detect,
-				Out = Console.Out,
+				Out = StandardOut = Console.Out,
 			});
 			this.errorConsole = AnsiConsole.Create(new AnsiConsoleSettings
 			{
 				Ansi = AnsiSupport.Detect,
 				ColorSystem = ColorSystemSupport.Detect,
-				Out = Console.Error,
+				Out = StandardError = Console.Error,
 			});
 		}
 

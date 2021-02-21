@@ -22,12 +22,12 @@ namespace CCVARN.Core.Exporters
 			string outputType;
 			if (string.Equals(outputPath, "stdout", StringComparison.OrdinalIgnoreCase))
 			{
-				ExportJsonInformation(System.Console.Out, data);
+				ExportJsonInformation(Console.StandardOut, data);
 				outputType = "standard output";
 			}
 			else if (string.Equals(outputPath, "stderr", StringComparison.OrdinalIgnoreCase))
 			{
-				ExportJsonInformation(System.Console.Error, data);
+				ExportJsonInformation(Console.StandardError, data);
 				outputType = "standard error output";
 			}
 			else
@@ -38,7 +38,7 @@ namespace CCVARN.Core.Exporters
 			// This should only output when we standard output is not disabled.
 			// We should still output in case of future usage when logging
 			// is enabled.
-			this.Console.WriteInfoLine(":check_mark: Exported [teal]JSON Data[/] to '[teal]{0}[/]'", outputType);
+			Console.WriteInfoLine(":check_mark: Exported [teal]JSON Data[/] to '[teal]{0}[/]'", outputType);
 		}
 	}
 }

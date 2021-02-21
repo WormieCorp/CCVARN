@@ -148,7 +148,7 @@ namespace CCVARN.Core.Tests.Exporters
 			);
 		}
 
-		protected void VerifyExportedData(VersionData version, bool excludeHeader, ReleaseNotesData releaseNotes)
+		protected virtual void VerifyExportedData(VersionData version, bool excludeHeader, ReleaseNotesData releaseNotes)
 		{
 			var data = new ParsedData(version, releaseNotes);
 			var outputPath = Path.GetRandomFileName() + "." + Extension;
@@ -156,17 +156,21 @@ namespace CCVARN.Core.Tests.Exporters
 
 			exporter.ExportParsedData(data, outputPath, excludeHeader);
 
-			string text;
+			var text = GetFileText(outputPath);
+
+			Approvals.VerifyWithExtension(text, "." + Extension, ReplaceCurrentDate);
+		}
+
+		protected virtual string GetFileText(string outputPath)
+		{
 			try
 			{
-				text = File.ReadAllText(outputPath);
+				return File.ReadAllText(outputPath);
 			}
 			finally
 			{
 				File.Delete(outputPath);
 			}
-
-			Approvals.VerifyWithExtension(text, "." + Extension, ReplaceCurrentDate);
 		}
 
 		private static string ReplaceCurrentDate(string oldData)
