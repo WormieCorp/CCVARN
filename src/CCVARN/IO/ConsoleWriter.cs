@@ -2,6 +2,7 @@ namespace CCVARN.IO
 {
 	using System;
 	using System.Globalization;
+	using System.IO;
 	using System.Linq;
 	using System.Text;
 	using CCVARN.Core.IO;
@@ -12,6 +13,12 @@ namespace CCVARN.IO
 		private readonly IAnsiConsole console;
 		private readonly IAnsiConsole errorConsole;
 		private string currentIndent = string.Empty;
+		private bool standardOutputDisabled;
+		private bool errorOutputDisabled;
+
+		public TextWriter StandardOut { get; }
+
+		public TextWriter StandardError { get; }
 
 		public ConsoleWriter()
 		{
@@ -20,13 +27,13 @@ namespace CCVARN.IO
 			{
 				Ansi = AnsiSupport.Detect,
 				ColorSystem = ColorSystemSupport.Detect,
-				Out = Console.Out,
+				Out = StandardOut = Console.Out,
 			});
 			this.errorConsole = AnsiConsole.Create(new AnsiConsoleSettings
 			{
 				Ansi = AnsiSupport.Detect,
 				ColorSystem = ColorSystemSupport.Detect,
-				Out = Console.Error,
+				Out = StandardError = Console.Error,
 			});
 		}
 
@@ -46,19 +53,28 @@ namespace CCVARN.IO
 
 		public void WriteErrorLine(string format, params object[] parameters)
 		{
-			const string prefix = "[teal][[[red]ERR[/]]][/]";
-			this.console.Write(this.currentIndent, Style.Plain);
-			this.console.Markup(prefix);
-			this.console.MarkupLine(format, parameters);
+			if (this.errorOutputDisabled)
+				return;
+
+			const string prefix = "[teal][[[red]ERR[/]]][/] ";
+			this.errorConsole.Write(this.currentIndent, Style.Plain);
+			this.errorConsole.Markup(prefix);
+			this.errorConsole.MarkupLine(format, parameters);
 		}
 
 		public void WriteInfo(string format, params object[] parameters)
 		{
+			if (this.standardOutputDisabled)
+				return;
+
 			this.console.MarkupLine(CultureInfo.CurrentCulture, format, parameters);
 		}
 
 		public void WriteInfoSafe(string format, params string[] parameters)
 		{
+			if (this.standardOutputDisabled)
+				return;
+
 			var safeParameters = parameters.Select(p => p.EscapeMarkup()).ToArray();
 
 			WriteInfo(format, safeParameters);
@@ -66,15 +82,31 @@ namespace CCVARN.IO
 
 		public void WriteInfoLine(string format, params object[] parameters)
 		{
+			if (this.standardOutputDisabled)
+				return;
+
 			this.console.Write(this.currentIndent, Style.Plain);
 			this.console.MarkupLine(CultureInfo.CurrentCulture, format, parameters);
 		}
 
 		public void WriteInfoLineSafe(string format, params string[] parameters)
 		{
+			if (this.standardOutputDisabled)
+				return;
+
 			var safeParameters = parameters.Select(p => p.EscapeMarkup()).ToArray();
 
 			WriteInfoLine(format, safeParameters);
+		}
+
+		public void DisableNormalOutput()
+		{
+			this.standardOutputDisabled = true;
+		}
+
+		public void DisableErrorOutput()
+		{
+			this.errorOutputDisabled = true;
 		}
 	}
 }

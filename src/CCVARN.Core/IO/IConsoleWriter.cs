@@ -1,7 +1,15 @@
 namespace CCVARN.Core.IO
 {
+	using System.IO;
+
 	public interface IConsoleWriter
 	{
+		TextWriter StandardOut { get; }
+		TextWriter StandardError { get; }
+
+		void DisableNormalOutput();
+		void DisableErrorOutput();
+
 		void AddIndent();
 
 		void RemoveIndent();
