@@ -3,10 +3,6 @@ namespace CCVARN.Tests.Exporters
 	using System;
 	using System.Collections.Generic;
 	using System.IO;
-	using System.Text;
-	using ApprovalTests;
-	using ApprovalTests.Namers;
-	using ApprovalTests.Writers;
 	using CCVARN.Core.Exporters;
 	using CCVARN.Core.IO;
 	using CCVARN.Core.Models;
@@ -142,6 +138,23 @@ to allow something different",
 		}
 
 		[Test]
+		public void ExportWithASingleClosedIssue()
+		{
+			var note = new NoteData("feat", "Feature with a closing issue");
+			note.Issues.Add(59);
+			var releaseNotes = new ReleaseNotesData();
+			releaseNotes.Notes.Add("Feature", new List<NoteData>()
+			{
+				note
+			});
+			VerifyExportedData(
+				VersionData.Parse("1.9.0"),
+				false,
+				releaseNotes
+			);
+		}
+
+		[Test]
 		public void CanExportFilesWithFileExtension([Values(".md", ".MD", ".Md", ".mD")] string extensions)
 		{
 			var randomFile = Path.GetRandomFileName() + extensions;
@@ -157,6 +170,14 @@ to allow something different",
 			var exporter = new MarkdownExporter(new Mock<IConsoleWriter>().Object);
 
 			exporter.CanExportToFile(randomFile).ShouldBeFalse();
+		}
+
+		[Test]
+		public void WillThrowArgumentNullExceptionOnNullData()
+		{
+			var exported = CreateExporter();
+
+			Should.Throw<ArgumentNullException>(() => exported.ExportParsedData(null, "something", true)).ParamName.ShouldBe("data");
 		}
 
 		protected override IExporter CreateExporter()
