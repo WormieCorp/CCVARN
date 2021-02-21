@@ -1,0 +1,31 @@
+﻿{
+  "version": {
+    "commits": 0,
+    "fullSemVer": "2.0.0",
+    "major": 2,
+    "majorMinorPatch": "2.0.0",
+    "metadata": null,
+    "minor": 0,
+    "patch": 0,
+    "preReleaseLabel": "",
+    "preReleaseTag": "",
+    "semVer": "2.0.0",
+    "weight": null
+  },
+  "releaseNotes": {
+    "breakingChanges": [
+      "In the class Something the MethodA was renamed to methodB",
+      "\t\tto allow something different"
+    ],
+    "notes": {
+      "Code refactoring": [
+        {
+          "issues": [],
+          "scope": "",
+          "summary": "renamed MethodA to MethodB",
+          "type": "refactor"
+        }
+      ]
+    }
+  }
+}

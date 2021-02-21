@@ -1,0 +1,34 @@
+﻿{
+  "version": {
+    "commits": 0,
+    "fullSemVer": "1.1.0",
+    "major": 1,
+    "majorMinorPatch": "1.1.0",
+    "metadata": null,
+    "minor": 1,
+    "patch": 0,
+    "preReleaseLabel": "",
+    "preReleaseTag": "",
+    "semVer": "1.1.0",
+    "weight": null
+  },
+  "releaseNotes": {
+    "breakingChanges": [],
+    "notes": {
+      "Features": [
+        {
+          "issues": [],
+          "scope": "",
+          "summary": "some awesome new feature",
+          "type": "feat"
+        },
+        {
+          "issues": [],
+          "scope": "",
+          "summary": "another awesome feature",
+          "type": "feat"
+        }
+      ]
+    }
+  }
+}

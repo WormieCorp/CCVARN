@@ -1,0 +1,46 @@
+﻿{
+  "version": {
+    "commits": 0,
+    "fullSemVer": "3.0.0",
+    "major": 3,
+    "majorMinorPatch": "3.0.0",
+    "metadata": null,
+    "minor": 0,
+    "patch": 0,
+    "preReleaseLabel": "",
+    "preReleaseTag": "",
+    "semVer": "3.0.0",
+    "weight": null
+  },
+  "releaseNotes": {
+    "breakingChanges": [
+      "This is a very big breaking change"
+    ],
+    "notes": {
+      "BREAKING CHANGE": [
+        {
+          "issues": [],
+          "scope": "",
+          "summary": "some breaking change",
+          "type": "feat"
+        }
+      ],
+      "BREAKING CHANGES": [
+        {
+          "issues": [],
+          "scope": "",
+          "summary": "some breaking fix",
+          "type": "fix"
+        }
+      ],
+      "Feature": [
+        {
+          "issues": [],
+          "scope": "",
+          "summary": "some feature",
+          "type": "feat"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,30 @@
+﻿{
+  "version": {
+    "commits": 0,
+    "fullSemVer": "1.9.0",
+    "major": 1,
+    "majorMinorPatch": "1.9.0",
+    "metadata": null,
+    "minor": 9,
+    "patch": 0,
+    "preReleaseLabel": "",
+    "preReleaseTag": "",
+    "semVer": "1.9.0",
+    "weight": null
+  },
+  "releaseNotes": {
+    "breakingChanges": [],
+    "notes": {
+      "Feature": [
+        {
+          "issues": [
+            59
+          ],
+          "scope": "",
+          "summary": "Feature with a closing issue",
+          "type": "feat"
+        }
+      ]
+    }
+  }
+}
