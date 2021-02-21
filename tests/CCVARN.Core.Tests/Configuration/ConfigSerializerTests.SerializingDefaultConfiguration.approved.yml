@@ -1,0 +1,76 @@
+# The major-minor-patch version that should be used when parsing the commits.
+# This option will only be taken into account when the current HEAD is not a tagged
+# build, and the value is higher than the last tagged release.
+next-version: 0.0.0
+# The pre-release tag to use as a default for non-tagged releases (tagged releases will override this option).
+tag: alpha
+# The types and scope that should be consider valid, as well as which part of the version to bump when the type+scope matches.
+# Additionally the headers in the changelog can be configured,
+# and wether the types+scope should be included in the changelog by default
+# (breaking changes will always be included in the changelog).
+types:
+- description:
+    plural: Features
+    singular: Feature
+  scope: 
+  type: feat
+  bump: Minor
+- description:
+    plural: Bug Fixes
+    singular: Bug fix
+  scope: 
+  type: fix
+  bump: Patch
+- description:
+    singular: Performance Improvements
+  scope: 
+  type: perf
+  bump: Minor
+- description:
+    plural: Improvements
+    singular: Improvement
+  scope: 
+  type: improvement
+  bump: Minor
+- description:
+    singular: Reverts
+  scope: 
+  type: revert
+- description:
+    singular: Documentation
+  changelog: false
+  scope: 
+  type: docs
+- description:
+    plural: Styles
+    singular: Style
+  changelog: false
+  scope: 
+  type: style
+- description:
+    singular: Code Refactoring
+  changelog: false
+  scope: 
+  type: refactor
+- description:
+    plural: Tests
+    singular: Test
+  changelog: false
+  scope: 
+  type: test
+- description:
+    singular: Chore
+  changelog: false
+  scope: 
+  type: chore
+- description:
+    plural: Builds
+    singular: Build
+  changelog: false
+  scope: 
+  type: build
+- description:
+    singular: Continuous Integration
+  changelog: false
+  scope: 
+  type: ci

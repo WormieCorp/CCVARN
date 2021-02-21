@@ -1,0 +1,21 @@
+# The major-minor-patch version that should be used when parsing the commits.
+# This option will only be taken into account when the current HEAD is not a tagged
+# build, and the value is higher than the last tagged release.
+next-version: 0.5.0
+# The pre-release tag to use as a default for non-tagged releases (tagged releases will override this option).
+tag: rc
+# The types and scope that should be consider valid, as well as which part of the version to bump when the type+scope matches.
+# Additionally the headers in the changelog can be configured,
+# and wether the types+scope should be included in the changelog by default
+# (breaking changes will always be included in the changelog).
+types:
+- description:
+    plural: Plural
+    singular: Singular
+  scope: my scope
+  type: yes
+- description:
+    plural: Features
+    singular: Feature
+  scope: 
+  type: feature
