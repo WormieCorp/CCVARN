@@ -1,5 +1,6 @@
 namespace CCVARN.Core.Models
 {
+	using System;
 	using System.Collections.Generic;
 
 	public class ParsedData
@@ -13,5 +14,10 @@ namespace CCVARN.Core.Models
 		public VersionData Version { get; set; }
 
 		public ReleaseNotesData ReleaseNotes { get; }
+
+		public override string ToString()
+		{
+			return $"ParsedData\n{Version}\n{ReleaseNotes}";
+		}
 	}
 }

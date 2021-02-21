@@ -26,6 +26,9 @@ insert_final_newline = unset
 indent_size = unset
 indent_style = unset
 
+[*.approved.*]
+trim_trailing_whitespace = false
+
 [*.cs]
 #Formatting - new line options
 

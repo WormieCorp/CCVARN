@@ -1,0 +1,9 @@
+﻿ParsedData
+2.0.0+915a2dc574858fba1a051437dca695a58750a1e6
+BREAKING NOTES
+This is the breaking message
+So be it
+
+Features: 
+	feat: some update
+	feat(scopy): some new breaking feature

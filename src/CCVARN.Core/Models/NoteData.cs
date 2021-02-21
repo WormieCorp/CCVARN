@@ -3,6 +3,7 @@ namespace CCVARN.Core.Models
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
+	using System.Text;
 
 	public sealed class NoteData
 	{
@@ -54,10 +55,19 @@ namespace CCVARN.Core.Models
 
 		public override string ToString()
 		{
+			var sb = new StringBuilder();
+
 			if (!string.IsNullOrEmpty(Scope))
-				return $"{Type}({Scope}): {Summary}";
+				sb.Append(Type).Append('(').Append(Scope).Append("): ").Append(Summary);
 			else
-				return $"{Type}: {Summary}";
+				sb.Append(Type).Append(": ").Append(Summary);
+
+			if (Issues.Any())
+			{
+				sb.Append(" (closed #").AppendJoin(", #", Issues).Append(')');
+			}
+
+			return sb.ToString();
 		}
 	}
 }

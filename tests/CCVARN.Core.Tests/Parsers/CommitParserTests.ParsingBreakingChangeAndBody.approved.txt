@@ -1,0 +1,7 @@
+﻿ParsedData
+2.0.0+0c7da272142b85fb543491d4a539be9d1f120841
+BREAKING NOTES
+AweSomeName was renamed to AwesomeNameAsync
+
+Code Refactoring: 
+	refactor: renamed a method in the public API
