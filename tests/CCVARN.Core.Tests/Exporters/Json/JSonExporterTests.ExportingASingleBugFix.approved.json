@@ -1,0 +1,28 @@
+﻿{
+  "version": {
+    "commits": 0,
+    "fullSemVer": "1.0.1",
+    "major": 1,
+    "majorMinorPatch": "1.0.1",
+    "metadata": null,
+    "minor": 0,
+    "patch": 1,
+    "preReleaseLabel": "",
+    "preReleaseTag": "",
+    "semVer": "1.0.1",
+    "weight": null
+  },
+  "releaseNotes": {
+    "breakingChanges": [],
+    "notes": {
+      "Bug fix": [
+        {
+          "issues": [],
+          "scope": "",
+          "summary": "some kind of bug fix",
+          "type": "fix"
+        }
+      ]
+    }
+  }
+}

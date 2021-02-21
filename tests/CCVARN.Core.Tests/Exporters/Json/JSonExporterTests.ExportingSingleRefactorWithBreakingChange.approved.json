@@ -1,0 +1,28 @@
+﻿{
+  "version": {
+    "commits": 0,
+    "fullSemVer": "1.0.0",
+    "major": 1,
+    "majorMinorPatch": "1.0.0",
+    "metadata": null,
+    "minor": 0,
+    "patch": 0,
+    "preReleaseLabel": "",
+    "preReleaseTag": "",
+    "semVer": "1.0.0",
+    "weight": null
+  },
+  "releaseNotes": {
+    "breakingChanges": [],
+    "notes": {
+      "BREAKING CHANGE": [
+        {
+          "issues": [],
+          "scope": "",
+          "summary": "renamed MethodA to MethodB",
+          "type": "refactor"
+        }
+      ]
+    }
+  }
+}

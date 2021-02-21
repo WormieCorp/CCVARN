@@ -1,0 +1,8 @@
+﻿ParsedData
+1.0.0-alpha.1.3+5c598965cf79ff12563a540f1b6707769cf33ebc
+BREAKING CHANGE: 
+	refactor: renamed a method in the public API
+Bug fix: 
+	fix(scoping): some kind of bug fix
+Feature: 
+	feat: some kind of new feature

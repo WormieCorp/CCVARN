@@ -1,0 +1,7 @@
+﻿ParsedData
+2.0.0-alpha.1.1+f77a46b781a7cf2402e4f8770d93317a49800fcc
+BREAKING NOTES
+Important breaking change
+
+Feature: 
+	feat: some new feature

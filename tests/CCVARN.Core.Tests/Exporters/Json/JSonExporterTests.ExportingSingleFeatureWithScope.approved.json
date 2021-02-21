@@ -1,0 +1,28 @@
+﻿{
+  "version": {
+    "commits": 0,
+    "fullSemVer": "1.3.0",
+    "major": 1,
+    "majorMinorPatch": "1.3.0",
+    "metadata": null,
+    "minor": 3,
+    "patch": 0,
+    "preReleaseLabel": "",
+    "preReleaseTag": "",
+    "semVer": "1.3.0",
+    "weight": null
+  },
+  "releaseNotes": {
+    "breakingChanges": [],
+    "notes": {
+      "Feature": [
+        {
+          "issues": [],
+          "scope": "awesome",
+          "summary": "some new feature",
+          "type": "feat"
+        }
+      ]
+    }
+  }
+}

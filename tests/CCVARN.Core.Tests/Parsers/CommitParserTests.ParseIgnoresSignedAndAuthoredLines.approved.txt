@@ -1,0 +1,9 @@
+﻿ParsedData
+1.0.0-alpha.1.1+c22028c82012b1e1e2642aebb1d2440fcc6ae97e
+BREAKING NOTES
+This release is to make Cake.Warp compatible with 1.0.0 of Cake.
+This means dropping all support for previous versions of Cake.
+Please see the [Upgrade instructions](cakebuild.net/docs/getting-started/upgrade#cake-0.38.x-to-cake-1.0) for how to upgrade cake.
+
+Dependency: 
+	chore(deps): bump Cake.Core from 0.33.0 to 1.0.0 (#89)

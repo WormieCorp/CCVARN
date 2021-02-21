@@ -1,0 +1,4 @@
+
+## BREAKING CHANGE ##
+
+- renamed MethodA to MethodB

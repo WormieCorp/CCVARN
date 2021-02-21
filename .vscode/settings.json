@@ -19,5 +19,6 @@
 		"titleBar.inactiveBackground": "#2c918399",
 		"titleBar.inactiveForeground": "#e7e7e799"
 	},
-	"peacock.remoteColor": "#2c9183"
+	"peacock.remoteColor": "#2c9183",
+	"powershell.codeFormatting.addWhitespaceAroundPipe": true
 }

@@ -76,6 +76,8 @@
 # Exclude files from exporting
 #
 
+*.approved.* binary
+
 *.ps1      text  eol=crlf
 *.sh       text  eol=lf
 
