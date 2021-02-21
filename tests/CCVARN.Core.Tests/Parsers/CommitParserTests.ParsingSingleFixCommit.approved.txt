@@ -1,0 +1,4 @@
+﻿ParsedData
+1.0.0-alpha.1.1+be1bf3f63f4b4a6c0b10838c3b60e1e049ecacb6
+Bug fix: 
+	fix: correct unintentional bug

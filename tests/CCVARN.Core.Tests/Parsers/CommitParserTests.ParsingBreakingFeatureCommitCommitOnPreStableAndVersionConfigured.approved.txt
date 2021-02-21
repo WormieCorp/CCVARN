@@ -1,0 +1,4 @@
+﻿ParsedData
+0.3.0-alpha.1.1+d455d328545e31d0be184c0c64645fa1c29e8138
+BREAKING CHANGE: 
+	feat: some major break

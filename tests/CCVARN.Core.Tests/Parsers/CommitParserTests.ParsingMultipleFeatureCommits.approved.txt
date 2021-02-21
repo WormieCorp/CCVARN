@@ -1,0 +1,5 @@
+﻿ParsedData
+1.0.0-alpha.1.2+f207ae0c12c3f6577577923bc2006f31e01c6e4b
+Features: 
+	feat: some kind of awesome feature 2
+	feat: some kind of awesome feature 1

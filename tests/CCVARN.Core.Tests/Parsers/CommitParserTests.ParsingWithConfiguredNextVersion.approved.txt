@@ -1,0 +1,4 @@
+﻿ParsedData
+next-version-alpha.1.1+571ca85def2835f006e94cb24c462223147380d9
+Feature: 
+	feat: awesome feature
