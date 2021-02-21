@@ -1,0 +1,4 @@
+﻿ParsedData
+5.2.2+d3a844e9c7cd06ebd233d445028a417bd3117bb0
+Bug fix: 
+	fix: something

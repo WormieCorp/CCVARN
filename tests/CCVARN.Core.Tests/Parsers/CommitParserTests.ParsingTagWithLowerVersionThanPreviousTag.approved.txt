@@ -1,0 +1,4 @@
+﻿ParsedData
+2.1.0+153a84803344c0e579f5f6bbbe0054f773eea5ce
+Bug fix: 
+	fix: major breaking change

@@ -10,7 +10,7 @@ namespace CCVARN.Core.Tests.Parsers
 	using Moq;
 	using NUnit.Framework;
 
-	public class CommitParserTests
+	public partial class CommitParserTests
 	{
 		private readonly Config defaultConfig = new Config();
 		private IRepository repository;

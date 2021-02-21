@@ -1,0 +1,2 @@
+﻿ParsedData
+1.7.0+d648e6e5e14abd02b7826822d8aa3dda5e1082a6

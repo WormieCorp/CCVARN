@@ -1,0 +1,4 @@
+﻿ParsedData
+0.3.0+60ca8032d1414e22c995efd52d35d7e5ed9aa089
+Feature: 
+	feat: include embedded pdb files to fully enable deterministic builds for addin
