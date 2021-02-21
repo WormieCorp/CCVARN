@@ -11,9 +11,9 @@ namespace CCVARN.Tests.Exporters
 	using NUnit.Framework;
 	using Shouldly;
 
-	public class MarkdownExporterTests : BaseExporterTests
+	public class PlainTextExporterTests : BaseExporterTests
 	{
-		protected override string Extension => "md";
+		protected override string Extension => "txt";
 
 		[Test]
 		public void ExportingASingleFeature()
@@ -62,8 +62,8 @@ namespace CCVARN.Tests.Exporters
 				"1.1.0",
 				false,
 				("Features", new[] {
-					("feat", "some awesome new feature"),
-					("feat", "another awesome feature")
+							("feat", "some awesome new feature"),
+							("feat", "another awesome feature")
 				})
 			);
 		}
@@ -75,8 +75,8 @@ namespace CCVARN.Tests.Exporters
 				"1.1.0",
 				true,
 				("Features", new[] {
-					("feat", "some awesome new feature"),
-					("feat", "another awesome feature")
+							("feat", "some awesome new feature"),
+							("feat", "another awesome feature")
 				})
 			);
 		}
@@ -118,17 +118,17 @@ to allow something different",
 		{
 			var releaseNotes = new ReleaseNotesData();
 			releaseNotes.Notes.Add("Feature", new List<NoteData>
-			{
-				new NoteData("feat", "some feature")
-			});
+					{
+						new NoteData("feat", "some feature")
+					});
 			releaseNotes.Notes.Add("BREAKING CHANGE", new List<NoteData>
-			{
-				new NoteData("feat", "some breaking change")
-			});
+					{
+						new NoteData("feat", "some breaking change")
+					});
 			releaseNotes.Notes.Add("BREAKING CHANGES", new List<NoteData>
-			{
-				new NoteData("fix", "some breaking fix")
-			});
+					{
+						new NoteData("fix", "some breaking fix")
+					});
 			releaseNotes.BreakingChanges.Add("This is a very big breaking change");
 			VerifyExportedData(
 				VersionData.Parse("3.0.0"),
@@ -144,9 +144,9 @@ to allow something different",
 			note.Issues.Add(59);
 			var releaseNotes = new ReleaseNotesData();
 			releaseNotes.Notes.Add("Feature", new List<NoteData>()
-			{
-				note
-			});
+					{
+						note
+					});
 			VerifyExportedData(
 				VersionData.Parse("1.9.0"),
 				false,
@@ -155,7 +155,7 @@ to allow something different",
 		}
 
 		[Test]
-		public void CanExportFilesWithFileExtension([Values(".md", ".MD", ".Md", ".mD")] string extensions)
+		public void CanExportFilesWithFileExtension([Values(".txt", ".TXT", ".Txt", ".tXt")] string extensions)
 		{
 			var randomFile = Path.GetRandomFileName() + extensions;
 			var exporter = CreateExporter();
@@ -164,7 +164,7 @@ to allow something different",
 		}
 
 		[Test]
-		public void CanNOTExportFilesWithFileExtension([Values(".txt", ".xml", ".bin", "")] string extension)
+		public void CanNOTExportFilesWithFileExtension([Values(".md", ".xml", ".bin", "")] string extension)
 		{
 			var randomFile = Path.GetRandomFileName() + extension;
 			var exporter = CreateExporter();
@@ -181,6 +181,6 @@ to allow something different",
 		}
 
 		protected override IExporter CreateExporter()
-			=> new MarkdownExporter(new Mock<IConsoleWriter>().Object);
+			=> new PlainTextExporter(new Mock<IConsoleWriter>().Object);
 	}
 }
