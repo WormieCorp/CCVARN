@@ -38,7 +38,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="spectre.console" Version="0.37.0" />
+		<PackageReference Include="spectre.console" Version="0.38.0" />
 	</ItemGroup>
 
 	<ItemGroup>
