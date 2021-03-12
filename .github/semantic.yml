@@ -2,6 +2,7 @@ titleAndCommits: true
 
 scopes:
   - deps
+  - deps-dev
   - gha
   - export
   - version
