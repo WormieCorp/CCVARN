@@ -1,0 +1,23 @@
+{
+	"extends": ["config:base"],
+	"semanticCommitType": "build",
+	"packageRules": [
+		{
+			"matchPaths": ["*.Tests.csproj", "dotnet-tools.json", "*.cake"],
+			"addLabels": ["build"],
+			"automerge": true
+		},
+		{
+			"matchPackageNames": [
+				"DryIoc",
+				"Newtonsoft.Json",
+				"spectre.console",
+				"LibGit2Sharp",
+				"YamlDotNet"
+			],
+			"matchPaths": ["*.csproj"],
+			"semanticCommitType": "chore",
+			"addLabels": ["improvement"]
+		}
+	]
+}
