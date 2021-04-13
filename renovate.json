@@ -3,9 +3,10 @@
 	"semanticCommitType": "build",
 	"packageRules": [
 		{
-			"matchPaths": ["*.Tests.csproj", "dotnet-tools.json", "*.cake"],
+			"matchPaths": ["*.Tests.csproj", "dotnet-tools.json", "*.cake", "*.yml"],
 			"addLabels": ["build"],
-			"automerge": true
+			"automerge": true,
+			"semanticCommitType": "build"
 		},
 		{
 			"matchPackageNames": [
