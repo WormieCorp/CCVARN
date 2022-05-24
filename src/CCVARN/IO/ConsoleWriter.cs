@@ -108,5 +108,16 @@ namespace CCVARN.IO
 		{
 			this.errorOutputDisabled = true;
 		}
+
+		public void WriteWarningLine(string format, params object[] parameters)
+		{
+			if (this.errorOutputDisabled)
+				return;
+
+			const string prefix = "[teal][[[yellow]WARN[/]]][/] ";
+			this.errorConsole.Write(this.currentIndent, Style.Plain);
+			this.errorConsole.Markup(prefix);
+			this.errorConsole.MarkupLine(format, parameters);
+		}
 	}
 }

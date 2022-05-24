@@ -23,5 +23,7 @@ namespace CCVARN.Core.IO
 		void WriteInfoLine(string format, params object[] parameters);
 
 		void WriteInfoLineSafe(string format, params string[] parameters);
+
+		void WriteWarningLine(string format, params object[] parameters);
 	}
 }

@@ -41,14 +41,29 @@ namespace CCVARN.Core.Parser
 
 			foreach (var commit in head.Commits)
 			{
-				var foundTag = this._repository.Tags.FirstOrDefault(t => t.Target.Sha == commit.Sha);
-				var branch = this._repository.Branches.FirstOrDefault(b => b.Tip.Sha == commit.Sha);
-				var commitInfo = new CommitInfo(commit.Sha, commit.Message)
+				CommitInfo? commitInfo = null;
+				try
 				{
-					Ref = foundTag?.CanonicalName ?? branch?.CanonicalName,
-					IsTag = foundTag != null,
-				};
-				yield return commitInfo;
+					var foundTag = this._repository.Tags?.FirstOrDefault(t => t.Target.Sha == commit.Sha);
+					var branch = this._repository.Branches.FirstOrDefault(b => b.Tip.Sha == commit.Sha);
+					commitInfo = new CommitInfo(commit.Sha, commit.Message)
+					{
+						Ref = foundTag?.CanonicalName ?? branch?.CanonicalName,
+						IsTag = foundTag != null,
+					};
+				}
+				catch (Exception ex)
+				{
+					this._writer.WriteWarningLine("Unable to parse commit '{0}'. Ignoring...", commit.Sha);
+					this._writer.AddIndent();
+					this._writer.WriteWarningLine(ex.Message);
+					this._writer.RemoveIndent();
+				}
+
+				if (!(commitInfo is null))
+				{
+					yield return commitInfo;
+				}
 			}
 		}
 
