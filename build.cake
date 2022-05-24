@@ -2,6 +2,7 @@
 #addin nuget:?package=Cake.Json&version=6.0.1
 #addin nuget:?package=Newtonsoft.Json&version=13.0.1
 #tool nuget:?package=CodecovUploader&version=0.2.3
+#tool dotnet:?package=gitreleasemanager.tool&version=0.13.0
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
