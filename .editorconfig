@@ -137,10 +137,10 @@ dotnet_style_qualification_for_property = false:warning
 dotnet_diagnostic.RCS1001.severity = warning
 
 # RCS1002: Remove braces.
-dotnet_diagnostic.RCS1002.severity = warning
+dotnet_diagnostic.RCS1002.severity = silent
 
 # RCS1004: Remove braces from if-else.
-dotnet_diagnostic.RCS1004.severity = warning
+dotnet_diagnostic.RCS1004.severity = silent
 
 # RCS1005: Simplify nested using statement.
 dotnet_diagnostic.RCS1005.severity = warning
@@ -155,7 +155,7 @@ dotnet_diagnostic.RCS1013.severity = error
 dotnet_diagnostic.RCS1015.severity = warning
 
 # RCS1016: Use expression-bodied member.
-dotnet_diagnostic.RCS1016.severity = warning
+dotnet_diagnostic.RCS1016.severity = silent
 
 # RCS1017: Avoid multiline expression body.
 dotnet_diagnostic.RCS1017.severity = warning
