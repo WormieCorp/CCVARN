@@ -14,12 +14,6 @@
         "dotnet-cake"
       ]
     },
-    "codecov.tool": {
-      "version": "1.13.0",
-      "commands": [
-        "codecov"
-      ]
-    },
     "dotnet-ccvarn": {
       "version": "1.2.0",
       "commands": [

@@ -1,6 +1,7 @@
 #addin nuget:?package=Cake.Codecov&version=1.0.1
 #addin nuget:?package=Cake.Json&version=6.0.1
 #addin nuget:?package=Newtonsoft.Json&version=12.0.3
+#tool nuget:?package=CodecovUploader&version=0.2.3
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
