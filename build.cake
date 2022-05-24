@@ -123,19 +123,6 @@ Task("Generate-LocalReport")
 	});
 });
 
-Task("Upload-CoverageToCodecov")
-	.WithCriteria(() => !BuildSystem.IsLocalBuild)
-	.IsDependentOn("Test")
-	.Does(() =>
-{
-	Codecov(new CodecovSettings
-	{
-		ArgumentCustomization = args => args.Prepend("codecov"),
-		Files = new[]{ artifactsDir + "/coverage/tests/**/*.xml", },
-		ToolPath = dotnetExec,
-	});
-});
-
 Task("Push-NuGetPackages")
 	.WithCriteria((context) => context.Environment.Platform.Family == PlatformFamily.Linux)
 	.WithCriteria(() => HasEnvironmentVariable("NUGET_SOURCE"))
@@ -179,7 +166,6 @@ Task("Publish-Release")
 Task("Default")
 	.IsDependentOn("Pack")
 	.IsDependentOn("Generate-LocalReport")
-	.IsDependentOn("Upload-CoverageToCodecov")
 	.IsDependentOn("Push-NuGetPackages");
 
 RunTarget(target);

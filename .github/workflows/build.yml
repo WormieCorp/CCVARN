@@ -25,3 +25,8 @@ jobs:
       - name: Build
         run: ./build.ps1
         shell: pwsh
+      - name: Upload Coverage Report
+        if: always()
+        uses: codecov/codecov-action@v3.1.0
+        with:
+          directory: ./.artifacts/coverage/tests
