@@ -256,7 +256,15 @@ namespace CCVARN.Core.Parser
 					continue;
 				}
 
-				if (isBreaking)
+				if (line.StartsWith("Signed-off-by:", StringComparison.OrdinalIgnoreCase)
+					|| line.StartsWith("Co-authored-by:", StringComparison.OrdinalIgnoreCase))
+				{
+					// We expect these to be on the last lines,
+					// as such we will break and stop parsing the
+					// commit message.
+					break;
+				}
+				else if (isBreaking)
 				{
 					breakingNote.AppendLine(line);
 				}

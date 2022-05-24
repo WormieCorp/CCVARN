@@ -381,7 +381,6 @@ namespace CCVARN.Core.Tests.Parsers
 		}
 
 		[Test]
-		[Ignore("This is not yet implemented")]
 		public void ParseIgnoresSignedAndAuthoredLines()
 		{
 			var commits = new[]
@@ -415,8 +414,8 @@ Co-authored-by: dependabot-preview[bot] <27856297+dependabot-preview[bot]@users.
 
 			var result = parser.ParseVersionFromCommits(commits);
 
-			Approvals.Verify(result);
-			result.Version.Commits.ShouldBe(2);
+			Approvals.Verify(result.ReleaseNotes);
+			result.Version.Commits.ShouldBe(1);
 		}
 	}
 }
