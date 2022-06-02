@@ -34,7 +34,7 @@ namespace CCVARN.Core.Parser
 			if (commit.IsTag)
 				return newVersion; // We should not parse the commit for version increment on tagged releases
 
-			if (!(commit is ConventionalCommitInfo conventionalCommit))
+			if (commit is not ConventionalCommitInfo conventionalCommit)
 				return newVersion;
 
 			if (conventionalCommit.IsBreakingChange)

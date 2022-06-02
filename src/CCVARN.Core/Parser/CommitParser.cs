@@ -60,7 +60,7 @@ namespace CCVARN.Core.Parser
 					this._writer.RemoveIndent();
 				}
 
-				if (!(commitInfo is null))
+				if (commitInfo is not null)
 				{
 					yield return commitInfo;
 				}

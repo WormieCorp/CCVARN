@@ -9,13 +9,13 @@ namespace CCVARN.Core.Configuration
 
 	public static class ConfigSerializer
 	{
-		private static readonly Lazy<DeserializerBuilder> deseriazireBuilder = new Lazy<DeserializerBuilder>(() =>
+		private static readonly Lazy<DeserializerBuilder> deseriazireBuilder = new(() =>
 			new DeserializerBuilder()
 			.WithNamingConvention(HyphenatedNamingConvention.Instance));
 
 		private static readonly Encoding encoding = new UTF8Encoding(false);
 
-		private static readonly Lazy<SerializerBuilder> serializerBuilder = new Lazy<SerializerBuilder>(() =>
+		private static readonly Lazy<SerializerBuilder> serializerBuilder = new(() =>
 					new SerializerBuilder()
 			.WithNamingConvention(HyphenatedNamingConvention.Instance)
 			.WithTypeInspector(inner => new CommentGatheringTypeInspector(inner))

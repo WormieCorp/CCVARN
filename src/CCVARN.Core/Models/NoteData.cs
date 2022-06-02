@@ -32,7 +32,7 @@ namespace CCVARN.Core.Models
 
 		public override bool Equals(object? obj)
 		{
-			if (!(obj is NoteData data))
+			if (obj is not NoteData data)
 				return false;
 			var result = Type == data.Type;
 			result = result && Scope == data.Scope;
