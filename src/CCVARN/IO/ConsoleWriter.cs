@@ -22,18 +22,20 @@ namespace CCVARN.IO
 
 		public ConsoleWriter()
 		{
+			StandardOut = Console.Out;
+			StandardError = Console.Error;
 			Console.OutputEncoding = Encoding.UTF8;
 			this.console = AnsiConsole.Create(new AnsiConsoleSettings
 			{
 				Ansi = AnsiSupport.Detect,
 				ColorSystem = ColorSystemSupport.Detect,
-				Out = StandardOut = Console.Out,
+				Out = new AnsiConsoleOutput(StandardOut),
 			});
 			this.errorConsole = AnsiConsole.Create(new AnsiConsoleSettings
 			{
 				Ansi = AnsiSupport.Detect,
 				ColorSystem = ColorSystemSupport.Detect,
-				Out = StandardError = Console.Error,
+				Out = new AnsiConsoleOutput(StandardError),
 			});
 		}
 
