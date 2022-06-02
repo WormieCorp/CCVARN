@@ -1,0 +1,21 @@
+name: Sync labels
+on:
+  workflow_dispatch:
+  schedule:
+    # Run at the end of the day (most likely UTC)
+    - cron: "0 0 * * *"
+
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.2
+      - uses: EndBug/label-sync@v2.1.0
+        with:
+          config-file: |
+            https://raw.githubusercontent.com/WormieCorp/.github/master/.github/labels.yml
+          request-token: ${{ secrets.GH_PAT }}
+          delete-other-labels: true
+          dry-run: false
+          token: ${{ secrets.GH_PAT }}
