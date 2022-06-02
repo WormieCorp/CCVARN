@@ -92,6 +92,9 @@ namespace CCVARN
 			container.Register<IExporter, PlainTextExporter>();
 			container.Register<IExporter, MarkdownExporter>();
 
+			container.Register<InitOptions>(Reuse.Singleton);
+			container.Register<ParseOption>(Reuse.Singleton);
+
 			return container;
 		}
 
