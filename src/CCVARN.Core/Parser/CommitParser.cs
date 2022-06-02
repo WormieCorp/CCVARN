@@ -195,7 +195,7 @@ namespace CCVARN.Core.Parser
 				};
 
 			var subs = line;
-			string found;
+			string? found;
 			while ((found = Array.Find(closeKeywords, c => subs.StartsWith(c, StringComparison.OrdinalIgnoreCase))) != null)
 			{
 				var tempSub = subs[found.Length..];

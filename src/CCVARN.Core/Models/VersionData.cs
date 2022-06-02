@@ -158,7 +158,7 @@ namespace CCVARN.Core.Models
 		public override bool Equals(object? obj)
 			=> obj is VersionData data && Equals(data);
 
-		public bool Equals(VersionData other)
+		public bool Equals(VersionData? other)
 		{
 			if (other is null)
 				return false;

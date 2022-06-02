@@ -12,7 +12,7 @@ namespace CCVARN.Core.Tests.Parsers
 
 	public partial class CommitParserTests
 	{
-		private readonly Config defaultConfig = new Config();
+		private readonly Config defaultConfig = new();
 		private IRepository repository;
 		private IConsoleWriter writer;
 
