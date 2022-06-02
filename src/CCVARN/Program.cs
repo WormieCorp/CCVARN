@@ -18,7 +18,7 @@ namespace CCVARN
 
 	internal static class Program
 	{
-		public static Task<int> Main(string[] args)
+		public static async Task<int> Main(string[] args)
 		{
 			var container = CreateContainer();
 			var console = container.Resolve<IConsoleWriter>();
@@ -46,7 +46,7 @@ namespace CCVARN
 				.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
 
 			if (version.IndexOf('+', StringComparison.Ordinal) > 0)
-				version = version.Substring(0, version.IndexOf('+', StringComparison.Ordinal));
+				version = version[..version.IndexOf('+', StringComparison.Ordinal)];
 
 			console.WriteInfoLine(text, version);
 
@@ -73,7 +73,7 @@ namespace CCVARN
 				});
 				//app.SetDefaultCommand<ParseCommand>();
 
-				return app.RunAsync(args);
+				return await app.RunAsync(args);
 			}
 			finally
 			{
