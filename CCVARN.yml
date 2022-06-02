@@ -69,3 +69,10 @@ types:
   scope: deps
   type: chore
   bump: Patch
+- description:
+    plural: Dependencies
+    singular: Dependency
+  changelog: true
+  scope: deps
+  type: fix
+  bump: Patch
