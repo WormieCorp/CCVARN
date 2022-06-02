@@ -34,5 +34,15 @@ namespace CCVARN.DependencyInject
 			}
 			this.container.RegisterInstance(service, implementation);
 		}
+
+		public void RegisterLazy(Type service, Func<object> factory)
+		{
+			if (service == typeof(BaseSettings))
+			{
+				this.container.RegisterDelegate(typeof(BaseSettings), (_) => factory());
+			}
+
+			this.container.RegisterDelegate(service, (_) => factory());
+		}
 	}
 }
