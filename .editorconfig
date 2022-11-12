@@ -21,11 +21,6 @@ dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
 dotnet_style_prefer_compound_assignment = true:suggestion
 dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_namespace_match_folder = true:suggestion
-dotnet_diagnostic.RS0016.severity = error
-dotnet_diagnostic.RS0017.severity = error
-dotnet_diagnostic.RS0025.severity = error
-dotnet_diagnostic.RS0050.severity = error
-dotnet_diagnostic.RS0048.severity = error
 
 [*.{yml,yaml,md}]
 indent_size = 2
@@ -300,3 +295,10 @@ dotnet_diagnostic.RCS1225.severity = error
 
 # RCS1080: Use 'Count/Length' property instead of 'Any' method.
 dotnet_diagnostic.RCS1080.severity = none
+
+dotnet_diagnostic.RS0016.severity = error
+dotnet_diagnostic.RS0017.severity = error
+dotnet_diagnostic.RS0025.severity = error
+dotnet_diagnostic.RS0050.severity = error
+dotnet_diagnostic.RS0048.severity = error
+dotnet_diagnostic.CA1704.severity = silent
