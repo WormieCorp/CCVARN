@@ -1,0 +1,156 @@
+#nullable enable
+CCVARN.Core.Configuration.Config
+CCVARN.Core.Configuration.Config.Config() -> void
+CCVARN.Core.Configuration.Config.NextVersion.get -> string!
+CCVARN.Core.Configuration.Config.NextVersion.set -> void
+CCVARN.Core.Configuration.Config.Tag.get -> string!
+CCVARN.Core.Configuration.Config.Tag.set -> void
+CCVARN.Core.Configuration.Config.TypeScopes.get -> System.Collections.Generic.HashSet<CCVARN.Core.Configuration.TypeScope!>!
+CCVARN.Core.Configuration.Config.TypeScopes.set -> void
+CCVARN.Core.Configuration.ConfigSerializer
+CCVARN.Core.Configuration.Description
+CCVARN.Core.Configuration.Description.Description() -> void
+CCVARN.Core.Configuration.Description.Description(string! singular, string? plural = null) -> void
+CCVARN.Core.Configuration.Description.Plural.get -> string?
+CCVARN.Core.Configuration.Description.Plural.set -> void
+CCVARN.Core.Configuration.Description.Singular.get -> string!
+CCVARN.Core.Configuration.Description.Singular.set -> void
+CCVARN.Core.Configuration.TypeScope
+CCVARN.Core.Configuration.TypeScope.Description.get -> CCVARN.Core.Configuration.Description!
+CCVARN.Core.Configuration.TypeScope.Description.set -> void
+CCVARN.Core.Configuration.TypeScope.IncludeInChangelog.get -> bool
+CCVARN.Core.Configuration.TypeScope.IncludeInChangelog.set -> void
+CCVARN.Core.Configuration.TypeScope.Scope.get -> string?
+CCVARN.Core.Configuration.TypeScope.Scope.set -> void
+CCVARN.Core.Configuration.TypeScope.Type.get -> string!
+CCVARN.Core.Configuration.TypeScope.Type.set -> void
+CCVARN.Core.Configuration.TypeScope.TypeScope() -> void
+CCVARN.Core.Configuration.TypeScope.TypeScope(string! type, CCVARN.Core.Configuration.Description! description, string? scope = null) -> void
+CCVARN.Core.Configuration.TypeScope.VersionBump.get -> CCVARN.Core.Models.VersionBump
+CCVARN.Core.Configuration.TypeScope.VersionBump.set -> void
+CCVARN.Core.Exporters.ConsoleExporter
+CCVARN.Core.Exporters.ConsoleExporter.ConsoleExporter(CCVARN.Core.IO.IConsoleWriter! writer) -> void
+CCVARN.Core.Exporters.IExporter
+CCVARN.Core.Exporters.IExporter.CanExportToFile(string! filePath) -> bool
+CCVARN.Core.Exporters.IExporter.ExportParsedData(CCVARN.Core.Models.ParsedData! data, string! outputPath, bool excludeHeader) -> void
+CCVARN.Core.Exporters.JSonExporter
+CCVARN.Core.Exporters.JSonExporter.Console.get -> CCVARN.Core.IO.IConsoleWriter!
+CCVARN.Core.Exporters.JSonExporter.JSonExporter(CCVARN.Core.IO.IConsoleWriter! console) -> void
+CCVARN.Core.Exporters.MarkdownExporter
+CCVARN.Core.Exporters.MarkdownExporter.CanExportToFile(string! filePath) -> bool
+CCVARN.Core.Exporters.MarkdownExporter.ExportParsedData(CCVARN.Core.Models.ParsedData! data, string! outputPath, bool excludeHeader) -> void
+CCVARN.Core.Exporters.MarkdownExporter.MarkdownExporter(CCVARN.Core.IO.IConsoleWriter! console) -> void
+CCVARN.Core.Exporters.PlainTextExporter
+CCVARN.Core.Exporters.PlainTextExporter.CanExportToFile(string! filePath) -> bool
+CCVARN.Core.Exporters.PlainTextExporter.ExportParsedData(CCVARN.Core.Models.ParsedData! data, string! outputPath, bool excludeHeader) -> void
+CCVARN.Core.Exporters.PlainTextExporter.PlainTextExporter(CCVARN.Core.IO.IConsoleWriter! console) -> void
+CCVARN.Core.IO.IConsoleWriter
+CCVARN.Core.IO.IConsoleWriter.AddIndent() -> void
+CCVARN.Core.IO.IConsoleWriter.DisableErrorOutput() -> void
+CCVARN.Core.IO.IConsoleWriter.DisableNormalOutput() -> void
+CCVARN.Core.IO.IConsoleWriter.RemoveIndent() -> void
+CCVARN.Core.IO.IConsoleWriter.StandardError.get -> System.IO.TextWriter!
+CCVARN.Core.IO.IConsoleWriter.StandardOut.get -> System.IO.TextWriter!
+CCVARN.Core.IO.IConsoleWriter.WriteErrorLine(string! format, params object![]! parameters) -> void
+CCVARN.Core.IO.IConsoleWriter.WriteInfo(string! format, params object![]! parameters) -> void
+CCVARN.Core.IO.IConsoleWriter.WriteInfoLine(string! format, params object![]! parameters) -> void
+CCVARN.Core.IO.IConsoleWriter.WriteInfoLineSafe(string! format, params string![]! parameters) -> void
+CCVARN.Core.IO.IConsoleWriter.WriteInfoSafe(string! format, params string![]! parameters) -> void
+CCVARN.Core.Models.CommitInfo
+CCVARN.Core.Models.CommitInfo.CommitInfo(string! sha, string! rawText) -> void
+CCVARN.Core.Models.CommitInfo.IsTag.get -> bool
+CCVARN.Core.Models.CommitInfo.IsTag.set -> void
+CCVARN.Core.Models.CommitInfo.RawText.get -> string!
+CCVARN.Core.Models.CommitInfo.RawText.set -> void
+CCVARN.Core.Models.CommitInfo.Ref.get -> string?
+CCVARN.Core.Models.CommitInfo.Ref.set -> void
+CCVARN.Core.Models.CommitInfo.Sha.get -> string!
+CCVARN.Core.Models.CommitInfo.Sha.set -> void
+CCVARN.Core.Models.ConventionalCommitInfo
+CCVARN.Core.Models.ConventionalCommitInfo.Body.get -> string?
+CCVARN.Core.Models.ConventionalCommitInfo.Body.set -> void
+CCVARN.Core.Models.ConventionalCommitInfo.BreakingChangeNote.get -> string?
+CCVARN.Core.Models.ConventionalCommitInfo.BreakingChangeNote.set -> void
+CCVARN.Core.Models.ConventionalCommitInfo.CommitScope.get -> string?
+CCVARN.Core.Models.ConventionalCommitInfo.CommitType.get -> string!
+CCVARN.Core.Models.ConventionalCommitInfo.ConventionalCommitInfo(CCVARN.Core.Models.CommitInfo! commitInfo, string! type, string? scope, string! message) -> void
+CCVARN.Core.Models.ConventionalCommitInfo.ConventionalCommitInfo(string! sha, string! rawText, string! type, string? scope, string! message) -> void
+CCVARN.Core.Models.ConventionalCommitInfo.Footer.get -> string?
+CCVARN.Core.Models.ConventionalCommitInfo.Footer.set -> void
+CCVARN.Core.Models.ConventionalCommitInfo.IsBreakingChange.get -> bool
+CCVARN.Core.Models.ConventionalCommitInfo.IsBreakingChange.set -> void
+CCVARN.Core.Models.ConventionalCommitInfo.IssueRefs.get -> System.Collections.Generic.List<int>!
+CCVARN.Core.Models.ConventionalCommitInfo.Message.get -> string!
+CCVARN.Core.Models.NoteData
+CCVARN.Core.Models.NoteData.Issues.get -> System.Collections.Generic.List<int>!
+CCVARN.Core.Models.NoteData.NoteData(string! type, string! summary) -> void
+CCVARN.Core.Models.NoteData.NoteData(string! type, string! summary, string! scope) -> void
+CCVARN.Core.Models.NoteData.Scope.get -> string!
+CCVARN.Core.Models.NoteData.Scope.set -> void
+CCVARN.Core.Models.NoteData.Summary.get -> string!
+CCVARN.Core.Models.NoteData.Summary.set -> void
+CCVARN.Core.Models.NoteData.Type.get -> string!
+CCVARN.Core.Models.NoteData.Type.set -> void
+CCVARN.Core.Models.ParsedData
+CCVARN.Core.Models.ParsedData.ParsedData(CCVARN.Core.Models.VersionData! version, CCVARN.Core.Models.ReleaseNotesData! releaseNotes) -> void
+CCVARN.Core.Models.ParsedData.ReleaseNotes.get -> CCVARN.Core.Models.ReleaseNotesData!
+CCVARN.Core.Models.ParsedData.Version.get -> CCVARN.Core.Models.VersionData!
+CCVARN.Core.Models.ParsedData.Version.set -> void
+CCVARN.Core.Models.ReleaseNotesData
+CCVARN.Core.Models.ReleaseNotesData.BreakingChanges.get -> System.Collections.Generic.List<string!>!
+CCVARN.Core.Models.ReleaseNotesData.Notes.get -> System.Collections.Generic.IDictionary<string!, System.Collections.Generic.List<CCVARN.Core.Models.NoteData!>!>!
+CCVARN.Core.Models.ReleaseNotesData.ReleaseNotesData() -> void
+CCVARN.Core.Models.VersionBump
+CCVARN.Core.Models.VersionBump.Major = 3 -> CCVARN.Core.Models.VersionBump
+CCVARN.Core.Models.VersionBump.Minor = 2 -> CCVARN.Core.Models.VersionBump
+CCVARN.Core.Models.VersionBump.None = 0 -> CCVARN.Core.Models.VersionBump
+CCVARN.Core.Models.VersionBump.Patch = 1 -> CCVARN.Core.Models.VersionBump
+CCVARN.Core.Models.VersionBump.Weight = 4 -> CCVARN.Core.Models.VersionBump
+CCVARN.Core.Models.VersionData
+CCVARN.Core.Models.VersionData.CommitNextBump(bool allowMajorBump = true) -> bool
+CCVARN.Core.Models.VersionData.Commits.get -> int
+CCVARN.Core.Models.VersionData.Commits.set -> void
+CCVARN.Core.Models.VersionData.Equals(CCVARN.Core.Models.VersionData! other) -> bool
+CCVARN.Core.Models.VersionData.FullSemVer.get -> string!
+CCVARN.Core.Models.VersionData.IsEmpty() -> bool
+CCVARN.Core.Models.VersionData.Major.get -> int
+CCVARN.Core.Models.VersionData.MajorMinorPatch.get -> string!
+CCVARN.Core.Models.VersionData.Metadata.get -> string?
+CCVARN.Core.Models.VersionData.Metadata.set -> void
+CCVARN.Core.Models.VersionData.Minor.get -> int
+CCVARN.Core.Models.VersionData.Patch.get -> int
+CCVARN.Core.Models.VersionData.PreReleaseLabel.get -> string!
+CCVARN.Core.Models.VersionData.PreReleaseLabel.set -> void
+CCVARN.Core.Models.VersionData.PreReleaseTag.get -> string!
+CCVARN.Core.Models.VersionData.SemVer.get -> string!
+CCVARN.Core.Models.VersionData.SetNextBump(CCVARN.Core.Models.VersionBump versionBump, bool forceBump = false) -> void
+CCVARN.Core.Models.VersionData.ToString(bool includeMetadata) -> string!
+CCVARN.Core.Models.VersionData.VersionData() -> void
+CCVARN.Core.Models.VersionData.Weight.get -> int?
+CCVARN.Core.Models.VersionData.Weight.set -> void
+CCVARN.Core.Parser.CommitParser
+CCVARN.Core.Parser.CommitParser.CommitParser(CCVARN.Core.Configuration.Config! config, LibGit2Sharp.IRepository! repository, CCVARN.Core.IO.IConsoleWriter! writer) -> void
+CCVARN.Core.Parser.CommitParser.GetAllCommits() -> System.Collections.Generic.IEnumerable<CCVARN.Core.Models.CommitInfo!>!
+CCVARN.Core.Parser.CommitParser.ParseVersionFromCommits(System.Collections.Generic.IEnumerable<CCVARN.Core.Models.CommitInfo!>! commits) -> CCVARN.Core.Models.ParsedData!
+override CCVARN.Core.Configuration.Description.Equals(object? obj) -> bool
+override CCVARN.Core.Configuration.Description.GetHashCode() -> int
+override CCVARN.Core.Configuration.Description.ToString() -> string!
+override CCVARN.Core.Exporters.ConsoleExporter.CanExportToFile(string! filePath) -> bool
+override CCVARN.Core.Exporters.ConsoleExporter.ExportParsedData(CCVARN.Core.Models.ParsedData! data, string! outputPath, bool excludeHeader) -> void
+override CCVARN.Core.Models.NoteData.Equals(object? obj) -> bool
+override CCVARN.Core.Models.NoteData.GetHashCode() -> int
+override CCVARN.Core.Models.NoteData.ToString() -> string!
+override CCVARN.Core.Models.ParsedData.ToString() -> string!
+override CCVARN.Core.Models.ReleaseNotesData.ToString() -> string!
+override CCVARN.Core.Models.VersionData.Equals(object? obj) -> bool
+override CCVARN.Core.Models.VersionData.GetHashCode() -> int
+override CCVARN.Core.Models.VersionData.ToString() -> string!
+static CCVARN.Core.Configuration.ConfigSerializer.LoadConfiguration(string! rootDirectory) -> CCVARN.Core.Configuration.Config!
+static CCVARN.Core.Configuration.ConfigSerializer.SaveConfiguration(string! rootDirectory, CCVARN.Core.Configuration.Config! configuration) -> void
+static CCVARN.Core.Configuration.TypeScope.Defaults.get -> System.Collections.Generic.HashSet<CCVARN.Core.Configuration.TypeScope!>!
+static CCVARN.Core.Exporters.JSonExporter.ExportJsonInformation(System.IO.TextWriter! stream, CCVARN.Core.Models.ParsedData! data) -> void
+static CCVARN.Core.Models.NoteData.operator !=(CCVARN.Core.Models.NoteData! a, CCVARN.Core.Models.NoteData! b) -> bool
+static CCVARN.Core.Models.NoteData.operator ==(CCVARN.Core.Models.NoteData! a, CCVARN.Core.Models.NoteData! b) -> bool
+static CCVARN.Core.Models.VersionData.Parse(string! versionOrReference, CCVARN.Core.Models.VersionData? oldVersion = null) -> CCVARN.Core.Models.VersionData!
+virtual CCVARN.Core.Exporters.JSonExporter.CanExportToFile(string! filePath) -> bool
+virtual CCVARN.Core.Exporters.JSonExporter.ExportParsedData(CCVARN.Core.Models.ParsedData! data, string! outputPath, bool excludeHeader) -> void
