@@ -1,1 +1,3 @@
 #nullable enable
+CCVARN.DependencyInject.TypeRegistrar.RegisterLazy(System.Type! service, System.Func<object!>! factory) -> void
+CCVARN.IO.ConsoleWriter.WriteWarningLine(string! format, params object![]! parameters) -> void

@@ -1,0 +1,59 @@
+#nullable enable
+abstract CCVARN.Commands.BaseCommand<TSettings>.ExecuteCore(Spectre.Console.Cli.CommandContext! context, TSettings! settings) -> int
+abstract FastExpressionCompiler.LightExpression.Expression.NodeType.get -> System.Linq.Expressions.ExpressionType
+CCVARN.Commands.BaseCommand<TSettings>
+CCVARN.Commands.BaseCommand<TSettings>.BaseCommand() -> void
+CCVARN.Commands.BaseCommand<TSettings>.Console.get -> CCVARN.Core.IO.IConsoleWriter?
+CCVARN.Commands.BaseCommand<TSettings>.Console.set -> void
+CCVARN.Commands.BaseCommand<TSettings>.Container.get -> DryIoc.IContainer?
+CCVARN.Commands.BaseCommand<TSettings>.Container.set -> void
+CCVARN.Commands.BaseCommand<TSettings>.GetRootPath(TSettings! settings) -> string?
+CCVARN.Commands.InitCommand
+CCVARN.Commands.InitCommand.InitCommand() -> void
+CCVARN.Commands.ParseCommand
+CCVARN.Commands.ParseCommand.ParseCommand(System.Collections.Generic.IReadOnlyCollection<CCVARN.Core.Exporters.IExporter!>! exporters) -> void
+CCVARN.DependencyInject.TypeRegistrar
+CCVARN.DependencyInject.TypeRegistrar.Build() -> Spectre.Console.Cli.ITypeResolver!
+CCVARN.DependencyInject.TypeRegistrar.Register(System.Type! service, System.Type! implementation) -> void
+CCVARN.DependencyInject.TypeRegistrar.RegisterInstance(System.Type! service, object! implementation) -> void
+CCVARN.DependencyInject.TypeRegistrar.RegisterLazy(System.Type! service, System.Func<object!>! factory) -> void
+CCVARN.DependencyInject.TypeRegistrar.TypeRegistrar(DryIoc.IContainer! container) -> void
+CCVARN.DependencyInject.TypeResolver
+CCVARN.DependencyInject.TypeResolver.Resolve(System.Type? type) -> object?
+CCVARN.DependencyInject.TypeResolver.TypeResolver(DryIoc.IContainer! container) -> void
+CCVARN.IO.ConsoleWriter
+CCVARN.IO.ConsoleWriter.AddIndent() -> void
+CCVARN.IO.ConsoleWriter.ConsoleWriter() -> void
+CCVARN.IO.ConsoleWriter.DisableErrorOutput() -> void
+CCVARN.IO.ConsoleWriter.DisableNormalOutput() -> void
+CCVARN.IO.ConsoleWriter.RemoveIndent() -> void
+CCVARN.IO.ConsoleWriter.StandardError.get -> System.IO.TextWriter!
+CCVARN.IO.ConsoleWriter.StandardOut.get -> System.IO.TextWriter!
+CCVARN.IO.ConsoleWriter.WriteErrorLine(string! format, params object![]! parameters) -> void
+CCVARN.IO.ConsoleWriter.WriteInfo(string! format, params object![]! parameters) -> void
+CCVARN.IO.ConsoleWriter.WriteInfoLine(string! format, params object![]! parameters) -> void
+CCVARN.IO.ConsoleWriter.WriteInfoLineSafe(string! format, params string![]! parameters) -> void
+CCVARN.IO.ConsoleWriter.WriteInfoSafe(string! format, params string![]! parameters) -> void
+CCVARN.IO.ConsoleWriter.WriteWarningLine(string! format, params object![]! parameters) -> void
+CCVARN.Options.BaseSettings
+CCVARN.Options.BaseSettings.BaseSettings() -> void
+CCVARN.Options.BaseSettings.RepositoryRoot.get -> string?
+CCVARN.Options.BaseSettings.RepositoryRoot.set -> void
+CCVARN.Options.InitOptions
+CCVARN.Options.InitOptions.InitOptions() -> void
+CCVARN.Options.ParseOption
+CCVARN.Options.ParseOption.AdditionalOutputs.get -> string![]!
+CCVARN.Options.ParseOption.AdditionalOutputs.set -> void
+CCVARN.Options.ParseOption.ExcludeHeaders.get -> bool
+CCVARN.Options.ParseOption.ExcludeHeaders.set -> void
+CCVARN.Options.ParseOption.Output.get -> string?
+CCVARN.Options.ParseOption.Output.set -> void
+CCVARN.Options.ParseOption.ParseOption() -> void
+CCVARN.Options.ParseOption.TagName.get -> Spectre.Console.Cli.FlagValue<string!>!
+CCVARN.Options.ParseOption.TagName.set -> void
+DryIoc.Container
+override CCVARN.Commands.BaseCommand<TSettings>.Validate(Spectre.Console.Cli.CommandContext! context, TSettings! settings) -> Spectre.Console.ValidationResult!
+override CCVARN.Commands.ParseCommand.Validate(Spectre.Console.Cli.CommandContext! context, CCVARN.Options.ParseOption! settings) -> Spectre.Console.ValidationResult!
+override CCVARN.Options.BaseSettings.Validate() -> Spectre.Console.ValidationResult!
+override CCVARN.Options.ParseOption.Validate() -> Spectre.Console.ValidationResult!
+override sealed CCVARN.Commands.BaseCommand<TSettings>.Execute(Spectre.Console.Cli.CommandContext! context, TSettings! settings) -> int
