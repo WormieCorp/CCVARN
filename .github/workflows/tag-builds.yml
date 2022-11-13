@@ -27,6 +27,7 @@ jobs:
             3.1.x
             5.0.x
             6.0.x
+            7.0.x
       - name: Restore .NET Core tools
         run: dotnet tool restore
       - name: Build
