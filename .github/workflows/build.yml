@@ -2,7 +2,7 @@ name: Build project
 
 on:
   push:
-    branches: [master, develop]
+    branches: [master, develop, virtual-image-updates]
     tags-ignore:
       - "*"
   pull_request:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-10.15, ubuntu-18.04, windows-2019]
+        os: [macos-11, ubuntu-20.04, windows-2019]
     env:
       NUGET_SOURCE: https://f.feedz.io/wormiecorp/packages/nuget/index.json
       NUGET_API_KEY: ${{ secrets.FEEDZ_API_KEY }}
