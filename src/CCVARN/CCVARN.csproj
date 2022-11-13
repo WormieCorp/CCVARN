@@ -24,10 +24,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Shipped.txt" />
+		<AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Unshipped.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="DryIoc" Version="5.1.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="Roslynator.Analyzers" Version="4.1.1">
