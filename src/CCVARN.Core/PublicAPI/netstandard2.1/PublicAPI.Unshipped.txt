@@ -1,1 +1,4 @@
 #nullable enable
+CCVARN.Core.IO.IConsoleWriter.WriteWarningLine(string! format, params object![]! parameters) -> void
+CCVARN.Core.Models.VersionData.Equals(CCVARN.Core.Models.VersionData? other) -> bool
+*REMOVED* CCVARN.Core.Models.VersionData.Equals(CCVARN.Core.Models.VersionData! other) -> bool
