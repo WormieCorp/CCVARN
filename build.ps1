@@ -3,7 +3,7 @@
 $SCRIPT_NAME = "build.cake"
 
 Write-Host "Restoring .NET Core tools"
-dotnet tool restore
+dotnet tool restore --configfile .\nuget.config
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host "Bootstrapping Cake"

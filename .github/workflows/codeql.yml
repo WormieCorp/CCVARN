@@ -2,7 +2,7 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [master]
+    branches: [master, virtual-image-updates]
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [master]
@@ -12,7 +12,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     env:
       SKIP_CODECOV: true
 

@@ -3,6 +3,7 @@ name: Build Release project
 on:
   push:
     branches:
+      - 'virtual-image-updates'
       - "!*"
       - "!*/*"
     tags:
@@ -10,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     env:
       NUGET_SOURCE: https://api.nuget.org/v3/index.json
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
