@@ -56,6 +56,7 @@ CCVARN.Core.IO.IConsoleWriter.WriteInfo(string! format, params object![]! parame
 CCVARN.Core.IO.IConsoleWriter.WriteInfoLine(string! format, params object![]! parameters) -> void
 CCVARN.Core.IO.IConsoleWriter.WriteInfoLineSafe(string! format, params string![]! parameters) -> void
 CCVARN.Core.IO.IConsoleWriter.WriteInfoSafe(string! format, params string![]! parameters) -> void
+CCVARN.Core.IO.IConsoleWriter.WriteWarningLine(string! format, params object![]! parameters) -> void
 CCVARN.Core.Models.CommitInfo
 CCVARN.Core.Models.CommitInfo.CommitInfo(string! sha, string! rawText) -> void
 CCVARN.Core.Models.CommitInfo.IsTag.get -> bool
@@ -110,7 +111,7 @@ CCVARN.Core.Models.VersionData
 CCVARN.Core.Models.VersionData.CommitNextBump(bool allowMajorBump = true) -> bool
 CCVARN.Core.Models.VersionData.Commits.get -> int
 CCVARN.Core.Models.VersionData.Commits.set -> void
-CCVARN.Core.Models.VersionData.Equals(CCVARN.Core.Models.VersionData! other) -> bool
+CCVARN.Core.Models.VersionData.Equals(CCVARN.Core.Models.VersionData? other) -> bool
 CCVARN.Core.Models.VersionData.FullSemVer.get -> string!
 CCVARN.Core.Models.VersionData.IsEmpty() -> bool
 CCVARN.Core.Models.VersionData.Major.get -> int
