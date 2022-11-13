@@ -102,7 +102,7 @@ CCVARN.Core.Models.VersionBump.None = 0 -> CCVARN.Core.Models.VersionBump
 CCVARN.Core.Models.VersionBump.Patch = 1 -> CCVARN.Core.Models.VersionBump
 CCVARN.Core.Models.VersionBump.Weight = 4 -> CCVARN.Core.Models.VersionBump
 CCVARN.Core.Models.VersionData
-CCVARN.Core.Models.VersionData.CommitNextBump() -> bool
+CCVARN.Core.Models.VersionData.CommitNextBump(bool allowMajorBump = true) -> bool
 CCVARN.Core.Models.VersionData.Commits.get -> int
 CCVARN.Core.Models.VersionData.Commits.set -> void
 CCVARN.Core.Models.VersionData.Equals(CCVARN.Core.Models.VersionData! other) -> bool
@@ -118,7 +118,7 @@ CCVARN.Core.Models.VersionData.PreReleaseLabel.get -> string!
 CCVARN.Core.Models.VersionData.PreReleaseLabel.set -> void
 CCVARN.Core.Models.VersionData.PreReleaseTag.get -> string!
 CCVARN.Core.Models.VersionData.SemVer.get -> string!
-CCVARN.Core.Models.VersionData.SetNextBump(CCVARN.Core.Models.VersionBump versionBump) -> void
+CCVARN.Core.Models.VersionData.SetNextBump(CCVARN.Core.Models.VersionBump versionBump, bool forceBump = false) -> void
 CCVARN.Core.Models.VersionData.ToString(bool includeMetadata) -> string!
 CCVARN.Core.Models.VersionData.VersionData() -> void
 CCVARN.Core.Models.VersionData.Weight.get -> int?
@@ -141,5 +141,4 @@ static CCVARN.Core.Configuration.ConfigSerializer.SaveConfiguration(string! root
 static CCVARN.Core.Configuration.TypeScope.Defaults.get -> System.Collections.Generic.HashSet<CCVARN.Core.Configuration.TypeScope!>!
 static CCVARN.Core.Models.NoteData.operator !=(CCVARN.Core.Models.NoteData! a, CCVARN.Core.Models.NoteData! b) -> bool
 static CCVARN.Core.Models.NoteData.operator ==(CCVARN.Core.Models.NoteData! a, CCVARN.Core.Models.NoteData! b) -> bool
-static CCVARN.Core.Models.VersionData.DisableMajorBump() -> void
 static CCVARN.Core.Models.VersionData.Parse(string! versionOrReference, CCVARN.Core.Models.VersionData? oldVersion = null) -> CCVARN.Core.Models.VersionData!

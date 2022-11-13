@@ -45,6 +45,8 @@ CCVARN.Options.ParseOption.ExcludeHeaders.set -> void
 CCVARN.Options.ParseOption.Output.get -> string?
 CCVARN.Options.ParseOption.Output.set -> void
 CCVARN.Options.ParseOption.ParseOption() -> void
+CCVARN.Options.ParseOption.TagName.get -> Spectre.Cli.FlagValue<string!>!
+CCVARN.Options.ParseOption.TagName.set -> void
 const DryIoc.CurrentScopeReuse.DefaultLifespan = 100 -> int
 const DryIoc.Rules.DefaultDependencyCountInLambdaToSplitBigObjectGraph = 1024 -> int
 const DryIoc.Rules.DefaultDependencyDepthToSplitObjectGraph = 20 -> int
