@@ -141,15 +141,28 @@ Task("Push-NuGetPackages")
 	DotNetCoreNuGetPush(artifactsDir + "/packages/*.nupkg", settings);
 });
 
-Task("Publish-Release")
-	.IsDependentOn("Default")
-	.WithCriteria(() => HasEnvironmentVariable("GITHUB_TOKEN"))
-	.WithCriteria(() => !String.IsNullOrEmpty(EnvironmentVariable("GITHUB_TOKEN")))
+const string organization = "WormieCorp";
+const string repository = "CCVARN";
+var token = EnvironmentVariable("GITHUB_TOKEN");
+
+Task("Create-StableTag")
 	.Does<BuildVersion>((version) =>
 {
-	var token = EnvironmentVariable("GITHUB_TOKEN");
-	const string organization = "WormieCorp";
-	const string repository = "CCVARN";
+	var plainTextNotes = System.IO.File.ReadAllLines(plainTextReleaseNotes.ToString(), System.Text.Encoding.UTF8).Skip(2);
+
+        StartProcess("git", new ProcessSettings().WithArguments(args =>
+                args.Append("tag")
+                        .Append(version.MajorMinorPatch)
+                        .Append("-a")
+                        .AppendSwitchQuoted("-m", string.Join("\n", plainTextNotes).Replace("\"", string.Empty).Trim())
+        ));
+});
+
+Task("Draft-ReleaseNotes")
+	.WithCriteria(() => HasEnvironmentVariable("GITHUB_TOKEN"))
+	.WithCriteria(() => !string.IsNullOrEmpty(EnvironmentVariable("GITHUB_TOKEN")))
+	.Does<BuildVersion>((version) =>
+{
 	GitReleaseManagerCreate(token, organization, repository, new GitReleaseManagerCreateSettings
 	{
 		Name            = version.SemVer,
@@ -157,9 +170,18 @@ Task("Publish-Release")
 		TargetCommitish = "master",
 		Prerelease      = version.MajorMinorPatch != version.SemVer,
 	});
+});
 
+Task("Publish-Release")
+	.IsDependentOn("Default")
+	.WithCriteria(() => HasEnvironmentVariable("GITHUB_TOKEN"))
+	.WithCriteria(() => !string.IsNullOrEmpty(EnvironmentVariable("GITHUB_TOKEN")))
+	.Does<BuildVersion>((version) =>
+{
 	if (version.MajorMinorPatch == version.SemVer)
+	{
 		GitReleaseManagerClose(token, organization, repository, version.MajorMinorPatch);
+	}
 
 	GitReleaseManagerPublish(token, organization, repository, version.SemVer);
 });
