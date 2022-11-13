@@ -2084,8 +2084,6 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static DryIoc.ContainerTools.WithoutSingletonsAndCache(this DryIoc.IContainer container) -> DryIoc.IContainer
 ~static DryIoc.ContainerTools.WithRegistrationsCopy(this DryIoc.IContainer container, bool preserveCache = false) -> DryIoc.IContainer
 ~static DryIoc.ContainerTools.WithRegistrationsCopy(this DryIoc.IContainer container, DryIoc.IsRegistryChangePermitted isRegistryChangePermitted, bool preserveCache = false) -> DryIoc.IContainer
-~static DryIoc.CurrentScopeReuse.GetNameScopedViaFactoryDelegate(DryIoc.IResolverContext r, object scopeName, bool throwIfNoScope, int id, DryIoc.FactoryDelegate createValue, int disposalIndex) -> object
-~static DryIoc.CurrentScopeReuse.GetScopedViaFactoryDelegate(DryIoc.IResolverContext r, bool throwIfNoScope, int id, DryIoc.FactoryDelegate createValue, int disposalIndex) -> object
 ~static DryIoc.CurrentScopeReuse.GetScopedViaFactoryDelegateNoDisposalIndex(DryIoc.IResolverContext r, bool throwIfNoScope, int id, DryIoc.FactoryDelegate createValue) -> object
 ~static DryIoc.CurrentScopeReuse.TrackNameScoped(DryIoc.IResolverContext r, object scopeName, bool throwIfNoScope, object item) -> object
 ~static DryIoc.CurrentScopeReuse.TrackScoped(DryIoc.IResolverContext r, bool throwIfNoScope, object item) -> object
