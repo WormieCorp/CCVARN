@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net60;net5.0;netcoreapp3.1</TargetFrameworks>
+		<TargetFrameworks>net70;net60;net5.0;netcoreapp3.1</TargetFrameworks>
 		<IsPackable>false</IsPackable>
 		<LangVersion>9.0</LangVersion>
 	</PropertyGroup>

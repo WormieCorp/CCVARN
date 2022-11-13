@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net60;net50;netstandard2.1</TargetFrameworks>
+		<TargetFrameworks>net70;net60;net50;netstandard2.1</TargetFrameworks>
 		<LangVersion>9.0</LangVersion>
 		<nullable>enable</nullable>
 		<IsPackable>false</IsPackable>
