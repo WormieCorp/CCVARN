@@ -25,7 +25,11 @@ CCVARN.DependencyInject.TypeResolver.TypeResolver(DryIoc.IContainer! container) 
 CCVARN.IO.ConsoleWriter
 CCVARN.IO.ConsoleWriter.AddIndent() -> void
 CCVARN.IO.ConsoleWriter.ConsoleWriter() -> void
+CCVARN.IO.ConsoleWriter.DisableErrorOutput() -> void
+CCVARN.IO.ConsoleWriter.DisableNormalOutput() -> void
 CCVARN.IO.ConsoleWriter.RemoveIndent() -> void
+CCVARN.IO.ConsoleWriter.StandardError.get -> System.IO.TextWriter!
+CCVARN.IO.ConsoleWriter.StandardOut.get -> System.IO.TextWriter!
 CCVARN.IO.ConsoleWriter.WriteErrorLine(string! format, params object![]! parameters) -> void
 CCVARN.IO.ConsoleWriter.WriteInfo(string! format, params object![]! parameters) -> void
 CCVARN.IO.ConsoleWriter.WriteInfoLine(string! format, params object![]! parameters) -> void
@@ -51,6 +55,7 @@ const DryIoc.CurrentScopeReuse.DefaultLifespan = 100 -> int
 const DryIoc.Rules.DefaultDependencyCountInLambdaToSplitBigObjectGraph = 1024 -> int
 const DryIoc.Rules.DefaultDependencyDepthToSplitObjectGraph = 20 -> int
 const DryIoc.SingletonReuse.DefaultLifespan = 1000 -> int
+const ImTools.GrowingList.DefaultInitialCapacity = 2 -> int
 const ImTools.GrowingList<T>.DefaultInitialCapacity = 2 -> int
 const ImTools.ImHashMapSlots.HASH_MASK_TO_FIND_SLOT = 31 -> int
 const ImTools.ImHashMapSlots.SLOT_COUNT_POWER_OF_TWO = 32 -> int
@@ -82,6 +87,7 @@ DryIoc.DynamicRegistration
 DryIoc.DynamicRegistrationFlags
 DryIoc.DynamicRegistrationFlags.AsFallback = 1 -> DryIoc.DynamicRegistrationFlags
 DryIoc.DynamicRegistrationFlags.Decorator = 4 -> DryIoc.DynamicRegistrationFlags
+DryIoc.DynamicRegistrationFlags.DecoratorOfAnyTypeViaObjectServiceType = 8 -> DryIoc.DynamicRegistrationFlags
 DryIoc.DynamicRegistrationFlags.NoFlags = 0 -> DryIoc.DynamicRegistrationFlags
 DryIoc.DynamicRegistrationFlags.Service = 2 -> DryIoc.DynamicRegistrationFlags
 DryIoc.Error
@@ -108,6 +114,8 @@ DryIoc.FactoryDelegate<TService>
 DryIoc.FactoryDelegateCompiler
 DryIoc.FactoryMethod
 DryIoc.FactoryMethodSelector
+DryIoc.FactoryPlaceholder
+DryIoc.FactoryPlaceholder.FactoryPlaceholder() -> void
 DryIoc.FactoryType
 DryIoc.FactoryType.Decorator = 1 -> DryIoc.FactoryType
 DryIoc.FactoryType.Service = 0 -> DryIoc.FactoryType
@@ -143,6 +151,8 @@ DryIoc.IsRegistryChangePermitted
 DryIoc.IsRegistryChangePermitted.Error = 1 -> DryIoc.IsRegistryChangePermitted
 DryIoc.IsRegistryChangePermitted.Ignored = 2 -> DryIoc.IsRegistryChangePermitted
 DryIoc.IsRegistryChangePermitted.Permitted = 0 -> DryIoc.IsRegistryChangePermitted
+DryIoc.ITest
+DryIoc.ITest.Run() -> int
 DryIoc.LazyEnumerable<TService>
 DryIoc.Made
 DryIoc.Made.HasCustomDependencyValue.get -> bool
@@ -194,6 +204,7 @@ DryIoc.Request.FactoryID.get -> int
 DryIoc.Request.FactoryType.get -> DryIoc.FactoryType
 DryIoc.Request.Flags -> DryIoc.RequestFlags
 DryIoc.Request.HasRecursiveParent(int factoryID) -> bool
+DryIoc.Request.HasRecursiveParentUntilResolutionRoot(int factoryID) -> bool
 DryIoc.Request.IfUnresolved.get -> DryIoc.IfUnresolved
 DryIoc.Request.IsDirectlyWrappedInFunc() -> bool
 DryIoc.Request.IsEmpty.get -> bool
@@ -367,12 +378,13 @@ ImTools.ArrayTools
 ImTools.Box<TBox, T>.Box() -> void
 ImTools.Box<TBox, T>.Value.get -> T
 ImTools.Fun
+ImTools.GrowingList
 ImTools.GrowingList<T>
 ImTools.GrowingList<T>.Count -> int
 ImTools.GrowingList<T>.GrowingList() -> void
 ImTools.GrowingList<T>.Pop() -> void
+ImTools.GrowingList<T>.Push(T item) -> void
 ImTools.GrowingList<T>.PushSlot() -> T
-ImTools.GrowingList<T>.PushSlot(T item) -> void
 ImTools.Hasher
 ImTools.I<T>
 ImTools.I<T>.Value.get -> T
@@ -426,6 +438,9 @@ ImTools.Item<TItem, T>.item.Value.get -> T
 ImTools.Item<TItem>.item
 ImTools.Item<TItem>.Item() -> void
 ImTools.Item<TItem>.item.item() -> void
+ImTools.KeysAndValues<K, V>
+ImTools.KeysAndValues<K, V>.Count -> int
+ImTools.KeysAndValues<K, V>.KeysAndValues() -> void
 ImTools.KeyValuePair
 ImTools.KV
 ImTools.KV<K, V>
@@ -1074,6 +1089,7 @@ static DryIoc.Arg.Of<TService, TRequired>(DryIoc.IfUnresolved ifUnresolved) -> T
 static DryIoc.ContainerTools.DefaultValidateCondition(DryIoc.ServiceRegistrationInfo reg) -> bool
 static DryIoc.Factory.GetNextID() -> int
 static DryIoc.Portable.GetCurrentManagedThreadID() -> int
+static DryIoc.Scope.WaitForScopedServiceIsCreatedTimeoutTicks -> uint
 static ImTools.Fun.Always<T>(T _) -> bool
 static ImTools.Fun.Id<T>(T x) -> T
 static ImTools.Fun.ToFunc<T, R>(this R result, T ignoredArg) -> R
@@ -1212,8 +1228,10 @@ static readonly DryIoc.Error.UnexpectedExpressionInsteadOfArgMethodInMadeOf -> i
 static readonly DryIoc.Error.UnexpectedExpressionInsteadOfConstantInMadeOf -> int
 static readonly DryIoc.Error.UnexpectedFactoryMemberExpressionInMadeOf -> int
 static readonly DryIoc.Error.ValidateFoundErrors -> int
+static readonly DryIoc.Error.WaitForScopedServiceIsCreatedTimeoutExpired -> int
 static readonly DryIoc.Error.WeakRefReuseWrapperGCed -> int
 static readonly DryIoc.Messages.EmptyResponse.Value -> DryIoc.Messages.EmptyResponse
+static readonly DryIoc.Rules.DefaultDynamicRegistrationFlags -> DryIoc.DynamicRegistrationFlags
 static readonly ImTools.Unit.unit -> ImTools.Unit
 virtual DryIoc.Factory.CanAccessImplementationType.get -> bool
 virtual DryIoc.Factory.HasRuntimeState.get -> bool
@@ -1238,6 +1256,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~DryIoc.Container.Container(DryIoc.Rules rules = null, DryIoc.IScopeContext scopeContext = null) -> void
 ~DryIoc.Container.Container(System.Func<DryIoc.Rules, DryIoc.Rules> configure, DryIoc.IScopeContext scopeContext = null) -> void
 ~DryIoc.Container.CurrentScope.get -> DryIoc.IScope
+~DryIoc.Container.DisposeInfo.get -> object
 ~DryIoc.Container.GetConstantExpression(object item, System.Type itemType = null, bool throwIfStateRequired = false) -> FastExpressionCompiler.LightExpression.Expression
 ~DryIoc.Container.GetRegisteredFactories(System.Type serviceType, object serviceKey, DryIoc.FactoryType factoryType) -> DryIoc.Factory[]
 ~DryIoc.Container.GetServiceRegistrations() -> System.Collections.Generic.IEnumerable<DryIoc.ServiceRegistrationInfo>
@@ -1269,6 +1288,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~DryIoc.ContainerException.ContainerException(int errorCode, string message, System.Exception innerException, System.Func<int, string, System.Exception, string> formatMessage) -> void
 ~DryIoc.ContainerException.ContainerException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) -> void
 ~DryIoc.ContainerException.ErrorName.get -> string
+~DryIoc.ContainerException.TryGetDetails(DryIoc.IContainer container) -> string
 ~DryIoc.CurrentScopeReuse.Apply(DryIoc.Request request, FastExpressionCompiler.LightExpression.Expression serviceFactoryExpr) -> FastExpressionCompiler.LightExpression.Expression
 ~DryIoc.CurrentScopeReuse.CanApply(DryIoc.Request request) -> bool
 ~DryIoc.CurrentScopeReuse.CurrentScopeReuse(object name = null, bool scopedOrSingleton = false) -> void
@@ -1295,8 +1315,11 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~DryIoc.IContainer.GetDecoratorExpressionOrDefault(DryIoc.Request request) -> FastExpressionCompiler.LightExpression.Expression
 ~DryIoc.IContainer.GetDecoratorFactoriesOrDefault(System.Type serviceType) -> DryIoc.Factory[]
 ~DryIoc.IContainer.GetServiceFactoryOrDefault(DryIoc.Request request) -> DryIoc.Factory
+~DryIoc.IContainer.GetServiceRegisteredAndDynamicFactories(System.Type serviceType) -> ImTools.KV<object, DryIoc.Factory>[]
+~DryIoc.IContainer.GetWrappedType(System.Type serviceType) -> System.Type
 ~DryIoc.IContainer.GetWrappedType(System.Type serviceType, System.Type requiredServiceType) -> System.Type
 ~DryIoc.IContainer.GetWrapperFactoryOrDefault(System.Type serviceType) -> DryIoc.Factory
+~DryIoc.IContainer.IsWrapper(System.Type serviceType, System.Type openGenericServiceType = null) -> bool
 ~DryIoc.IContainer.OwnCurrentScope.get -> DryIoc.IScope
 ~DryIoc.IContainer.ResolveFactory(DryIoc.Request request) -> DryIoc.Factory
 ~DryIoc.IContainer.Rules.get -> DryIoc.Rules
@@ -1319,6 +1342,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~DryIoc.IResolver.Resolve(System.Type serviceType, object serviceKey, DryIoc.IfUnresolved ifUnresolved, System.Type requiredServiceType, DryIoc.Request preResolveParent, object[] args) -> object
 ~DryIoc.IResolver.ResolveMany(System.Type serviceType, object serviceKey, System.Type requiredServiceType, DryIoc.Request preResolveParent, object[] args) -> System.Collections.Generic.IEnumerable<object>
 ~DryIoc.IResolverContext.CurrentScope.get -> DryIoc.IScope
+~DryIoc.IResolverContext.DisposeInfo.get -> object
 ~DryIoc.IResolverContext.InjectPropertiesAndFields(object instance, string[] propertyAndFieldNames) -> void
 ~DryIoc.IResolverContext.Parent.get -> DryIoc.IResolverContext
 ~DryIoc.IResolverContext.Root.get -> DryIoc.IResolverContext
@@ -1400,6 +1424,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~DryIoc.Request.Push(System.Type serviceType, System.Type requiredServiceType, object serviceKey, DryIoc.IfUnresolved ifUnresolved, int factoryID, DryIoc.FactoryType factoryType, System.Type implementationType, DryIoc.IReuse reuse, DryIoc.RequestFlags flags, int decoratedFactoryID) -> DryIoc.Request
 ~DryIoc.Request.Push(System.Type serviceType, System.Type requiredServiceType, object serviceKey, int factoryID, DryIoc.FactoryType factoryType, System.Type implementationType, DryIoc.IReuse reuse, DryIoc.RequestFlags flags) -> DryIoc.Request
 ~DryIoc.Request.Push(System.Type serviceType, System.Type requiredServiceType, object serviceKey, string metadataKey, object metadata, DryIoc.IfUnresolved ifUnresolved, int factoryID, DryIoc.FactoryType factoryType, System.Type implementationType, DryIoc.IReuse reuse, DryIoc.RequestFlags flags, int decoratedFactoryID) -> DryIoc.Request
+~DryIoc.Request.PushServiceType(System.Type serviceType, DryIoc.RequestFlags additionalFlags = (DryIoc.RequestFlags)0) -> DryIoc.Request
 ~DryIoc.Request.RequiredServiceType.get -> System.Type
 ~DryIoc.Request.Reuse.get -> DryIoc.IReuse
 ~DryIoc.Request.Rules.get -> DryIoc.Rules
@@ -1415,6 +1440,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~DryIoc.Rules.DefaultRegistrationServiceKey.get -> object
 ~DryIoc.Rules.DefaultReuse.get -> DryIoc.IReuse
 ~DryIoc.Rules.DependencyResolutionCallExprs.get -> ImTools.Ref<ImTools.ImHashMap<DryIoc.Request, System.Linq.Expressions.Expression>>
+~DryIoc.Rules.DynamicRegistrationFlags.get -> DryIoc.DynamicRegistrationFlags[]
 ~DryIoc.Rules.DynamicRegistrationProviders.get -> DryIoc.Rules.DynamicRegistrationProvider[]
 ~DryIoc.Rules.FactoryMethod.get -> DryIoc.FactoryMethodSelector
 ~DryIoc.Rules.FactorySelector.get -> DryIoc.Rules.FactorySelectorRule
@@ -1440,6 +1466,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~DryIoc.Rules.WithDynamicRegistration(DryIoc.Rules.DynamicRegistrationProvider provider, DryIoc.DynamicRegistrationFlags flags) -> DryIoc.Rules
 ~DryIoc.Rules.WithDynamicRegistrations(DryIoc.DynamicRegistrationFlags flags, params DryIoc.Rules.DynamicRegistrationProvider[] rules) -> DryIoc.Rules
 ~DryIoc.Rules.WithDynamicRegistrations(params DryIoc.Rules.DynamicRegistrationProvider[] rules) -> DryIoc.Rules
+~DryIoc.Rules.WithDynamicRegistrationsAsFallback(DryIoc.DynamicRegistrationFlags flags, params DryIoc.Rules.DynamicRegistrationProvider[] rules) -> DryIoc.Rules
 ~DryIoc.Rules.WithDynamicRegistrationsAsFallback(params DryIoc.Rules.DynamicRegistrationProvider[] rules) -> DryIoc.Rules
 ~DryIoc.Rules.WithExpressionGeneration(bool allowRuntimeState = false) -> DryIoc.Rules
 ~DryIoc.Rules.WithFactorySelector(DryIoc.Rules.FactorySelectorRule rule) -> DryIoc.Rules
@@ -1451,11 +1478,13 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~DryIoc.Rules.WithoutDependencyDepthToSplitObjectGraph() -> DryIoc.Rules
 ~DryIoc.Rules.WithoutEagerCachingSingletonForFasterAccess() -> DryIoc.Rules
 ~DryIoc.Rules.WithoutFastExpressionCompiler() -> DryIoc.Rules
+~DryIoc.Rules.WithoutFuncAndLazyWithoutRegistration() -> DryIoc.Rules
 ~DryIoc.Rules.WithoutImplicitCheckForReuseMatchingScope() -> DryIoc.Rules
 ~DryIoc.Rules.WithoutInterpretationForTheFirstResolution() -> DryIoc.Rules
 ~DryIoc.Rules.WithoutThrowIfDependencyHasShorterReuseLifespan() -> DryIoc.Rules
 ~DryIoc.Rules.WithoutThrowIfScopedOrSingletonHasTransientDependency() -> DryIoc.Rules
 ~DryIoc.Rules.WithoutThrowOnRegisteringDisposableTransient() -> DryIoc.Rules
+~DryIoc.Rules.WithoutTrackingDisposableTransients() -> DryIoc.Rules
 ~DryIoc.Rules.WithoutUnknownServiceResolver(DryIoc.Rules.UnknownServiceResolver rule) -> DryIoc.Rules
 ~DryIoc.Rules.WithoutUseInterpretation() -> DryIoc.Rules
 ~DryIoc.Rules.WithoutVariantGenericTypesInResolve() -> DryIoc.Rules
@@ -1471,7 +1500,6 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~DryIoc.Rules.WithUseInterpretation() -> DryIoc.Rules
 ~DryIoc.Rules.WithVariantGenericTypesInResolve() -> DryIoc.Rules
 ~DryIoc.Rules.WithVariantGenericTypesInResolvedCollection() -> DryIoc.Rules
-~DryIoc.Rules._dynamicRegistrationFlags.get -> DryIoc.DynamicRegistrationFlags[]
 ~DryIoc.Scope.Clone() -> DryIoc.IScope
 ~DryIoc.Scope.Clone(bool withDisposables) -> DryIoc.IScope
 ~DryIoc.Scope.GetEnumerator() -> System.Collections.Generic.IEnumerator<DryIoc.IScope>
@@ -1542,6 +1570,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~ImTools.Box<TBox, T>.Equals(ImTools.Box<TBox, T> other) -> bool
 ~ImTools.GrowingList<T>.GrowingList(T[] items, int count = 0) -> void
 ~ImTools.GrowingList<T>.Items -> T[]
+~ImTools.GrowingList<T>.ResizeToArray() -> T[]
 ~ImTools.ImHashMap<K, V>.AddOrKeep(int hash, K key) -> ImTools.ImHashMap<K, V>
 ~ImTools.ImHashMap<K, V>.AddOrKeep(int hash, K key, V value) -> ImTools.ImHashMap<K, V>
 ~ImTools.ImHashMap<K, V>.AddOrKeep(K key) -> ImTools.ImHashMap<K, V>
@@ -1564,6 +1593,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~ImTools.ImHashMap<K, V>.Remove(int hash, K key) -> ImTools.ImHashMap<K, V>
 ~ImTools.ImHashMap<K, V>.Remove(K key) -> ImTools.ImHashMap<K, V>
 ~ImTools.ImHashMap<K, V>.Right -> ImTools.ImHashMap<K, V>
+~ImTools.ImHashMap<K, V>.ToKeysAndValues<S>(S state, System.Func<ImTools.ImHashMapEntry<K, V>, S, bool> condition, ref ImTools.KeysAndValues<K, V> keysAndValues, ImTools.ImHashMap<K, V>[] parentsStack = null) -> int
 ~ImTools.ImHashMap<K, V>.Update(int hash, K key, V value, ImTools.Update<K, V> update = null) -> ImTools.ImHashMap<K, V>
 ~ImTools.ImHashMap<K, V>.Update(K key, V value) -> ImTools.ImHashMap<K, V>
 ~ImTools.ImHashMap<K, V>.Update(K key, V value, ImTools.Update<V> update) -> ImTools.ImHashMap<K, V>
@@ -1600,6 +1630,9 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~ImTools.Item<TItem, T>.item.Equals(ImTools.Item<TItem, T>.item other) -> bool
 ~ImTools.Item<TItem>
 ~ImTools.Item<TItem>.item.Equals(ImTools.Item<TItem>.item other) -> bool
+~ImTools.KeysAndValues<K, V>.Keys -> K[]
+~ImTools.KeysAndValues<K, V>.KeysAndValues(K[] keys, V[] values, int count) -> void
+~ImTools.KeysAndValues<K, V>.Values -> V[]
 ~ImTools.KV<K, V>.Print(System.Text.StringBuilder s, System.Func<System.Text.StringBuilder, object, System.Text.StringBuilder> printer) -> System.Text.StringBuilder
 ~ImTools.Ref<T>
 ~ImTools.Ref<T>.Ref(T initialValue = null) -> void
@@ -1609,6 +1642,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~ImTools.Ref<T>.Swap<A, B>(A a, B b, System.Func<T, A, B, T> getNewValue) -> T
 ~ImTools.Ref<T>.Swap<A>(A a, System.Func<T, A, T> getNewValue) -> T
 ~ImTools.Ref<T>.TrySwapIfStillCurrent(T currentValue, T newValue) -> bool
+~ImTools.Ref<T>.UnsafeSet(T newValue) -> void
 ~ImTools.Ref<T>.Value.get -> T
 ~ImTools.StackPool<T>
 ~ImTools.StackPool<T>.RentOrDefault() -> T
@@ -1688,6 +1722,8 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~override DryIoc.ExpressionFactory.CreateExpressionOrDefault(DryIoc.Request request) -> FastExpressionCompiler.LightExpression.Expression
 ~override DryIoc.Factory.ToString() -> string
 ~override DryIoc.FactoryMethod.ToString() -> string
+~override DryIoc.FactoryPlaceholder.CreateExpressionOrDefault(DryIoc.Request request) -> FastExpressionCompiler.LightExpression.Expression
+~override DryIoc.FactoryPlaceholder.Setup.get -> DryIoc.Setup
 ~override DryIoc.Made.ToString() -> string
 ~override DryIoc.OpenGenericTypeKey.Equals(object obj) -> bool
 ~override DryIoc.OpenGenericTypeKey.ToString() -> string
@@ -1916,6 +1952,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~override ImTools.Unit.Equals(object obj) -> bool
 ~override ImTools.Unit.ToString() -> string
 ~readonly DryIoc.ContainerException.CollectedExceptions -> DryIoc.ContainerException[]
+~readonly DryIoc.ContainerException.Details -> object
 ~readonly DryIoc.ContainerTools.GeneratedExpressions.Errors -> System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<DryIoc.ServiceInfo, DryIoc.ContainerException>>
 ~readonly DryIoc.ContainerTools.GeneratedExpressions.ResolveDependencies -> System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<DryIoc.Request, System.Linq.Expressions.Expression>>
 ~readonly DryIoc.ContainerTools.GeneratedExpressions.Roots -> System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<DryIoc.ServiceInfo, System.Linq.Expressions.Expression<DryIoc.FactoryDelegate>>>
@@ -2043,6 +2080,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static DryIoc.ContainerException.GetMessage(DryIoc.ErrorCheck errorCheck, int errorCode) -> string
 ~static DryIoc.ContainerException.Of(DryIoc.ErrorCheck errorCheck, int errorCode, object arg0, object arg1 = null, object arg2 = null, object arg3 = null, System.Exception innerException = null) -> DryIoc.ContainerException
 ~static DryIoc.ContainerException.Print(object arg) -> string
+~static DryIoc.ContainerException.WithDetails(object details, int error, object arg0 = null, object arg1 = null, object arg2 = null, object arg3 = null) -> object
 ~static DryIoc.ContainerTools.ClearCache(this DryIoc.IContainer container, System.Type serviceType, DryIoc.FactoryType? factoryType = null, object serviceKey = null) -> bool
 ~static DryIoc.ContainerTools.ClearCache<T>(this DryIoc.IContainer container, DryIoc.FactoryType? factoryType = null, object serviceKey = null) -> bool
 ~static DryIoc.ContainerTools.CreateChild(this DryIoc.IContainer container, DryIoc.IfAlreadyRegistered? ifAlreadyRegistered = null, DryIoc.Rules newRules = null, bool withDisposables = false) -> DryIoc.IContainer
@@ -2068,6 +2106,8 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static DryIoc.ContainerTools.ValidateAndThrow(this DryIoc.IContainer container, params System.Type[] serviceTypes) -> void
 ~static DryIoc.ContainerTools.ValidateAndThrow(this DryIoc.IContainer container, System.Func<DryIoc.ServiceRegistrationInfo, bool> condition = null) -> void
 ~static DryIoc.ContainerTools.With(this DryIoc.IContainer container, System.Func<DryIoc.Rules, DryIoc.Rules> configure = null, DryIoc.IScopeContext scopeContext = null) -> DryIoc.IContainer
+~static DryIoc.ContainerTools.WithAutoFallbackDynamicRegistrations(this DryIoc.IContainer container, DryIoc.DynamicRegistrationFlags flags, System.Func<System.Type, object, System.Collections.Generic.IEnumerable<System.Reflection.Assembly>> getImplTypeAssemblies, System.Func<System.Type, DryIoc.Factory> factory = null) -> DryIoc.IContainer
+~static DryIoc.ContainerTools.WithAutoFallbackDynamicRegistrations(this DryIoc.IContainer container, DryIoc.DynamicRegistrationFlags flags, System.Func<System.Type, object, System.Collections.Generic.IEnumerable<System.Type>> getImplTypes, System.Func<System.Type, DryIoc.Factory> factory = null) -> DryIoc.IContainer
 ~static DryIoc.ContainerTools.WithAutoFallbackDynamicRegistrations(this DryIoc.IContainer container, DryIoc.IReuse reuse, DryIoc.Setup setup, params System.Type[] implTypes) -> DryIoc.IContainer
 ~static DryIoc.ContainerTools.WithAutoFallbackDynamicRegistrations(this DryIoc.IContainer container, DryIoc.IReuse reuse, params System.Type[] implTypes) -> DryIoc.IContainer
 ~static DryIoc.ContainerTools.WithAutoFallbackDynamicRegistrations(this DryIoc.IContainer container, params System.Reflection.Assembly[] implTypeAssemblies) -> DryIoc.IContainer
@@ -2084,6 +2124,9 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static DryIoc.ContainerTools.WithoutSingletonsAndCache(this DryIoc.IContainer container) -> DryIoc.IContainer
 ~static DryIoc.ContainerTools.WithRegistrationsCopy(this DryIoc.IContainer container, bool preserveCache = false) -> DryIoc.IContainer
 ~static DryIoc.ContainerTools.WithRegistrationsCopy(this DryIoc.IContainer container, DryIoc.IsRegistryChangePermitted isRegistryChangePermitted, bool preserveCache = false) -> DryIoc.IContainer
+~static DryIoc.CurrentScopeReuse.GetNameScopedViaFactoryDelegate(DryIoc.IResolverContext r, object scopeName, bool throwIfNoScope, int id, DryIoc.FactoryDelegate createValue, int disposalIndex) -> object
+~static DryIoc.CurrentScopeReuse.GetScopedOrSingletonViaFactoryDelegate(DryIoc.IResolverContext r, int id, DryIoc.FactoryDelegate createValue, int disposalIndex) -> object
+~static DryIoc.CurrentScopeReuse.GetScopedViaFactoryDelegate(DryIoc.IResolverContext r, bool throwIfNoScope, int id, DryIoc.FactoryDelegate createValue, int disposalIndex) -> object
 ~static DryIoc.CurrentScopeReuse.GetScopedViaFactoryDelegateNoDisposalIndex(DryIoc.IResolverContext r, bool throwIfNoScope, int id, DryIoc.FactoryDelegate createValue) -> object
 ~static DryIoc.CurrentScopeReuse.TrackNameScoped(DryIoc.IResolverContext r, object scopeName, bool throwIfNoScope, object item) -> object
 ~static DryIoc.CurrentScopeReuse.TrackScoped(DryIoc.IResolverContext r, bool throwIfNoScope, object item) -> object
@@ -2154,6 +2197,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static DryIoc.PropertiesAndFields.OverrideWith(this DryIoc.PropertiesAndFieldsSelector source, DryIoc.PropertiesAndFieldsSelector other) -> DryIoc.PropertiesAndFieldsSelector
 ~static DryIoc.PropertiesAndFields.Properties(bool withNonPublic = false, bool withBase = false, DryIoc.IfUnresolved ifUnresolved = DryIoc.IfUnresolved.ReturnDefaultIfNotRegistered) -> DryIoc.PropertiesAndFieldsSelector
 ~static DryIoc.PropertyOrFieldServiceInfo.Of(System.Reflection.MemberInfo member) -> DryIoc.PropertyOrFieldServiceInfo
+~static DryIoc.ReflectionFactory.Of(System.Type implementationType) -> DryIoc.ReflectionFactory
 ~static DryIoc.ReflectionTools.Constructor(this System.Type type, params System.Type[] args) -> System.Reflection.ConstructorInfo
 ~static DryIoc.ReflectionTools.Constructors(this System.Type type, bool includeNonPublic = false, bool includeStatic = false) -> System.Collections.Generic.IEnumerable<System.Reflection.ConstructorInfo>
 ~static DryIoc.ReflectionTools.ContainsAllGenericTypeParameters(this System.Type openGenericType, System.Type[] genericParameters) -> bool
@@ -2213,7 +2257,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static DryIoc.ReflectionTools.PublicConstructors(this System.Type type) -> System.Collections.Generic.IEnumerable<System.Reflection.ConstructorInfo>
 ~static DryIoc.ReflectionTools.SingleConstructor(this System.Type type, bool includeNonPublic = false) -> System.Reflection.ConstructorInfo
 ~static DryIoc.ReflectionTools.SingleMethod(this System.Type type, string name, bool includeNonPublic = false) -> System.Reflection.MethodInfo
-~static DryIoc.ReflectionTools.TryRethrowWithPreservedStackTrace(this System.Exception ex) -> void
+~static DryIoc.ReflectionTools.TryRethrowWithPreservedStackTrace(this System.Exception ex) -> System.Exception
 ~static DryIoc.Registrator.GetImplementationTypes(this System.Reflection.Assembly assembly) -> System.Collections.Generic.IEnumerable<System.Type>
 ~static DryIoc.Registrator.GetImplementationTypes(this System.Reflection.Assembly assembly, System.Func<System.Type, bool> condition) -> System.Collections.Generic.IEnumerable<System.Type>
 ~static DryIoc.Registrator.GetImplementedServiceTypes(this System.Type type, bool nonPublicServiceTypes = false) -> System.Type[]
@@ -2269,8 +2313,9 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static DryIoc.Registrator.RegisterMapping<TService, TRegisteredService>(this DryIoc.IContainer container, DryIoc.IfAlreadyRegistered ifAlreadyRegistered, object serviceKey = null, object registeredServiceKey = null) -> void
 ~static DryIoc.Registrator.RegisterMapping<TService, TRegisteredService>(this DryIoc.IRegistrator registrator, object serviceKey = null, object registeredServiceKey = null, DryIoc.FactoryType factoryType = DryIoc.FactoryType.Service) -> void
 ~static DryIoc.Registrator.RegisterPlaceholder(this DryIoc.IRegistrator registrator, System.Type serviceType, DryIoc.IfAlreadyRegistered? ifAlreadyRegistered = null, object serviceKey = null) -> void
+~static DryIoc.Registrator.RegisterPlaceholder<TService>(this DryIoc.IRegistrator registrator, DryIoc.IfAlreadyRegistered? ifAlreadyRegistered = null, object serviceKey = null) -> void
 ~static DryIoc.Registrator.ToFactory(this System.Type implType) -> DryIoc.Factory
-~static DryIoc.Registrator.ToFactory(this System.Type implType, DryIoc.IReuse reuse, DryIoc.Made made = null, DryIoc.Setup setup = null) -> DryIoc.Factory
+~static DryIoc.Registrator.ToFactory(this System.Type implType, DryIoc.IReuse reuse = null, DryIoc.Made made = null, DryIoc.Setup setup = null) -> DryIoc.Factory
 ~static DryIoc.Registrator.ToFactoryDelegate(this object result, DryIoc.IResolverContext _) -> object
 ~static DryIoc.Registrator.ToFactoryDelegate<TService>(this System.Func<DryIoc.IResolverContext, TService> f, DryIoc.IResolverContext r) -> object
 ~static DryIoc.Registrator.Unregister(this DryIoc.IRegistrator registrator, System.Type serviceType, object serviceKey = null, DryIoc.FactoryType factoryType = DryIoc.FactoryType.Service, System.Func<DryIoc.Factory, bool> condition = null) -> void
@@ -2346,8 +2391,11 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static DryIoc.ServiceInfo.Of(System.Type serviceType, DryIoc.IfUnresolved ifUnresolved = DryIoc.IfUnresolved.Throw, object serviceKey = null) -> DryIoc.ServiceInfo
 ~static DryIoc.ServiceInfo.Of(System.Type serviceType, System.Type requiredServiceType, DryIoc.IfUnresolved ifUnresolved = DryIoc.IfUnresolved.Throw, object serviceKey = null, string metadataKey = null, object metadata = null) -> DryIoc.ServiceInfo
 ~static DryIoc.ServiceInfo.Of<TService>(DryIoc.IfUnresolved ifUnresolved = DryIoc.IfUnresolved.Throw, object serviceKey = null) -> DryIoc.ServiceInfo.Typed<TService>
+~static DryIoc.ServiceInfo.OfServiceAndRequiredType(System.Type serviceType, System.Type requiredServiceType, DryIoc.IfUnresolved ifUnresolved = DryIoc.IfUnresolved.Throw, object serviceKey = null, string metadataKey = null, object metadata = null) -> DryIoc.ServiceInfo
+~static DryIoc.ServiceInfo.OfServiceType(System.Type serviceType) -> DryIoc.ServiceInfo
 ~static DryIoc.ServiceInfoTools.GetActualServiceType(this DryIoc.IServiceInfo info) -> System.Type
 ~static DryIoc.ServiceInfoTools.InheritInfoFromDependencyOwner(this DryIoc.IServiceInfo dependency, DryIoc.IServiceInfo owner, DryIoc.IContainer container, DryIoc.FactoryType ownerType = DryIoc.FactoryType.Service) -> DryIoc.IServiceInfo
+~static DryIoc.ServiceInfoTools.InheritInfoFromDependencyOwner(this System.Type serviceType, DryIoc.IServiceInfo owner, DryIoc.IContainer container, DryIoc.FactoryType ownerFactoryType = DryIoc.FactoryType.Service) -> DryIoc.IServiceInfo
 ~static DryIoc.ServiceInfoTools.Print(this System.Text.StringBuilder s, DryIoc.IServiceInfo info) -> System.Text.StringBuilder
 ~static DryIoc.ServiceInfoTools.With(this DryIoc.IServiceInfo source, System.Type serviceType) -> DryIoc.IServiceInfo
 ~static DryIoc.ServiceInfoTools.WithDetails<T>(this T serviceInfo, DryIoc.ServiceDetails details) -> T
@@ -2366,10 +2414,12 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static DryIoc.Throw.IfThrows<TEx, T>(System.Func<T> operation, bool throwCondition, int error, object arg0 = null, object arg1 = null, object arg2 = null, object arg3 = null) -> T
 ~static DryIoc.Throw.It(int error, object arg0 = null, object arg1 = null, object arg2 = null, object arg3 = null) -> object
 ~static DryIoc.Throw.Many(int error, params DryIoc.ContainerException[] errors) -> void
+~static DryIoc.Throw.ScopeIsDisposed(DryIoc.IScope scope, DryIoc.IResolverContext r) -> void
 ~static DryIoc.Throw.ThrowIf<T>(this T arg0, bool throwCondition, int error = -1, object arg1 = null, object arg2 = null, object arg3 = null) -> T
 ~static DryIoc.Throw.ThrowIfNotImplementedBy(this System.Type arg0, System.Type arg1, int error = -1, object arg2 = null, object arg3 = null) -> System.Type
 ~static DryIoc.Throw.ThrowIfNotInstanceOf<T>(this T arg0, System.Type arg1, int error = -1, object arg2 = null, object arg3 = null) -> T
 ~static DryIoc.Throw.ThrowIfNull<T>(this T arg, int error = -1, object arg0 = null, object arg1 = null, object arg2 = null, object arg3 = null) -> T
+~static DryIoc.Throw.WithDetails(object details, int error, object arg0 = null, object arg1 = null, object arg2 = null, object arg3 = null) -> object
 ~static DryIoc.ThrowInGeneratedCode.WeakRefReuseWrapperGCed(this object obj) -> object
 ~static DryIoc.WrappersSupport.GetLazyExpressionOrDefault(DryIoc.Request request, bool nullWrapperForUnresolvedService = false) -> FastExpressionCompiler.LightExpression.Expression
 ~static DryIoc.WrappersSupport.GetMetaExpressionOrDefault(DryIoc.Request request) -> FastExpressionCompiler.LightExpression.Expression
@@ -2610,6 +2660,7 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static ImTools.ArrayTools.IndexOf<T>(this T[] source, T value) -> int
 ~static ImTools.ArrayTools.IndexOfReference<T>(this T[] source, T reference) -> int
 ~static ImTools.ArrayTools.IsNullOrEmpty<T>(this T[] source) -> bool
+~static ImTools.ArrayTools.Map<T, A, B, R>(this T[] source, A a, B b, System.Func<A, B, T, R> map) -> R[]
 ~static ImTools.ArrayTools.Map<T, R>(this System.Collections.Generic.IEnumerable<T> source, System.Func<T, R> map) -> System.Collections.Generic.IEnumerable<R>
 ~static ImTools.ArrayTools.Map<T, R>(this T[] source, System.Func<T, R> map) -> R[]
 ~static ImTools.ArrayTools.Map<T, S, R>(this T[] source, S state, System.Func<S, T, R> map) -> R[]
@@ -2632,6 +2683,10 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static ImTools.Fun.To<R>(this object x) -> R
 ~static ImTools.Fun.To<T, R>(this T x, System.Func<T, R> map) -> R
 ~static ImTools.Fun.To<T, S, R>(this T x, S state, System.Func<T, S, R> map) -> R
+~static ImTools.GrowingList.Push<T>(ref T[] items, int count, T item) -> void
+~static ImTools.GrowingList.PushSlot<T>(ref T[] items, int count) -> T
+~static ImTools.GrowingList.ResizeToArray<T>(T[] items, int count) -> T[]
+~static ImTools.GrowingList.ToString<T>(T[] items, int count) -> string
 ~static ImTools.ImHashMap.AddOrUpdate<V>(this ImTools.ImHashMap<System.Type, V> map, System.Type key, V value) -> ImTools.ImHashMap<System.Type, V>
 ~static ImTools.ImHashMap.Contains<K, V>(this ImTools.ImHashMap<K, V> map, int hash, K key) -> bool
 ~static ImTools.ImHashMap.Contains<K, V>(this ImTools.ImHashMap<K, V> map, K key) -> bool
@@ -2802,9 +2857,10 @@ virtual ImTools.ImMap<V>.Height.get -> int
 ~static readonly DryIoc.FactoryDelegateCompiler.ResolverContextParamExpr -> FastExpressionCompiler.LightExpression.ParameterExpression
 ~static readonly DryIoc.FactoryMethod.ConstructorWithResolvableArguments -> DryIoc.FactoryMethodSelector
 ~static readonly DryIoc.FactoryMethod.ConstructorWithResolvableArgumentsIncludingNonPublic -> DryIoc.FactoryMethodSelector
+~static readonly DryIoc.FactoryMethod.ConstructorWithResolvableArgumentsIncludingNonPublicWithoutSameTypeParam -> DryIoc.FactoryMethodSelector
+~static readonly DryIoc.FactoryPlaceholder.Default -> DryIoc.Factory
 ~static readonly DryIoc.Made.Default -> DryIoc.Made
 ~static readonly DryIoc.Messages.EmptyResponse.Task -> System.Threading.Tasks.Task<DryIoc.Messages.EmptyResponse>
-~static readonly DryIoc.Registrator.ExcludedGeneralPurposeServiceTypes -> string[]
 ~static readonly DryIoc.Request.Empty -> DryIoc.Request
 ~static readonly DryIoc.Request.EmptyOpensResolutionScope -> DryIoc.Request
 ~static readonly DryIoc.ResolverContext.CurrentScopeExpr -> FastExpressionCompiler.LightExpression.Expression
