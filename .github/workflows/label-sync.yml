@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3.0.2
-      - uses: EndBug/label-sync@v2.1.0
+      - uses: EndBug/label-sync@v2.3.2
         with:
           config-file: |
             https://raw.githubusercontent.com/WormieCorp/.github/master/.github/labels.yml
