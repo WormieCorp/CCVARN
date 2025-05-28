@@ -1,4 +1,4 @@
-#addin nuget:?package=Cake.Codecov&version=1.0.1
+#addin nuget:?package=Cake.Codecov&version=1.1.0
 #addin nuget:?package=Cake.Json&version=7.0.1
 #addin nuget:?package=Newtonsoft.Json&version=13.0.1
 #tool nuget:?package=CodecovUploader&version=0.2.3
